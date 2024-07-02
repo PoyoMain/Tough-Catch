@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MinigameBase : MonoBehaviour
+public abstract class MinigameBase : MonoBehaviour
 {
+    private 
     // Start is called before the first frame update
     void Start()
     {
