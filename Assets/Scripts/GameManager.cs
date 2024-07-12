@@ -2,6 +2,7 @@ using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
@@ -19,6 +20,13 @@ public class GameManager : MonoBehaviour
 
     private bool temp = false;
 
+    private PlayerControls _playerControls;
+    public PlayerControls.ControlsActions Controls
+    {
+        get;
+        private set;
+    }
+
     private void Awake()
     {
         if (Instance != null)
@@ -30,7 +38,11 @@ public class GameManager : MonoBehaviour
 
         Instance = this;
 
+        _playerControls = new();
+        Controls = _playerControls.Controls;
+
         VariableCheck();
+        ControlSetUp();
     }
 
     void VariableCheck()
@@ -38,6 +50,13 @@ public class GameManager : MonoBehaviour
         if (povCam == null) Debug.LogError("Pov Camera not set in Inspector");
         if (dockCam == null) Debug.LogError("Dock Camera not set in Inspector");
         if (lakeCam == null) Debug.LogError("Lake Camera not set in Inspector");
+        if (pauseMenu == null) Debug.LogError("Pause Menu not set in Inspector");
+    }
+
+    void ControlSetUp()
+    {
+        Controls.Pause.performed += pauseMenu.Pause;
+        Controls.Confirm.performed += TempMethod;
     }
 
     void Start()
@@ -47,15 +66,12 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (!pauseMenu.IsPaused) pauseMenu.Pause();
-            else pauseMenu.UnPause();
-        }
-
         if (pauseMenu.IsPaused) return;
+    }
 
-        if (Input.GetKeyDown(KeyCode.O)) temp = true;
+    void TempMethod(InputAction.CallbackContext context)
+    {
+        temp = true;
     }
 
     private void ChangeState(GameState newState)
@@ -141,6 +157,16 @@ public class GameManager : MonoBehaviour
         povCam.enabled = (povCam == newCam);
         dockCam.enabled = (dockCam == newCam);
         lakeCam.enabled = (lakeCam == newCam);
+    }
+
+    private void OnEnable()
+    {
+        Controls.Enable();
+    }
+
+    private void OnDisable()
+    {
+        Controls.Disable();
     }
 }
 

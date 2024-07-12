@@ -24,7 +24,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     ""name"": ""PlayerControls"",
     ""maps"": [
         {
-            ""name"": ""GameplayMap"",
+            ""name"": ""Controls"",
             ""id"": ""781e2174-83b7-47f5-90c3-ee908b09ea9a"",
             ""actions"": [
                 {
@@ -98,6 +98,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""529f76c0-4f35-412e-b93a-42abddcca4f1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -107,7 +116,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""path"": ""<Gamepad>/leftStick"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""Move Scanner"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -118,7 +127,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""path"": ""<Gamepad>/dpad"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""Move Scanner"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -129,7 +138,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""path"": ""<Gamepad>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""Hook Ring Select"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -140,7 +149,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""path"": ""<Gamepad>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""Laser Shoot Left"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -151,7 +160,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""path"": ""<Gamepad>/buttonWest"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""Laser Shoot Right"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -173,7 +182,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""path"": ""<Gamepad>/leftStick/left"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""Fishing Rod Control"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -184,7 +193,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""path"": ""<Gamepad>/leftStick/right"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""Fishing Rod Control"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -206,7 +215,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""path"": ""<Gamepad>/buttonNorth"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""Stun Panel Buttons"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -217,7 +226,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""Stun Panel Buttons"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -228,7 +237,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""path"": ""<Gamepad>/buttonWest"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""Stun Panel Buttons"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -239,7 +248,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""path"": ""<Gamepad>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""Stun Panel Buttons"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -261,7 +270,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""path"": ""<Gamepad>/buttonNorth"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""Reeling"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -272,7 +281,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""Reeling"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -283,7 +292,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""path"": ""<Gamepad>/buttonWest"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""Reeling"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -294,7 +303,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""path"": ""<Gamepad>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""Reeling"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -305,26 +314,61 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""path"": ""<Gamepad>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""Confirm"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""341a7304-6350-45ab-8983-0682ea76dc43"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
             ]
         }
     ],
-    ""controlSchemes"": []
+    ""controlSchemes"": [
+        {
+            ""name"": ""Keyboard"",
+            ""bindingGroup"": ""Keyboard"",
+            ""devices"": [
+                {
+                    ""devicePath"": ""<Keyboard>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Gamepad"",
+            ""bindingGroup"": ""Gamepad"",
+            ""devices"": [
+                {
+                    ""devicePath"": ""<Gamepad>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                }
+            ]
+        }
+    ]
 }");
-        // GameplayMap
-        m_GameplayMap = asset.FindActionMap("GameplayMap", throwIfNotFound: true);
-        m_GameplayMap_MoveScanner = m_GameplayMap.FindAction("Move Scanner", throwIfNotFound: true);
-        m_GameplayMap_HookRingSelect = m_GameplayMap.FindAction("Hook Ring Select", throwIfNotFound: true);
-        m_GameplayMap_LaserShootLeft = m_GameplayMap.FindAction("Laser Shoot Left", throwIfNotFound: true);
-        m_GameplayMap_LaserShootRight = m_GameplayMap.FindAction("Laser Shoot Right", throwIfNotFound: true);
-        m_GameplayMap_FishingRodControl = m_GameplayMap.FindAction("Fishing Rod Control", throwIfNotFound: true);
-        m_GameplayMap_StunPanelButtons = m_GameplayMap.FindAction("Stun Panel Buttons", throwIfNotFound: true);
-        m_GameplayMap_Reeling = m_GameplayMap.FindAction("Reeling", throwIfNotFound: true);
-        m_GameplayMap_Confirm = m_GameplayMap.FindAction("Confirm", throwIfNotFound: true);
+        // Controls
+        m_Controls = asset.FindActionMap("Controls", throwIfNotFound: true);
+        m_Controls_MoveScanner = m_Controls.FindAction("Move Scanner", throwIfNotFound: true);
+        m_Controls_HookRingSelect = m_Controls.FindAction("Hook Ring Select", throwIfNotFound: true);
+        m_Controls_LaserShootLeft = m_Controls.FindAction("Laser Shoot Left", throwIfNotFound: true);
+        m_Controls_LaserShootRight = m_Controls.FindAction("Laser Shoot Right", throwIfNotFound: true);
+        m_Controls_FishingRodControl = m_Controls.FindAction("Fishing Rod Control", throwIfNotFound: true);
+        m_Controls_StunPanelButtons = m_Controls.FindAction("Stun Panel Buttons", throwIfNotFound: true);
+        m_Controls_Reeling = m_Controls.FindAction("Reeling", throwIfNotFound: true);
+        m_Controls_Confirm = m_Controls.FindAction("Confirm", throwIfNotFound: true);
+        m_Controls_Pause = m_Controls.FindAction("Pause", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -383,38 +427,40 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         return asset.FindBinding(bindingMask, out action);
     }
 
-    // GameplayMap
-    private readonly InputActionMap m_GameplayMap;
-    private List<IGameplayMapActions> m_GameplayMapActionsCallbackInterfaces = new List<IGameplayMapActions>();
-    private readonly InputAction m_GameplayMap_MoveScanner;
-    private readonly InputAction m_GameplayMap_HookRingSelect;
-    private readonly InputAction m_GameplayMap_LaserShootLeft;
-    private readonly InputAction m_GameplayMap_LaserShootRight;
-    private readonly InputAction m_GameplayMap_FishingRodControl;
-    private readonly InputAction m_GameplayMap_StunPanelButtons;
-    private readonly InputAction m_GameplayMap_Reeling;
-    private readonly InputAction m_GameplayMap_Confirm;
-    public struct GameplayMapActions
+    // Controls
+    private readonly InputActionMap m_Controls;
+    private List<IControlsActions> m_ControlsActionsCallbackInterfaces = new List<IControlsActions>();
+    private readonly InputAction m_Controls_MoveScanner;
+    private readonly InputAction m_Controls_HookRingSelect;
+    private readonly InputAction m_Controls_LaserShootLeft;
+    private readonly InputAction m_Controls_LaserShootRight;
+    private readonly InputAction m_Controls_FishingRodControl;
+    private readonly InputAction m_Controls_StunPanelButtons;
+    private readonly InputAction m_Controls_Reeling;
+    private readonly InputAction m_Controls_Confirm;
+    private readonly InputAction m_Controls_Pause;
+    public struct ControlsActions
     {
         private @PlayerControls m_Wrapper;
-        public GameplayMapActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @MoveScanner => m_Wrapper.m_GameplayMap_MoveScanner;
-        public InputAction @HookRingSelect => m_Wrapper.m_GameplayMap_HookRingSelect;
-        public InputAction @LaserShootLeft => m_Wrapper.m_GameplayMap_LaserShootLeft;
-        public InputAction @LaserShootRight => m_Wrapper.m_GameplayMap_LaserShootRight;
-        public InputAction @FishingRodControl => m_Wrapper.m_GameplayMap_FishingRodControl;
-        public InputAction @StunPanelButtons => m_Wrapper.m_GameplayMap_StunPanelButtons;
-        public InputAction @Reeling => m_Wrapper.m_GameplayMap_Reeling;
-        public InputAction @Confirm => m_Wrapper.m_GameplayMap_Confirm;
-        public InputActionMap Get() { return m_Wrapper.m_GameplayMap; }
+        public ControlsActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @MoveScanner => m_Wrapper.m_Controls_MoveScanner;
+        public InputAction @HookRingSelect => m_Wrapper.m_Controls_HookRingSelect;
+        public InputAction @LaserShootLeft => m_Wrapper.m_Controls_LaserShootLeft;
+        public InputAction @LaserShootRight => m_Wrapper.m_Controls_LaserShootRight;
+        public InputAction @FishingRodControl => m_Wrapper.m_Controls_FishingRodControl;
+        public InputAction @StunPanelButtons => m_Wrapper.m_Controls_StunPanelButtons;
+        public InputAction @Reeling => m_Wrapper.m_Controls_Reeling;
+        public InputAction @Confirm => m_Wrapper.m_Controls_Confirm;
+        public InputAction @Pause => m_Wrapper.m_Controls_Pause;
+        public InputActionMap Get() { return m_Wrapper.m_Controls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(GameplayMapActions set) { return set.Get(); }
-        public void AddCallbacks(IGameplayMapActions instance)
+        public static implicit operator InputActionMap(ControlsActions set) { return set.Get(); }
+        public void AddCallbacks(IControlsActions instance)
         {
-            if (instance == null || m_Wrapper.m_GameplayMapActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_GameplayMapActionsCallbackInterfaces.Add(instance);
+            if (instance == null || m_Wrapper.m_ControlsActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_ControlsActionsCallbackInterfaces.Add(instance);
             @MoveScanner.started += instance.OnMoveScanner;
             @MoveScanner.performed += instance.OnMoveScanner;
             @MoveScanner.canceled += instance.OnMoveScanner;
@@ -439,9 +485,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Confirm.started += instance.OnConfirm;
             @Confirm.performed += instance.OnConfirm;
             @Confirm.canceled += instance.OnConfirm;
+            @Pause.started += instance.OnPause;
+            @Pause.performed += instance.OnPause;
+            @Pause.canceled += instance.OnPause;
         }
 
-        private void UnregisterCallbacks(IGameplayMapActions instance)
+        private void UnregisterCallbacks(IControlsActions instance)
         {
             @MoveScanner.started -= instance.OnMoveScanner;
             @MoveScanner.performed -= instance.OnMoveScanner;
@@ -467,24 +516,45 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Confirm.started -= instance.OnConfirm;
             @Confirm.performed -= instance.OnConfirm;
             @Confirm.canceled -= instance.OnConfirm;
+            @Pause.started -= instance.OnPause;
+            @Pause.performed -= instance.OnPause;
+            @Pause.canceled -= instance.OnPause;
         }
 
-        public void RemoveCallbacks(IGameplayMapActions instance)
+        public void RemoveCallbacks(IControlsActions instance)
         {
-            if (m_Wrapper.m_GameplayMapActionsCallbackInterfaces.Remove(instance))
+            if (m_Wrapper.m_ControlsActionsCallbackInterfaces.Remove(instance))
                 UnregisterCallbacks(instance);
         }
 
-        public void SetCallbacks(IGameplayMapActions instance)
+        public void SetCallbacks(IControlsActions instance)
         {
-            foreach (var item in m_Wrapper.m_GameplayMapActionsCallbackInterfaces)
+            foreach (var item in m_Wrapper.m_ControlsActionsCallbackInterfaces)
                 UnregisterCallbacks(item);
-            m_Wrapper.m_GameplayMapActionsCallbackInterfaces.Clear();
+            m_Wrapper.m_ControlsActionsCallbackInterfaces.Clear();
             AddCallbacks(instance);
         }
     }
-    public GameplayMapActions @GameplayMap => new GameplayMapActions(this);
-    public interface IGameplayMapActions
+    public ControlsActions @Controls => new ControlsActions(this);
+    private int m_KeyboardSchemeIndex = -1;
+    public InputControlScheme KeyboardScheme
+    {
+        get
+        {
+            if (m_KeyboardSchemeIndex == -1) m_KeyboardSchemeIndex = asset.FindControlSchemeIndex("Keyboard");
+            return asset.controlSchemes[m_KeyboardSchemeIndex];
+        }
+    }
+    private int m_GamepadSchemeIndex = -1;
+    public InputControlScheme GamepadScheme
+    {
+        get
+        {
+            if (m_GamepadSchemeIndex == -1) m_GamepadSchemeIndex = asset.FindControlSchemeIndex("Gamepad");
+            return asset.controlSchemes[m_GamepadSchemeIndex];
+        }
+    }
+    public interface IControlsActions
     {
         void OnMoveScanner(InputAction.CallbackContext context);
         void OnHookRingSelect(InputAction.CallbackContext context);
@@ -494,5 +564,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnStunPanelButtons(InputAction.CallbackContext context);
         void OnReeling(InputAction.CallbackContext context);
         void OnConfirm(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
 }

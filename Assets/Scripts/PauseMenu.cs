@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
@@ -15,16 +16,16 @@ public class PauseMenu : MonoBehaviour
 
     public void Pause()
     {
-        IsPaused = true;
-        menu.SetActive(true);
-        Time.timeScale = 0;
+        IsPaused = !IsPaused;
+        menu.SetActive(IsPaused);
+        Time.timeScale = IsPaused ? 0 : 1;
     }
 
-    public void UnPause()
+    public void Pause(InputAction.CallbackContext context)
     {
-        IsPaused = false;
-        menu.SetActive(false);
-        Time.timeScale = 1;
+        IsPaused = !IsPaused;
+        menu.SetActive(IsPaused);
+        Time.timeScale = IsPaused ? 0 : 1;
     }
 
     public void Quit()
