@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,7 +9,10 @@ public class GameManager : MonoBehaviour
 
     private GameState _state;
 
-    // 
+    [Header("Cameras")]
+    [SerializeField] private CinemachineVirtualCamera povCam;
+    [SerializeField] private CinemachineVirtualCamera dockCam;
+    [SerializeField] private CinemachineVirtualCamera lakeCam;
 
     // Start is called before the first frame update
     void Start()
