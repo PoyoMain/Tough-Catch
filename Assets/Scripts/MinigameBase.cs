@@ -4,16 +4,26 @@ using UnityEngine;
 
 public abstract class MinigameBase : MonoBehaviour
 {
-    private 
-    // Start is called before the first frame update
-    void Start()
+    public MinigameState Finished
     {
-        
+        get;
+        private set;
     }
 
-    // Update is called once per frame
-    void Update()
+    public virtual void Start()
     {
-        
+        Finished = MinigameState.Unfinished;
     }
+
+    protected void Finish(bool success)
+    {
+        Finished = success ? MinigameState.Suceeded : MinigameState.Failed;
+    }
+}
+
+public enum MinigameState
+{
+    Unfinished = 0,
+    Suceeded = 1,
+    Failed = -1,
 }
