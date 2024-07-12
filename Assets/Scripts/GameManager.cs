@@ -14,6 +14,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private CinemachineVirtualCamera dockCam;
     [SerializeField] private CinemachineVirtualCamera lakeCam;
 
+    [Space(20)]
+    [SerializeField] private PauseMenu pauseMenu;
+
     private bool temp = false;
 
     private void Awake()
@@ -44,6 +47,14 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (!pauseMenu.IsPaused) pauseMenu.Pause();
+            else pauseMenu.UnPause();
+        }
+
+        if (pauseMenu.IsPaused) return;
+
         if (Input.GetKeyDown(KeyCode.O)) temp = true;
     }
 
