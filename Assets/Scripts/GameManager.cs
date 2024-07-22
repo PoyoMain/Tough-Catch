@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
 
     private bool temp = false;
 
+    private LaserMinigame _laserMinigame;
+
     private PlayerControls _playerControls;
     public PlayerControls.ControlsActions Controls
     {
@@ -41,16 +43,18 @@ public class GameManager : MonoBehaviour
         _playerControls = new();
         Controls = _playerControls.Controls;
 
-        VariableCheck();
+        VariableSetUp();
         ControlSetUp();
     }
 
-    void VariableCheck()
+    void VariableSetUp()
     {
         if (povCam == null) Debug.LogError("Pov Camera not set in Inspector");
         if (dockCam == null) Debug.LogError("Dock Camera not set in Inspector");
         if (lakeCam == null) Debug.LogError("Lake Camera not set in Inspector");
         if (pauseMenu == null) Debug.LogError("Pause Menu not set in Inspector");
+
+        if (!TryGetComponent<LaserMinigame>(out _laserMinigame)) Debug.LogError("No Laser Minigame component on GameManager");
     }
 
     void ControlSetUp()
@@ -78,7 +82,7 @@ public class GameManager : MonoBehaviour
     {
         _state = newState;
 
-        switch (newState)
+        switch (_state)
         {
             case GameState.Menu:
                 break;
@@ -132,12 +136,15 @@ public class GameManager : MonoBehaviour
     private IEnumerator TuggleCoroutine()
     {
         ActivateCamera(povCam);
+        _laserMinigame.enabled = true;
 
         while (!temp)
         {
             yield return null;
         }
         temp = false;
+
+        _laserMinigame.enabled = false;
 
         ChangeState(GameState.Reel);
         yield break;

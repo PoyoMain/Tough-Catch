@@ -10,12 +10,12 @@ public abstract class MinigameBase : MonoBehaviour
         private set;
     }
 
-    public virtual void Start()
+    public virtual void OnEnable()
     {
         Finished = MinigameState.Unfinished;
     }
 
-    protected void Finish(bool success)
+    protected void Finish(bool success = true)
     {
         Finished = success ? MinigameState.Suceeded : MinigameState.Failed;
     }

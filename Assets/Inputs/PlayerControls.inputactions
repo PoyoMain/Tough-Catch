@@ -134,11 +134,33 @@
                 },
                 {
                     "name": "",
+                    "id": "a2b09273-db5b-4f4b-a803-57826d3a2160",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Laser Shoot Left",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "6f3d3cd0-f181-41b8-9b07-64e1e6a4f24d",
                     "path": "<Gamepad>/buttonWest",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
+                    "action": "Laser Shoot Right",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "204051ce-7732-4b8c-884d-949ec19e540a",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
                     "action": "Laser Shoot Right",
                     "isComposite": false,
                     "isPartOfComposite": false
