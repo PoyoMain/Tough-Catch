@@ -107,9 +107,6 @@ public class LaserMinigame : MinigameBase
 
         if (_leftObject != null) Destroy(_leftObject.gameObject);
         _leftCooldownTimer = laserCooldownTime;
-
-        print("shot");
-
     }
 
     private void ShootRight(InputAction.CallbackContext _)
