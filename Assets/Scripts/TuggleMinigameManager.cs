@@ -4,9 +4,6 @@ using System.Threading;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Splines;
-using UnityEditor;
-using UnityEngine.UIElements;
-using UnityEngine.Rendering.PostProcessing;
 
 public class TuggleMinigameManager : MinigameBase
 {
@@ -129,5 +126,8 @@ public class TuggleMinigameManager : MinigameBase
     {
         Controls.LaserShootLeft.performed -= ShootLeft;
         Controls.LaserShootRight.performed -= ShootRight;
+
+        if (_leftObject != null) Destroy(_leftObject.gameObject);
+        if (_rightObject != null) Destroy(_rightObject.gameObject);
     }
 }

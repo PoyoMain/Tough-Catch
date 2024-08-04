@@ -13,9 +13,15 @@ public class GameManager : MonoBehaviour
     [SerializeField] private bool DebugMode = false;
 
     [Header("Cameras")]
+    [SerializeField] private CinemachineBrain cinemachineBrain;
+    [Space(5)]
     [SerializeField] private CinemachineVirtualCamera povCam;
     [SerializeField] private CinemachineVirtualCamera dockCam;
     [SerializeField] private CinemachineVirtualCamera lakeCam;
+    private bool IsBlendingBetweenCams
+    {
+        get { return cinemachineBrain.IsBlending; }
+    }
 
     [Space(20)]
     [SerializeField] private PauseMenu pauseMenu;
@@ -83,7 +89,7 @@ public class GameManager : MonoBehaviour
 
     void TempMethod(InputAction.CallbackContext context)
     {
-        temp = true;
+        if (!IsBlendingBetweenCams) temp = true;
     }
 
     private void ChangeState(GameState newState)
@@ -118,13 +124,11 @@ public class GameManager : MonoBehaviour
     private IEnumerator ScanCoroutine()
     {
         ActivateCamera(lakeCam);
+        while (IsBlendingBetweenCams) yield return null;
 
-        while (!temp)
-        {
-            yield return null;
-        }
+        while (!temp) yield return null;
+
         temp = false;
-
         ChangeState(GameState.Cast);
         yield break;
     }
@@ -132,13 +136,11 @@ public class GameManager : MonoBehaviour
     private IEnumerator CastCoroutine()
     {
         ActivateCamera(dockCam);
+        while (IsBlendingBetweenCams) yield return null;
 
-        while (!temp)
-        {
-            yield return null;
-        }
+        while (!temp) yield return null;
+
         temp = false;
-
         ChangeState(GameState.Tuggle);
         yield break;
     }
@@ -146,16 +148,14 @@ public class GameManager : MonoBehaviour
     private IEnumerator TuggleCoroutine()
     {
         ActivateCamera(povCam);
+        while (IsBlendingBetweenCams) yield return null;
+
         _tuggleMinigameManager.enabled = true;
 
-        while (!temp)
-        {
-            yield return null;
-        }
+        while (!temp) yield return null;
+
         temp = false;
-
         _tuggleMinigameManager.enabled = false;
-
         ChangeState(GameState.Reel);
         yield break;
     }
