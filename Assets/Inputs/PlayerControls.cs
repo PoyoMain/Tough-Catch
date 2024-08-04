@@ -24,7 +24,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     ""name"": ""PlayerControls"",
     ""maps"": [
         {
-            ""name"": ""Controls"",
+            ""name"": ""GameplayControls"",
             ""id"": ""781e2174-83b7-47f5-90c3-ee908b09ea9a"",
             ""actions"": [
                 {
@@ -402,17 +402,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         }
     ]
 }");
-        // Controls
-        m_Controls = asset.FindActionMap("Controls", throwIfNotFound: true);
-        m_Controls_MoveScanner = m_Controls.FindAction("Move Scanner", throwIfNotFound: true);
-        m_Controls_HookRingSelect = m_Controls.FindAction("Hook Ring Select", throwIfNotFound: true);
-        m_Controls_LaserShootLeft = m_Controls.FindAction("Laser Shoot Left", throwIfNotFound: true);
-        m_Controls_LaserShootRight = m_Controls.FindAction("Laser Shoot Right", throwIfNotFound: true);
-        m_Controls_FishingRodControl = m_Controls.FindAction("Fishing Rod Control", throwIfNotFound: true);
-        m_Controls_StunPanelButtons = m_Controls.FindAction("Stun Panel Buttons", throwIfNotFound: true);
-        m_Controls_Reeling = m_Controls.FindAction("Reeling", throwIfNotFound: true);
-        m_Controls_Confirm = m_Controls.FindAction("Confirm", throwIfNotFound: true);
-        m_Controls_Pause = m_Controls.FindAction("Pause", throwIfNotFound: true);
+        // GameplayControls
+        m_GameplayControls = asset.FindActionMap("GameplayControls", throwIfNotFound: true);
+        m_GameplayControls_MoveScanner = m_GameplayControls.FindAction("Move Scanner", throwIfNotFound: true);
+        m_GameplayControls_HookRingSelect = m_GameplayControls.FindAction("Hook Ring Select", throwIfNotFound: true);
+        m_GameplayControls_LaserShootLeft = m_GameplayControls.FindAction("Laser Shoot Left", throwIfNotFound: true);
+        m_GameplayControls_LaserShootRight = m_GameplayControls.FindAction("Laser Shoot Right", throwIfNotFound: true);
+        m_GameplayControls_FishingRodControl = m_GameplayControls.FindAction("Fishing Rod Control", throwIfNotFound: true);
+        m_GameplayControls_StunPanelButtons = m_GameplayControls.FindAction("Stun Panel Buttons", throwIfNotFound: true);
+        m_GameplayControls_Reeling = m_GameplayControls.FindAction("Reeling", throwIfNotFound: true);
+        m_GameplayControls_Confirm = m_GameplayControls.FindAction("Confirm", throwIfNotFound: true);
+        m_GameplayControls_Pause = m_GameplayControls.FindAction("Pause", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -471,40 +471,40 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         return asset.FindBinding(bindingMask, out action);
     }
 
-    // Controls
-    private readonly InputActionMap m_Controls;
-    private List<IControlsActions> m_ControlsActionsCallbackInterfaces = new List<IControlsActions>();
-    private readonly InputAction m_Controls_MoveScanner;
-    private readonly InputAction m_Controls_HookRingSelect;
-    private readonly InputAction m_Controls_LaserShootLeft;
-    private readonly InputAction m_Controls_LaserShootRight;
-    private readonly InputAction m_Controls_FishingRodControl;
-    private readonly InputAction m_Controls_StunPanelButtons;
-    private readonly InputAction m_Controls_Reeling;
-    private readonly InputAction m_Controls_Confirm;
-    private readonly InputAction m_Controls_Pause;
-    public struct ControlsActions
+    // GameplayControls
+    private readonly InputActionMap m_GameplayControls;
+    private List<IGameplayControlsActions> m_GameplayControlsActionsCallbackInterfaces = new List<IGameplayControlsActions>();
+    private readonly InputAction m_GameplayControls_MoveScanner;
+    private readonly InputAction m_GameplayControls_HookRingSelect;
+    private readonly InputAction m_GameplayControls_LaserShootLeft;
+    private readonly InputAction m_GameplayControls_LaserShootRight;
+    private readonly InputAction m_GameplayControls_FishingRodControl;
+    private readonly InputAction m_GameplayControls_StunPanelButtons;
+    private readonly InputAction m_GameplayControls_Reeling;
+    private readonly InputAction m_GameplayControls_Confirm;
+    private readonly InputAction m_GameplayControls_Pause;
+    public struct GameplayControlsActions
     {
         private @PlayerControls m_Wrapper;
-        public ControlsActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @MoveScanner => m_Wrapper.m_Controls_MoveScanner;
-        public InputAction @HookRingSelect => m_Wrapper.m_Controls_HookRingSelect;
-        public InputAction @LaserShootLeft => m_Wrapper.m_Controls_LaserShootLeft;
-        public InputAction @LaserShootRight => m_Wrapper.m_Controls_LaserShootRight;
-        public InputAction @FishingRodControl => m_Wrapper.m_Controls_FishingRodControl;
-        public InputAction @StunPanelButtons => m_Wrapper.m_Controls_StunPanelButtons;
-        public InputAction @Reeling => m_Wrapper.m_Controls_Reeling;
-        public InputAction @Confirm => m_Wrapper.m_Controls_Confirm;
-        public InputAction @Pause => m_Wrapper.m_Controls_Pause;
-        public InputActionMap Get() { return m_Wrapper.m_Controls; }
+        public GameplayControlsActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @MoveScanner => m_Wrapper.m_GameplayControls_MoveScanner;
+        public InputAction @HookRingSelect => m_Wrapper.m_GameplayControls_HookRingSelect;
+        public InputAction @LaserShootLeft => m_Wrapper.m_GameplayControls_LaserShootLeft;
+        public InputAction @LaserShootRight => m_Wrapper.m_GameplayControls_LaserShootRight;
+        public InputAction @FishingRodControl => m_Wrapper.m_GameplayControls_FishingRodControl;
+        public InputAction @StunPanelButtons => m_Wrapper.m_GameplayControls_StunPanelButtons;
+        public InputAction @Reeling => m_Wrapper.m_GameplayControls_Reeling;
+        public InputAction @Confirm => m_Wrapper.m_GameplayControls_Confirm;
+        public InputAction @Pause => m_Wrapper.m_GameplayControls_Pause;
+        public InputActionMap Get() { return m_Wrapper.m_GameplayControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(ControlsActions set) { return set.Get(); }
-        public void AddCallbacks(IControlsActions instance)
+        public static implicit operator InputActionMap(GameplayControlsActions set) { return set.Get(); }
+        public void AddCallbacks(IGameplayControlsActions instance)
         {
-            if (instance == null || m_Wrapper.m_ControlsActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_ControlsActionsCallbackInterfaces.Add(instance);
+            if (instance == null || m_Wrapper.m_GameplayControlsActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_GameplayControlsActionsCallbackInterfaces.Add(instance);
             @MoveScanner.started += instance.OnMoveScanner;
             @MoveScanner.performed += instance.OnMoveScanner;
             @MoveScanner.canceled += instance.OnMoveScanner;
@@ -534,7 +534,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Pause.canceled += instance.OnPause;
         }
 
-        private void UnregisterCallbacks(IControlsActions instance)
+        private void UnregisterCallbacks(IGameplayControlsActions instance)
         {
             @MoveScanner.started -= instance.OnMoveScanner;
             @MoveScanner.performed -= instance.OnMoveScanner;
@@ -565,21 +565,21 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Pause.canceled -= instance.OnPause;
         }
 
-        public void RemoveCallbacks(IControlsActions instance)
+        public void RemoveCallbacks(IGameplayControlsActions instance)
         {
-            if (m_Wrapper.m_ControlsActionsCallbackInterfaces.Remove(instance))
+            if (m_Wrapper.m_GameplayControlsActionsCallbackInterfaces.Remove(instance))
                 UnregisterCallbacks(instance);
         }
 
-        public void SetCallbacks(IControlsActions instance)
+        public void SetCallbacks(IGameplayControlsActions instance)
         {
-            foreach (var item in m_Wrapper.m_ControlsActionsCallbackInterfaces)
+            foreach (var item in m_Wrapper.m_GameplayControlsActionsCallbackInterfaces)
                 UnregisterCallbacks(item);
-            m_Wrapper.m_ControlsActionsCallbackInterfaces.Clear();
+            m_Wrapper.m_GameplayControlsActionsCallbackInterfaces.Clear();
             AddCallbacks(instance);
         }
     }
-    public ControlsActions @Controls => new ControlsActions(this);
+    public GameplayControlsActions @GameplayControls => new GameplayControlsActions(this);
     private int m_KeyboardSchemeIndex = -1;
     public InputControlScheme KeyboardScheme
     {
@@ -598,7 +598,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             return asset.controlSchemes[m_GamepadSchemeIndex];
         }
     }
-    public interface IControlsActions
+    public interface IGameplayControlsActions
     {
         void OnMoveScanner(InputAction.CallbackContext context);
         void OnHookRingSelect(InputAction.CallbackContext context);

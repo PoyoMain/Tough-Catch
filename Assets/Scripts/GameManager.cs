@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
 
     private GameState _state;
 
+    [SerializeField] private bool DebugMode = false;
+
     [Header("Cameras")]
     [SerializeField] private CinemachineVirtualCamera povCam;
     [SerializeField] private CinemachineVirtualCamera dockCam;
@@ -17,17 +19,23 @@ public class GameManager : MonoBehaviour
 
     [Space(20)]
     [SerializeField] private PauseMenu pauseMenu;
+    public bool IsPaused
+    {
+        get { return pauseMenu.IsPaused; }
+    }
 
     private bool temp = false;
 
     private TuggleMinigameManager _tuggleMinigameManager;
 
     private PlayerControls _playerControls;
-    public PlayerControls.ControlsActions Controls
+    public PlayerControls.GameplayControlsActions Controls
     {
         get;
         private set;
     }
+
+
 
     private void Awake()
     {
@@ -41,7 +49,7 @@ public class GameManager : MonoBehaviour
         Instance = this;
 
         _playerControls = new();
-        Controls = _playerControls.Controls;
+        Controls = _playerControls.GameplayControls;
 
         VariableSetUp();
         ControlSetUp();
@@ -59,7 +67,7 @@ public class GameManager : MonoBehaviour
 
     void ControlSetUp()
     {
-        Controls.Pause.performed += pauseMenu.Pause;
+        Controls.Pause.performed += PauseGame;
         Controls.Confirm.performed += TempMethod;
     }
 
@@ -81,6 +89,8 @@ public class GameManager : MonoBehaviour
     private void ChangeState(GameState newState)
     {
         _state = newState;
+
+        StopAllCoroutines();
 
         switch (_state)
         {
@@ -164,6 +174,13 @@ public class GameManager : MonoBehaviour
         povCam.enabled = (povCam == newCam);
         dockCam.enabled = (dockCam == newCam);
         lakeCam.enabled = (lakeCam == newCam);
+    }
+
+    private void PauseGame(InputAction.CallbackContext _)
+    {
+        //if (IsPaused) Controls.Enable();
+        //else Controls.Disable();
+        pauseMenu.Pause();
     }
 
     private void OnEnable()

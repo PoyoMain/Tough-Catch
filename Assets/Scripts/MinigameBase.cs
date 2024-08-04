@@ -10,7 +10,7 @@ public abstract class MinigameBase : MonoBehaviour
         private set;
     }
 
-    protected PlayerControls.ControlsActions Controls
+    protected PlayerControls.GameplayControlsActions Controls
     {
         get { return GameManager.Instance.Controls; }
     }
