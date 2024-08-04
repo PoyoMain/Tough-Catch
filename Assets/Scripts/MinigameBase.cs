@@ -10,6 +10,11 @@ public abstract class MinigameBase : MonoBehaviour
         private set;
     }
 
+    protected PlayerControls.ControlsActions Controls
+    {
+        get { return GameManager.Instance.Controls; }
+    }
+
     public virtual void OnEnable()
     {
         Finished = MinigameState.Unfinished;

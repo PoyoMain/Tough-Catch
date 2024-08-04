@@ -4,10 +4,13 @@ using System.Threading;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Splines;
+using UnityEditor;
+using UnityEngine.UIElements;
+using UnityEngine.Rendering.PostProcessing;
 
-public class LaserMinigame : MinigameBase
+public class TuggleMinigameManager : MinigameBase
 {
-    [Header("Settings")]
+    [Header("Laser Minigame Settings")]
     [SerializeField] private float minSpawnTime = 5f;
     [SerializeField] private float maxSpawnTime = 15f;
     [SerializeField] private float laserCooldownTime = 2f;
@@ -18,38 +21,34 @@ public class LaserMinigame : MinigameBase
 
     private bool LeftLaserCanShoot
     {
-        get
-        {
-            return _leftCooldownTimer <= 0;
-        }
+        get { return _leftCooldownTimer <= 0; }
     }
 
     private bool RightLaserCanShoot
     {
-        get
-        {
-            return _rightCooldownTimer <= 0;
-        }
+        get { return _rightCooldownTimer <= 0; }
     }
 
-    [Header("Splines")]
+    [Space(5)]
     [SerializeField] private SplineContainer leftSpline;
     [SerializeField] private SplineContainer rightSpline;
 
-    [Header("Prefabs")]
+    [Space(5)]
     [SerializeField] private Trash testPrefab;
     private Trash _leftObject;
     private Trash _rightObject;
 
-    private void Awake()
-    {
-        GameManager.Instance.Controls.LaserShootLeft.performed += ShootLeft;   
-        GameManager.Instance.Controls.LaserShootRight.performed += ShootRight;
-    }
-
     public override void OnEnable()
     {
         base.OnEnable();
+
+        InitializeLaserMinigame();
+    }
+
+    private void InitializeLaserMinigame()
+    {
+        Controls.LaserShootLeft.performed += ShootLeft;
+        Controls.LaserShootRight.performed += ShootRight;
 
         ResetSpawnTimer(Direction.Left);
         ResetSpawnTimer(Direction.Right);
@@ -57,11 +56,12 @@ public class LaserMinigame : MinigameBase
 
     private void Update()
     {
-        CheckTimers();
+        CheckLaserTimers();
     }
 
+    #region Laser Methods
 
-    private void CheckTimers()
+    private void CheckLaserTimers()
     {
         _leftSpawnTimer -= Time.deltaTime;
         if (_leftSpawnTimer <= 0)
@@ -117,9 +117,17 @@ public class LaserMinigame : MinigameBase
         _rightCooldownTimer = laserCooldownTime;
     }
 
+    #endregion
+
     private enum Direction
     {
         Left,
         Right
+    }
+
+    private void OnDisable()
+    {
+        Controls.LaserShootLeft.performed -= ShootLeft;
+        Controls.LaserShootRight.performed -= ShootRight;
     }
 }
