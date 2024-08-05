@@ -80,7 +80,13 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         ChangeState(GameState.Scan);
+        //InvokeRepeating(nameof(Vibrate), 0, 2f);
     }
+
+    //void Vibrate()
+    //{
+    //    Gamepad.current.SetMotorSpeeds(0.1f, 0.1f);
+    //}
 
     private void Update()
     {
