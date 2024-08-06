@@ -21,6 +21,11 @@ public class Trash : MonoBehaviour
         }
     }
 
+    public void SetTime(float time)
+    {
+        _sAnim.Duration = time;
+    }
+
     private void Awake()
     {
         _sAnim = GetComponent<SplineAnimate>();

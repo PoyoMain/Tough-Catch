@@ -11,6 +11,7 @@ public class TuggleMinigameManager : MinigameBase
     [SerializeField] private float minSpawnTime = 5f;
     [SerializeField] private float maxSpawnTime = 15f;
     [SerializeField] private float laserCooldownTime = 2f;
+    [SerializeField] private float timeForObjectToHit = 3f;
     private float _leftSpawnTimer;
     private float _rightSpawnTimer;
     private float _leftCooldownTimer;
@@ -90,11 +91,13 @@ public class TuggleMinigameManager : MinigameBase
         {
             _leftObject = Instantiate(testPrefab);
             _leftObject.Spline = leftSpline;
+            _leftObject.SetTime(timeForObjectToHit);
         }
         else
         {
             _rightObject = Instantiate(testPrefab);
             _rightObject.Spline = rightSpline;
+            _rightObject.SetTime(timeForObjectToHit);
         }
     }
 
