@@ -1,4 +1,5 @@
 using Cinemachine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,14 +11,16 @@ public class GameManager : MonoBehaviour
 
     private GameState _state;
 
-    [SerializeField] private bool DebugMode = false;
-
     [Header("Cameras")]
     [SerializeField] private CinemachineBrain cinemachineBrain;
     [Space(5)]
     [SerializeField] private CinemachineVirtualCamera povCam;
     [SerializeField] private CinemachineVirtualCamera dockCam;
     [SerializeField] private CinemachineVirtualCamera lakeCam;
+    private CinemachineVirtualCamera ActiveCam
+    {
+        get { return GetActiveCamera(); }
+    }
     private bool IsBlendingBetweenCams
     {
         get { return cinemachineBrain.IsBlending; }
@@ -80,13 +83,14 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         ChangeState(GameState.Scan);
-        //InvokeRepeating(nameof(Vibrate), 0, 2f);
+        InvokeRepeating(nameof(Test), 0, 2f);
     }
 
-    //void Vibrate()
-    //{
-    //    Gamepad.current.SetMotorSpeeds(0.1f, 0.1f);
-    //}
+    void Test()
+    {
+        //Gamepad.current.SetMotorSpeeds(0.1f, 0.1f);
+        //ShakeCamera(1);
+    }
 
     private void Update()
     {
@@ -175,11 +179,25 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
+    public void TakeDamage()
+    {
+        Utilities.Instance.ShakeCamera();
+        Utilities.Instance.ShakeController();
+        Utilities.Instance.FlashControllerColor(Color.red);
+    }
+
     private void ActivateCamera(CinemachineVirtualCamera newCam)
     {
         povCam.enabled = (povCam == newCam);
         dockCam.enabled = (dockCam == newCam);
         lakeCam.enabled = (lakeCam == newCam);
+    }
+
+    private CinemachineVirtualCamera GetActiveCamera()
+    {
+        if (povCam.enabled) return povCam;
+        else if (lakeCam.enabled) return lakeCam;
+        else return dockCam;
     }
 
     private void PauseGame(InputAction.CallbackContext _)

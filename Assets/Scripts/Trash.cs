@@ -28,6 +28,10 @@ public class Trash : MonoBehaviour
 
     private void Update()
     {
-        if (_sAnim.NormalizedTime >= 1f) Destroy(gameObject);
+        if (_sAnim.NormalizedTime >= 1f)
+        {
+            Destroy(gameObject);
+            GameManager.Instance.TakeDamage();
+        }
     }
 }
