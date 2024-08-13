@@ -10,8 +10,8 @@ public class Utilities : MonoBehaviour
 {
     public static Utilities Instance { get; private set; }
 
-    private Coroutine ControllerShakeCoroutine;
-    private Coroutine ControllerFlashCoroutine;
+    private Coroutine _controllerShakeCoroutine;
+    private Coroutine _controllerFlashCoroutine;
 
     private void Awake()
     {
@@ -35,9 +35,9 @@ public class Utilities : MonoBehaviour
 
     public void ShakeController(float low = 0.5f, float high = 0.5f, float timeTillStop = 0.1f)
     {
-        if (ControllerShakeCoroutine != null) StopCoroutine(ControllerShakeCoroutine);
+        if (_controllerShakeCoroutine != null) StopCoroutine(_controllerShakeCoroutine);
 
-        ControllerShakeCoroutine = StartCoroutine(ShakingController(low, high, timeTillStop));
+        _controllerShakeCoroutine = StartCoroutine(ShakingController(low, high, timeTillStop));
 
     }
 
@@ -69,9 +69,9 @@ public class Utilities : MonoBehaviour
 
     public void FlashControllerColor(Color flashColor, float flashTime = 0.5f)
     {
-        if (ControllerFlashCoroutine != null) StopCoroutine(ControllerFlashCoroutine);
+        if (_controllerFlashCoroutine != null) StopCoroutine(_controllerFlashCoroutine);
 
-        ControllerFlashCoroutine = StartCoroutine(FlashingControllerColor(flashColor, flashTime));
+        _controllerFlashCoroutine = StartCoroutine(FlashingControllerColor(flashColor, flashTime));
     }
 
     private IEnumerator FlashingControllerColor(Color flashColor, float flashTime)

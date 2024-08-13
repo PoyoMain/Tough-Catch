@@ -7,32 +7,59 @@ using UnityEngine.Splines;
 
 public class TuggleMinigameManager : MinigameBase
 {
+    [SerializeField] private bool _useOptionValues;
+
     [Header("Laser Minigame Settings")]
-    [SerializeField] private float minSpawnTime = 5f;
-    [SerializeField] private float maxSpawnTime = 15f;
-    [SerializeField] private float laserCooldownTime = 2f;
-    [SerializeField] private float timeForObjectToHit = 3f;
+    [SerializeField] private float _minSpawnTime = 5f;
+    private float MinSpawnTime
+    {
+        get
+        {
+            if (_useOptionValues) return Options.TuggleMinigameOptions.minSpawnTime;
+            else return _minSpawnTime;
+        }
+    }
+    [SerializeField] private float _maxSpawnTime = 15f;
+    private float MaxSpawnTime
+    {
+        get
+        {
+            if (_useOptionValues) return Options.TuggleMinigameOptions.maxSpawnTime;
+            else return _maxSpawnTime;
+        }
+    }
+    [SerializeField] private float _laserCooldownTime = 2f;
+    private float LaserCooldownTime
+    {
+        get
+        {
+            if (_useOptionValues) return Options.TuggleMinigameOptions.laserCooldownTime;
+            else return _laserCooldownTime;
+        }
+    }
+    [SerializeField] private float _objectHitTime = 3f;
+    private float ObjectHitTime
+    {
+        get
+        {
+            if (_useOptionValues) return Options.TuggleMinigameOptions.objectHitTime;
+            else return _objectHitTime;
+        }
+    }
     private float _leftSpawnTimer;
     private float _rightSpawnTimer;
     private float _leftCooldownTimer;
     private float _rightCooldownTimer;
 
-    private bool LeftLaserCanShoot
-    {
-        get { return _leftCooldownTimer <= 0; }
-    }
-
-    private bool RightLaserCanShoot
-    {
-        get { return _rightCooldownTimer <= 0; }
-    }
+    private bool LeftLaserCanShoot => _leftCooldownTimer <= 0;
+    private bool RightLaserCanShoot => _rightCooldownTimer <= 0;
 
     [Space(5)]
-    [SerializeField] private SplineContainer leftSpline;
-    [SerializeField] private SplineContainer rightSpline;
+    [SerializeField] private SplineContainer _leftSpline;
+    [SerializeField] private SplineContainer _rightSpline;
 
     [Space(5)]
-    [SerializeField] private Trash testPrefab;
+    [SerializeField] private Trash _testPrefab;
     private Trash _leftObject;
     private Trash _rightObject;
 
@@ -81,23 +108,23 @@ public class TuggleMinigameManager : MinigameBase
 
     private void ResetSpawnTimer(Direction dir)
     {
-        if (dir == Direction.Left) _leftSpawnTimer = Random.Range(minSpawnTime, maxSpawnTime);
-        else _rightSpawnTimer = Random.Range(minSpawnTime, maxSpawnTime);
+        if (dir == Direction.Left) _leftSpawnTimer = Random.Range(MinSpawnTime, MaxSpawnTime);
+        else _rightSpawnTimer = Random.Range(MinSpawnTime, MaxSpawnTime);
     }
 
     private void SpawnTrash(Direction dir)
     {
         if (dir == Direction.Left)
         {
-            _leftObject = Instantiate(testPrefab);
-            _leftObject.Spline = leftSpline;
-            _leftObject.SetTime(timeForObjectToHit);
+            _leftObject = Instantiate(_testPrefab);
+            _leftObject.Spline = _leftSpline;
+            _leftObject.SetTime(ObjectHitTime);
         }
         else
         {
-            _rightObject = Instantiate(testPrefab);
-            _rightObject.Spline = rightSpline;
-            _rightObject.SetTime(timeForObjectToHit);
+            _rightObject = Instantiate(_testPrefab);
+            _rightObject.Spline = _rightSpline;
+            _rightObject.SetTime(ObjectHitTime);
         }
     }
 
@@ -106,7 +133,7 @@ public class TuggleMinigameManager : MinigameBase
         if (!LeftLaserCanShoot) return;
 
         if (_leftObject != null) Destroy(_leftObject.gameObject);
-        _leftCooldownTimer = laserCooldownTime;
+        _leftCooldownTimer = LaserCooldownTime;
     }
 
     private void ShootRight(InputAction.CallbackContext _)
@@ -114,7 +141,7 @@ public class TuggleMinigameManager : MinigameBase
         if (!RightLaserCanShoot) return; 
 
         if (_rightObject != null) Destroy(_rightObject.gameObject);
-        _rightCooldownTimer = laserCooldownTime;
+        _rightCooldownTimer = LaserCooldownTime;
     }
 
     #endregion

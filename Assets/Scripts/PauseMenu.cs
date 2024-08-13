@@ -7,29 +7,25 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
-    [SerializeField] private GameObject menu;
-    [SerializeField] private GameObject firstSelectButton;
+    [SerializeField] private GameObject _menu;
+    [SerializeField] private GameObject _firstSelectButton;
 
-    public bool IsPaused
-    {
-        get;
-        private set;
-    }
+    public bool IsPaused { get; private set; }
 
     public void Pause()
     {
         IsPaused = !IsPaused;
-        menu.SetActive(IsPaused);
+        _menu.SetActive(IsPaused);
         Time.timeScale = IsPaused ? 0 : 1;
-        if (IsPaused) EventSystem.current.SetSelectedGameObject(firstSelectButton);
+        if (IsPaused) EventSystem.current.SetSelectedGameObject(_firstSelectButton);
     }
 
     public void Pause(InputAction.CallbackContext _)
     {
         IsPaused = !IsPaused;
-        menu.SetActive(IsPaused);
+        _menu.SetActive(IsPaused);
         Time.timeScale = IsPaused ? 0 : 1;
-        if (IsPaused) EventSystem.current.SetSelectedGameObject(firstSelectButton);
+        if (IsPaused) EventSystem.current.SetSelectedGameObject(_firstSelectButton);
     }
 
     public void Quit()

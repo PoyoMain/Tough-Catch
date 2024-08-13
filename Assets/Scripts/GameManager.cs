@@ -12,38 +12,28 @@ public class GameManager : MonoBehaviour
     private GameState _state;
 
     [Header("Cameras")]
-    [SerializeField] private CinemachineBrain cinemachineBrain;
+    [SerializeField] private CinemachineBrain _cinemachineBrain;
     [Space(5)]
-    [SerializeField] private CinemachineVirtualCamera povCam;
-    [SerializeField] private CinemachineVirtualCamera dockCam;
-    [SerializeField] private CinemachineVirtualCamera lakeCam;
-    private CinemachineVirtualCamera ActiveCam
-    {
-        get { return GetActiveCamera(); }
-    }
-    private bool IsBlendingBetweenCams
-    {
-        get { return cinemachineBrain.IsBlending; }
-    }
+    [SerializeField] private CinemachineVirtualCamera _povCam;
+    [SerializeField] private CinemachineVirtualCamera _dockCam;
+    [SerializeField] private CinemachineVirtualCamera _lakeCam;
+    private CinemachineVirtualCamera ActiveCam => GetActiveCamera();
+    private bool IsBlendingBetweenCams => _cinemachineBrain.IsBlending;
 
     [Space(20)]
-    [SerializeField] private PauseMenu pauseMenu;
-    public bool IsPaused
-    {
-        get { return pauseMenu.IsPaused; }
-    }
+    [SerializeField] private PauseMenu _pauseMenu;
+    public bool IsPaused => _pauseMenu.IsPaused;
+
+    [SerializeField] private ScriptableOptions _options;
+    public ScriptableOptions Options => _options;
 
     private bool temp = false;
 
     private TuggleMinigameManager _tuggleMinigameManager;
 
-    private PlayerControls _playerControls;
-    public PlayerControls.GameplayControlsActions Controls
-    {
-        get;
-        private set;
-    }
 
+    private PlayerControls _playerControls;
+    public PlayerControls.GameplayControlsActions Controls { get; private set; }
 
 
     private void Awake()
@@ -66,10 +56,10 @@ public class GameManager : MonoBehaviour
 
     void VariableSetUp()
     {
-        if (povCam == null) Debug.LogError("Pov Camera not set in Inspector");
-        if (dockCam == null) Debug.LogError("Dock Camera not set in Inspector");
-        if (lakeCam == null) Debug.LogError("Lake Camera not set in Inspector");
-        if (pauseMenu == null) Debug.LogError("Pause Menu not set in Inspector");
+        if (_povCam == null) Debug.LogError("Pov Camera not set in Inspector");
+        if (_dockCam == null) Debug.LogError("Dock Camera not set in Inspector");
+        if (_lakeCam == null) Debug.LogError("Lake Camera not set in Inspector");
+        if (_pauseMenu == null) Debug.LogError("Pause Menu not set in Inspector");
 
         if (!TryGetComponent<TuggleMinigameManager>(out _tuggleMinigameManager)) Debug.LogError("No Laser Minigame component on GameManager");
     }
@@ -94,7 +84,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (pauseMenu.IsPaused) return;
+        if (_pauseMenu.IsPaused) return;
     }
 
     void TempMethod(InputAction.CallbackContext context)
@@ -133,7 +123,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator ScanCoroutine()
     {
-        ActivateCamera(lakeCam);
+        ActivateCamera(_lakeCam);
         while (IsBlendingBetweenCams) yield return null;
 
         while (!temp) yield return null;
@@ -145,7 +135,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator CastCoroutine()
     {
-        ActivateCamera(dockCam);
+        ActivateCamera(_dockCam);
         while (IsBlendingBetweenCams) yield return null;
 
         while (!temp) yield return null;
@@ -157,7 +147,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator TuggleCoroutine()
     {
-        ActivateCamera(povCam);
+        ActivateCamera(_povCam);
         while (IsBlendingBetweenCams) yield return null;
 
         _tuggleMinigameManager.enabled = true;
@@ -172,7 +162,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator ReelCoroutine()
     {
-        ActivateCamera(dockCam);
+        ActivateCamera(_dockCam);
 
         yield break;
     }
@@ -182,29 +172,29 @@ public class GameManager : MonoBehaviour
     public void TakeDamage()
     {
         Utilities.Instance.ShakeCamera();
-        Utilities.Instance.ShakeController();
+        if (_options.ControlRumble) Utilities.Instance.ShakeController();
         Utilities.Instance.FlashControllerColor(Color.red);
     }
 
     private void ActivateCamera(CinemachineVirtualCamera newCam)
     {
-        povCam.enabled = (povCam == newCam);
-        dockCam.enabled = (dockCam == newCam);
-        lakeCam.enabled = (lakeCam == newCam);
+        _povCam.enabled = (_povCam == newCam);
+        _dockCam.enabled = (_dockCam == newCam);
+        _lakeCam.enabled = (_lakeCam == newCam);
     }
 
     private CinemachineVirtualCamera GetActiveCamera()
     {
-        if (povCam.enabled) return povCam;
-        else if (lakeCam.enabled) return lakeCam;
-        else return dockCam;
+        if (_povCam.enabled) return _povCam;
+        else if (_lakeCam.enabled) return _lakeCam;
+        else return _dockCam;
     }
 
     private void PauseGame(InputAction.CallbackContext _)
     {
         //if (IsPaused) Controls.Enable();
         //else Controls.Disable();
-        pauseMenu.Pause();
+        _pauseMenu.Pause();
     }
 
     private void OnEnable()

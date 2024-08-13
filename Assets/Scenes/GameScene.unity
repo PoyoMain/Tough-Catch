@@ -950,7 +950,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 1
-  m_AdditionalShaderChannelsFlag: 1
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 100
@@ -987,8 +987,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b65949610afb4f41944d0c86ca89175, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menu: {fileID: 2016822132}
-  firstSelectButton: {fileID: 2012672851}
+  _menu: {fileID: 0}
+  _firstSelectButton: {fileID: 0}
 --- !u!1 &735583936
 GameObject:
   m_ObjectHideFlags: 0
@@ -1799,8 +1799,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1508741592}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.20118114, y: -0, z: -0, w: 0.9795541}
-  m_LocalPosition: {x: 0, y: 3.5, z: -18.67}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 16, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2232,11 +2232,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bf1e328e7a5f5b4e831b552e7e89227, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cinemachineBrain: {fileID: 1508741597}
-  povCam: {fileID: 1132808095}
-  dockCam: {fileID: 848917054}
-  lakeCam: {fileID: 2121842839}
-  pauseMenu: {fileID: 463312200}
+  _cinemachineBrain: {fileID: 1508741597}
+  _povCam: {fileID: 1132808095}
+  _dockCam: {fileID: 848917054}
+  _lakeCam: {fileID: 2121842839}
+  _pauseMenu: {fileID: 463312200}
+  _options: {fileID: 11400000, guid: 2f50d8ebcbcf65f45994f1b2d449992d, type: 2}
 --- !u!4 &2004049133
 Transform:
   m_ObjectHideFlags: 0
@@ -2264,12 +2265,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b5d14d5a3069f74e93f5990d2cfaf0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minSpawnTime: 5
-  maxSpawnTime: 15
-  laserCooldownTime: 2
-  leftSpline: {fileID: 1439240711}
-  rightSpline: {fileID: 295008390}
-  testPrefab: {fileID: -474052877256103520, guid: 02ac9a1e033521a4fa2d05281ba26554,
+  _useOptionValues: 0
+  _minSpawnTime: 5
+  _maxSpawnTime: 15
+  _laserCooldownTime: 2
+  _objectHitTime: 3
+  _leftSpline: {fileID: 1439240711}
+  _rightSpline: {fileID: 295008390}
+  _testPrefab: {fileID: -474052877256103520, guid: 02ac9a1e033521a4fa2d05281ba26554,
     type: 3}
 --- !u!114 &2004049135
 MonoBehaviour:

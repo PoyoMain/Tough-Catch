@@ -4,16 +4,11 @@ using UnityEngine;
 
 public abstract class MinigameBase : MonoBehaviour
 {
-    public MinigameState Finished
-    {
-        get;
-        private set;
-    }
+    public MinigameState Finished { get; private set; }
 
-    protected PlayerControls.GameplayControlsActions Controls
-    {
-        get { return GameManager.Instance.Controls; }
-    }
+    protected PlayerControls.GameplayControlsActions Controls => GameManager.Instance.Controls;
+    protected ScriptableOptions Options => GameManager.Instance.Options;
+
 
     public virtual void OnEnable()
     {

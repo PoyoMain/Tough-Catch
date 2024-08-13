@@ -10,15 +10,8 @@ public class Trash : MonoBehaviour
 
     public SplineContainer Spline
     {
-        get
-        {
-            return _sAnim.Container;
-        }
-
-        set
-        {
-            _sAnim.Container = value;
-        }
+        get => _sAnim.Container;
+        set => _sAnim.Container = value;
     }
 
     public void SetTime(float time)
