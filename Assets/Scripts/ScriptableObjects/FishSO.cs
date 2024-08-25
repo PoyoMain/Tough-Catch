@@ -23,7 +23,6 @@ public class Fish
     public string Description { get; private set; }
     public float Health { get; private set; }
     public float Weight { get; private set; }
-
     public FishWeightClass WeightClass
     {
         get
@@ -37,19 +36,17 @@ public class Fish
         }
     }
 
-    private float _maxHealth;
-    private float _maxWeight;
-    private float _minWeight;
-
-    private FishSO data;
+    private readonly float _maxHealth;
+    private readonly float _maxWeight;
+    private readonly float _minWeight;
 
     public Fish(FishSO fishData)
     {
         Name = fishData.name;
         Description = fishData.Description;
 
-        Health = fishData.MaxHealth;
         _maxHealth = fishData.MaxHealth;
+        Health = _maxHealth;
 
         Weight = Random.Range(fishData.MinWeight, fishData.MaxWeight);
         _minWeight = fishData.MinWeight;
