@@ -5,30 +5,24 @@ using UnityEngine;
 using UnityEngine.Audio;
 
 [CreateAssetMenu(fileName = "NewOptions", menuName = "Options")]
-public class ScriptableOptions : ScriptableObject
+public class OptionsSO : ScriptableObject
 {
+    [Header("General Settings")]
     [SerializeField] private Difficulty _difficulty;
-    public Difficulty Difficulty => _difficulty;
-
-
     [SerializeField] private bool _guideImages;
-    public bool GuideImages => _guideImages;
-
-
     [SerializeField] private bool _controlRumble;
-    public bool ControlRumble => _controlRumble;
-
-
     [SerializeField] private FullScreenMode _fullscreenMode;
-    public FullScreenMode FullScreenMode => _fullscreenMode;
-
-
     [SerializeField] private AudioMixer _mainAudioMixer;
 
-    [Header("Settings")]
+    [Header("Minigame Settings")]
     [SerializeField] private TuggleOptions _easyTuggleMinigameOptions;
     [SerializeField] private TuggleOptions _mediumTuggleMinigameOptions;
     [SerializeField] private TuggleOptions _hardTuggleMinigameOptions;
+
+    public Difficulty Difficulty => _difficulty;    
+    public bool GuideImages => _guideImages;
+    public bool ControlRumble => _controlRumble;
+    public FullScreenMode FullScreenMode => _fullscreenMode;
     public TuggleOptions TuggleMinigameOptions => Difficulty switch
     {
         Difficulty.Easy => _easyTuggleMinigameOptions,

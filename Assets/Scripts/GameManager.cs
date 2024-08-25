@@ -17,22 +17,22 @@ public class GameManager : MonoBehaviour
     [SerializeField] private CinemachineVirtualCamera _povCam;
     [SerializeField] private CinemachineVirtualCamera _dockCam;
     [SerializeField] private CinemachineVirtualCamera _lakeCam;
-    private CinemachineVirtualCamera ActiveCam => GetActiveCamera();
-    private bool IsBlendingBetweenCams => _cinemachineBrain.IsBlending;
 
-    [Space(20)]
+    [Header("Menus")]
     [SerializeField] private PauseMenu _pauseMenu;
-    public bool IsPaused => _pauseMenu.IsPaused;
 
-    [SerializeField] private ScriptableOptions _options;
-    public ScriptableOptions Options => _options;
-
-    private bool temp = false;
-
-    private TuggleMinigameManager _tuggleMinigameManager;
-
+    [Header("Options")]
+    [SerializeField] private OptionsSO _options;
 
     private PlayerControls _playerControls;
+    private TuggleMinigameManager _tuggleMinigameManager;
+    private bool temp = false;
+
+
+    private CinemachineVirtualCamera ActiveCam => GetActiveCamera();
+    private bool IsBlendingBetweenCams => _cinemachineBrain.IsBlending;
+    public bool IsPaused => _pauseMenu.IsPaused;    
+    public OptionsSO Options => _options;
     public PlayerControls.GameplayControlsActions Controls { get; private set; }
 
 

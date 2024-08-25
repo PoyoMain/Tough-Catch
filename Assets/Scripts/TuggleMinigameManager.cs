@@ -11,7 +11,25 @@ public class TuggleMinigameManager : MinigameBase
 
     [Header("Laser Minigame Settings")]
     [SerializeField] private float _minSpawnTime = 5f;
-    private float MinSpawnTime
+    [SerializeField] private float _maxSpawnTime = 15f;
+    [SerializeField] private float _laserCooldownTime = 2f;
+    [SerializeField] private float _objectHitTime = 3f;
+
+    [Header("Splines")]
+    [SerializeField] private SplineContainer _leftSpline;
+    [SerializeField] private SplineContainer _rightSpline;
+
+    [Header("Prefabs")]
+    [SerializeField] private Trash _testPrefab;
+
+    private float _leftSpawnTimer;
+    private float _rightSpawnTimer;
+    private float _leftCooldownTimer;
+    private float _rightCooldownTimer;
+    private Trash _leftObject;
+    private Trash _rightObject;
+
+    private float MinSpawnTime  
     {
         get
         {
@@ -19,7 +37,6 @@ public class TuggleMinigameManager : MinigameBase
             else return _minSpawnTime;
         }
     }
-    [SerializeField] private float _maxSpawnTime = 15f;
     private float MaxSpawnTime
     {
         get
@@ -28,7 +45,6 @@ public class TuggleMinigameManager : MinigameBase
             else return _maxSpawnTime;
         }
     }
-    [SerializeField] private float _laserCooldownTime = 2f;
     private float LaserCooldownTime
     {
         get
@@ -37,7 +53,6 @@ public class TuggleMinigameManager : MinigameBase
             else return _laserCooldownTime;
         }
     }
-    [SerializeField] private float _objectHitTime = 3f;
     private float ObjectHitTime
     {
         get
@@ -46,22 +61,10 @@ public class TuggleMinigameManager : MinigameBase
             else return _objectHitTime;
         }
     }
-    private float _leftSpawnTimer;
-    private float _rightSpawnTimer;
-    private float _leftCooldownTimer;
-    private float _rightCooldownTimer;
-
     private bool LeftLaserCanShoot => _leftCooldownTimer <= 0;
     private bool RightLaserCanShoot => _rightCooldownTimer <= 0;
 
-    [Space(5)]
-    [SerializeField] private SplineContainer _leftSpline;
-    [SerializeField] private SplineContainer _rightSpline;
 
-    [Space(5)]
-    [SerializeField] private Trash _testPrefab;
-    private Trash _leftObject;
-    private Trash _rightObject;
 
     public override void OnEnable()
     {
