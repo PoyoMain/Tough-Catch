@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93bb26b2bb30d424b9f50f19d181fe37, type: 3}
   m_Name: Atlantic Cod
   m_EditorClassIdentifier: 
-  _description: 
-  _maxHealth: 0
-  _minWeight: 0
-  _maxWeight: 0
+  _description: One of the more heavily fished species. They can be found eating
+    shellfish and other smaller fish.
+  _maxHealth: 100
+  _minWeight: 20
+  _maxWeight: 110
