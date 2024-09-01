@@ -7,7 +7,11 @@ public abstract class MinigameBase : MonoBehaviour
     public MinigameState Finished { get; private set; }
 
     protected PlayerControls.GameplayControlsActions Controls => GameManager.Instance.Controls;
-    protected OptionsSO Options => GameManager.Instance.Options;
+
+    [Header("Options")]
+    [SerializeField] private OptionsSO _options;
+
+    protected OptionsSO Options => _options;
 
 
     public virtual void OnEnable()

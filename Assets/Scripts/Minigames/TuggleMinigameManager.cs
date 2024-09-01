@@ -22,6 +22,9 @@ public class TuggleMinigameManager : MinigameBase
     [Header("Prefabs")]
     [SerializeField] private Trash _testPrefab;
 
+    [Header("Events")]
+    [SerializeField] private VoidEventChannelSO _onTakeDamage;
+
     private float _leftSpawnTimer;
     private float _rightSpawnTimer;
     private float _leftCooldownTimer;
@@ -91,15 +94,26 @@ public class TuggleMinigameManager : MinigameBase
 
     private void CheckLaserTimers()
     {
+        if (_leftObject != null && _leftObject.Hit)
+        {
+            _onTakeDamage.RaiseEvent();
+            Destroy(_leftObject.gameObject);
+        }
+        if (_rightObject != null && _rightObject.Hit)
+        {
+            _onTakeDamage.RaiseEvent();
+            Destroy(_rightObject.gameObject);
+        }
+
         _leftSpawnTimer -= Time.deltaTime;
-        if (_leftSpawnTimer <= 0)
+        if (_leftSpawnTimer <= 0 && _leftObject == null)
         {
             SpawnTrash(Direction.Left);
             ResetSpawnTimer(Direction.Left);
         }
 
         _rightSpawnTimer -= Time.deltaTime;
-        if (_rightSpawnTimer <= 0)
+        if (_rightSpawnTimer <= 0 && _rightObject == null)
         {
             SpawnTrash(Direction.Right);
             ResetSpawnTimer(Direction.Right);

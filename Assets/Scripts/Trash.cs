@@ -14,6 +14,8 @@ public class Trash : MonoBehaviour
         set => _sAnim.Container = value;
     }
 
+    public bool Hit => _sAnim.NormalizedTime >= 1f;
+
     public void SetTime(float time)
     {
         _sAnim.Duration = time;
@@ -22,14 +24,5 @@ public class Trash : MonoBehaviour
     private void Awake()
     {
         _sAnim = GetComponent<SplineAnimate>();
-    }
-
-    private void Update()
-    {
-        if (_sAnim.NormalizedTime >= 1f)
-        {
-            Destroy(gameObject);
-            GameManager.Instance.TakeDamage();
-        }
     }
 }

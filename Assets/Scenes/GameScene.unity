@@ -1134,6 +1134,7 @@ GameObject:
   - component: {fileID: 848917053}
   - component: {fileID: 848917054}
   - component: {fileID: 848917056}
+  - component: {fileID: 848917057}
   m_Layer: 0
   m_Name: Dock Cam
   m_TagString: Untagged
@@ -1219,6 +1220,34 @@ MonoBehaviour:
     m_FrequencyGain: 1
     m_Duration: 1
     m_NoiseOffsets: {x: 0, y: 0, z: 0}
+--- !u!114 &848917057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 848917052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b37950ec679f647a9ab698ec0275e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _channel: {fileID: 11400000, guid: 95b483d82355c1042b25da6dc6be2b7b, type: 2}
+  OnEventRaised:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 848917054}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &974723953
 GameObject:
   m_ObjectHideFlags: 3
@@ -1263,6 +1292,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1065599344
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1065599345}
+  m_Layer: 0
+  m_Name: Managers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1065599345
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1065599344}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2004049133}
+  - {fileID: 1459891850}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1132808093
 GameObject:
   m_ObjectHideFlags: 0
@@ -1274,6 +1336,7 @@ GameObject:
   - component: {fileID: 1132808094}
   - component: {fileID: 1132808095}
   - component: {fileID: 1132808097}
+  - component: {fileID: 1132808098}
   m_Layer: 0
   m_Name: POV Cam
   m_TagString: Untagged
@@ -1362,6 +1425,34 @@ MonoBehaviour:
     m_FrequencyGain: 1
     m_Duration: 1
     m_NoiseOffsets: {x: 0, y: 0, z: 0}
+--- !u!114 &1132808098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1132808093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b37950ec679f647a9ab698ec0275e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _channel: {fileID: 11400000, guid: 95b483d82355c1042b25da6dc6be2b7b, type: 2}
+  OnEventRaised:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1132808095}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!1 &1156160666
 GameObject:
   m_ObjectHideFlags: 0
@@ -1712,6 +1803,61 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1132808094}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1459891849
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1459891850}
+  - component: {fileID: 1459891852}
+  m_Layer: 0
+  m_Name: TuggleManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1459891850
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1459891849}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1065599345}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1459891852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1459891849}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b5d14d5a3069f74e93f5990d2cfaf0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _options: {fileID: 11400000, guid: 2f50d8ebcbcf65f45994f1b2d449992d, type: 2}
+  _useOptionValues: 0
+  _minSpawnTime: 5
+  _maxSpawnTime: 15
+  _laserCooldownTime: 2
+  _objectHitTime: 3
+  _leftSpline: {fileID: 1439240711}
+  _rightSpline: {fileID: 295008390}
+  _testPrefab: {fileID: -474052877256103520, guid: 02ac9a1e033521a4fa2d05281ba26554,
+    type: 3}
+  _onTakeDamage: {fileID: 11400000, guid: 28719e99e4bb5ee41aea4fb105678875, type: 2}
 --- !u!1 &1508741592
 GameObject:
   m_ObjectHideFlags: 0
@@ -2210,7 +2356,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2004049133}
   - component: {fileID: 2004049132}
-  - component: {fileID: 2004049134}
   - component: {fileID: 2004049135}
   - component: {fileID: 2004049136}
   m_Layer: 0
@@ -2232,12 +2377,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bf1e328e7a5f5b4e831b552e7e89227, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _tuggleMinigameManager: {fileID: 1459891852}
   _cinemachineBrain: {fileID: 1508741597}
   _povCam: {fileID: 1132808095}
   _dockCam: {fileID: 848917054}
   _lakeCam: {fileID: 2121842839}
   _pauseMenu: {fileID: 463312200}
   _options: {fileID: 11400000, guid: 2f50d8ebcbcf65f45994f1b2d449992d, type: 2}
+  _onScanSucceed: {fileID: 11400000, guid: 6f493a508b7e8914d9efccf8bad46ada, type: 2}
+  _onCastSucceed: {fileID: 11400000, guid: 95b483d82355c1042b25da6dc6be2b7b, type: 2}
+  _onTuggleSucceed: {fileID: 11400000, guid: daefbfa40829d9643b109aa025597eb1, type: 2}
+  _onReelSucceed: {fileID: 11400000, guid: d6157594f8982f2438d732894fa43162, type: 2}
+  _onDamageTaken: {fileID: 11400000, guid: 28719e99e4bb5ee41aea4fb105678875, type: 2}
 --- !u!4 &2004049133
 Transform:
   m_ObjectHideFlags: 0
@@ -2246,34 +2397,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2004049131}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1065599345}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2004049134
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2004049131}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b5d14d5a3069f74e93f5990d2cfaf0a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _useOptionValues: 0
-  _minSpawnTime: 5
-  _maxSpawnTime: 15
-  _laserCooldownTime: 2
-  _objectHitTime: 3
-  _leftSpline: {fileID: 1439240711}
-  _rightSpline: {fileID: 295008390}
-  _testPrefab: {fileID: -474052877256103520, guid: 02ac9a1e033521a4fa2d05281ba26554,
-    type: 3}
 --- !u!114 &2004049135
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2907,6 +3037,7 @@ GameObject:
   - component: {fileID: 2121842838}
   - component: {fileID: 2121842839}
   - component: {fileID: 2121842841}
+  - component: {fileID: 2121842842}
   m_Layer: 0
   m_Name: Lake Cam
   m_TagString: Untagged
@@ -2993,6 +3124,34 @@ MonoBehaviour:
     m_FrequencyGain: 1
     m_Duration: 1
     m_NoiseOffsets: {x: 0, y: 0, z: 0}
+--- !u!114 &2121842842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2121842837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b37950ec679f647a9ab698ec0275e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _channel: {fileID: 11400000, guid: 95b483d82355c1042b25da6dc6be2b7b, type: 2}
+  OnEventRaised:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2121842839}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &8880384698706524397
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3073,7 +3232,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 1956792034}
   - {fileID: 1759929960}
-  - {fileID: 2004049133}
+  - {fileID: 1065599345}
   - {fileID: 463312199}
   - {fileID: 294058776}
   - {fileID: 1156160667}
