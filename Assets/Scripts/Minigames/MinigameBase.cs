@@ -4,15 +4,13 @@ using UnityEngine;
 
 public abstract class MinigameBase : MonoBehaviour
 {
-    public MinigameState Finished { get; private set; }
-
-    protected PlayerControls.GameplayControlsActions Controls => GameManager.Instance.Controls;
-
-    [Header("Options")]
+    [Header("ScriptableObjects")]
     [SerializeField] private OptionsSO _options;
+    [SerializeField] private InputReaderSO _inputReader;
 
+    public MinigameState Finished { get; private set; }
     protected OptionsSO Options => _options;
-
+    protected PlayerControls.GameplayControlsActions Controls => _inputReader.Controls;
 
     public virtual void OnEnable()
     {

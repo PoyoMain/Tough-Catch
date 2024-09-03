@@ -9,12 +9,7 @@ using UnityEngine.InputSystem.DualShock;
 [RequireComponent(typeof(CinemachineImpulseSource))]
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance { get; private set; }
-
     private GameState _state;
-
-    [Header("Minigames")]
-    [SerializeField] private TuggleMinigameManager _tuggleMinigameManager;
 
     [Header("Cameras")]
     [SerializeField] private CinemachineBrain _cinemachineBrain;
@@ -26,43 +21,36 @@ public class GameManager : MonoBehaviour
     [Header("Menus")]
     [SerializeField] private PauseMenu _pauseMenu;
 
-    [Header("Options")]
+    [Header("ScriptableObjects")]
     [SerializeField] private OptionsSO _options;
+    [SerializeField] private InputReaderSO _inputReader;
 
-    [Header("Events")]
+    [Header("Broadcast Events")]
+    [SerializeField] private VoidEventChannelSO _onScanStart;
     [SerializeField] private VoidEventChannelSO _onScanSucceed;
+    [SerializeField] private VoidEventChannelSO _onCastStart;
     [SerializeField] private VoidEventChannelSO _onCastSucceed;
+    [SerializeField] private VoidEventChannelSO _onTuggleStart;
     [SerializeField] private VoidEventChannelSO _onTuggleSucceed;
+    [SerializeField] private VoidEventChannelSO _onReelStart;
     [SerializeField] private VoidEventChannelSO _onReelSucceed;
-    [Space(5)]
+
+    [Header("Listen Events")]
     [SerializeField] private VoidEventChannelSO _onDamageTaken;
 
-    private PlayerControls _playerControls;
     private bool temp = false;
     private Coroutine _controllerShakeCoroutine;
     private Coroutine _controllerFlashCoroutine;
 
+    private PlayerControls.GameplayControlsActions Controls => _inputReader.Controls;
     private CinemachineVirtualCamera ActiveCam => GetActiveCamera();
     private bool IsBlendingBetweenCams => _cinemachineBrain.IsBlending;
     public bool IsPaused => _pauseMenu.IsPaused;    
     public OptionsSO Options => _options;
-    public PlayerControls.GameplayControlsActions Controls { get; private set; }
 
 
     private void Awake()
     {
-        if (Instance != null)
-        {
-            Destroy(this);
-            Debug.LogError("More than one instance of GameManager in scene." +
-                "\n Located on " + this.name + " and " + Instance.name);
-        }
-
-        Instance = this;
-
-        _playerControls = new();
-        Controls = _playerControls.GameplayControls;
-
         VariableSetUp();
     }
 
@@ -72,14 +60,10 @@ public class GameManager : MonoBehaviour
         if (_dockCam == null) Debug.LogError("Dock Camera not set in Inspector");
         if (_lakeCam == null) Debug.LogError("Lake Camera not set in Inspector");
         if (_pauseMenu == null) Debug.LogError("Pause Menu not set in Inspector");
-
-        if (_tuggleMinigameManager == null) Debug.LogError("No Tuggle Minigame set in Inspector");
     }
 
     private void OnEnable()
     {
-        Controls.Enable();
-
         Controls.Pause.performed += PauseGame;
         Controls.Confirm.performed += TempMethod;
 
@@ -153,6 +137,8 @@ public class GameManager : MonoBehaviour
         ActivateCamera(_lakeCam);
         while (IsBlendingBetweenCams) yield return null;
 
+        _onScanStart.RaiseEvent();
+
         while (!temp) yield return null;
 
         temp = false;
@@ -165,6 +151,8 @@ public class GameManager : MonoBehaviour
     {
         ActivateCamera(_dockCam);
         while (IsBlendingBetweenCams) yield return null;
+
+        _onCastStart.RaiseEvent();
 
         while (!temp) yield return null;
 
@@ -179,12 +167,11 @@ public class GameManager : MonoBehaviour
         ActivateCamera(_povCam);
         while (IsBlendingBetweenCams) yield return null;
 
-        _tuggleMinigameManager.enabled = true;
+        _onTuggleStart.RaiseEvent();
 
         while (!temp) yield return null;
 
         temp = false;
-        _tuggleMinigameManager.enabled = false;
         _onTuggleSucceed.RaiseEvent();
         ChangeState(GameState.Reel);
         yield break;
@@ -193,6 +180,9 @@ public class GameManager : MonoBehaviour
     private IEnumerator ReelCoroutine()
     {
         ActivateCamera(_dockCam);
+        while (IsBlendingBetweenCams) yield return null;
+
+        _onReelStart.RaiseEvent();
 
         yield break;
     }

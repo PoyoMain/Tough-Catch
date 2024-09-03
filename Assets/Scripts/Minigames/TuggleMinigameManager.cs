@@ -22,8 +22,11 @@ public class TuggleMinigameManager : MinigameBase
     [Header("Prefabs")]
     [SerializeField] private Trash _testPrefab;
 
-    [Header("Events")]
+    [Header("Broadcast Events")]
     [SerializeField] private VoidEventChannelSO _onTakeDamage;
+
+    [Header("Listen Events")]
+    [SerializeField] private VoidEventChannelSO _onTuggleSucceed;
 
     private float _leftSpawnTimer;
     private float _rightSpawnTimer;
@@ -72,6 +75,8 @@ public class TuggleMinigameManager : MinigameBase
     public override void OnEnable()
     {
         base.OnEnable();
+
+        _onTuggleSucceed.OnEventRaised += DisableMinigame;
 
         InitializeLaserMinigame();
     }
@@ -169,10 +174,17 @@ public class TuggleMinigameManager : MinigameBase
         Right
     }
 
+    private void DisableMinigame()
+    {
+        this.enabled = false;
+    }
+
     private void OnDisable()
     {
         Controls.LaserShootLeft.performed -= ShootLeft;
         Controls.LaserShootRight.performed -= ShootRight;
+
+        _onTuggleSucceed.OnEventRaised -= DisableMinigame;
 
         if (_leftObject != null) Destroy(_leftObject.gameObject);
         if (_rightObject != null) Destroy(_rightObject.gameObject);

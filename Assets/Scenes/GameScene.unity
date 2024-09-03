@@ -1337,6 +1337,7 @@ GameObject:
   - component: {fileID: 1132808095}
   - component: {fileID: 1132808097}
   - component: {fileID: 1132808098}
+  - component: {fileID: 1132808099}
   m_Layer: 0
   m_Name: POV Cam
   m_TagString: Untagged
@@ -1437,22 +1438,75 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64b37950ec679f647a9ab698ec0275e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _channel: {fileID: 11400000, guid: 95b483d82355c1042b25da6dc6be2b7b, type: 2}
+  _channel: {fileID: 11400000, guid: 28719e99e4bb5ee41aea4fb105678875, type: 2}
   OnEventRaised:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1132808095}
-        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: set_enabled
-        m_Mode: 6
+      - m_Target: {fileID: 1132808099}
+        m_TargetAssemblyTypeName: Cinemachine.CinemachineImpulseSource, Cinemachine
+        m_MethodName: GenerateImpulseWithForce
+        m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
-          m_FloatArgument: 0
+          m_FloatArgument: 0.5
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+--- !u!114 &1132808099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1132808093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 180ecf9b41d478f468eb3e9083753217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ImpulseDefinition:
+    m_ImpulseChannel: 1
+    m_ImpulseShape: 3
+    m_CustomImpulseShape:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_ImpulseDuration: 0.2
+    m_ImpulseType: 0
+    m_DissipationRate: 0.25
+    m_RawSignal: {fileID: 0}
+    m_AmplitudeGain: 1
+    m_FrequencyGain: 1
+    m_RepeatMode: 0
+    m_Randomize: 1
+    m_TimeEnvelope:
+      m_AttackShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_DecayShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_AttackTime: 0
+      m_SustainTime: 0.2
+      m_DecayTime: 0.7
+      m_ScaleWithImpact: 1
+      m_HoldForever: 0
+    m_ImpactRadius: 100
+    m_DirectionMode: 0
+    m_DissipationMode: 2
+    m_DissipationDistance: 100
+    m_PropagationSpeed: 343
+  m_DefaultVelocity: {x: 0, y: -1, z: 0}
 --- !u!1 &1156160666
 GameObject:
   m_ObjectHideFlags: 0
@@ -1813,6 +1867,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1459891850}
   - component: {fileID: 1459891852}
+  - component: {fileID: 1459891853}
   m_Layer: 0
   m_Name: TuggleManager
   m_TagString: Untagged
@@ -1848,6 +1903,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _options: {fileID: 11400000, guid: 2f50d8ebcbcf65f45994f1b2d449992d, type: 2}
+  _inputReader: {fileID: 11400000, guid: 063a760d2203fda4e80723a04b0388de, type: 2}
   _useOptionValues: 0
   _minSpawnTime: 5
   _maxSpawnTime: 15
@@ -1858,6 +1914,35 @@ MonoBehaviour:
   _testPrefab: {fileID: -474052877256103520, guid: 02ac9a1e033521a4fa2d05281ba26554,
     type: 3}
   _onTakeDamage: {fileID: 11400000, guid: 28719e99e4bb5ee41aea4fb105678875, type: 2}
+  _onTuggleSucceed: {fileID: 0}
+--- !u!114 &1459891853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1459891849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b37950ec679f647a9ab698ec0275e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _channel: {fileID: 11400000, guid: 72a51ffdc4546b94f811a24ba2d9d591, type: 2}
+  OnEventRaised:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1459891852}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!1 &1508741592
 GameObject:
   m_ObjectHideFlags: 0
@@ -1945,8 +2030,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1508741592}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 16, z: 0}
+  m_LocalRotation: {x: 0.20118114, y: -0, z: -0, w: 0.9795541}
+  m_LocalPosition: {x: 0, y: 3.5, z: -18.67}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2015,7 +2100,7 @@ MonoBehaviour:
   m_UpdateMethod: 2
   m_BlendUpdateMethod: 1
   m_DefaultBlend:
-    m_Style: 1
+    m_Style: 0
     m_Time: 1
     m_CustomCurve:
       serializedVersion: 2
@@ -2357,7 +2442,6 @@ GameObject:
   - component: {fileID: 2004049133}
   - component: {fileID: 2004049132}
   - component: {fileID: 2004049135}
-  - component: {fileID: 2004049136}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -2377,16 +2461,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bf1e328e7a5f5b4e831b552e7e89227, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tuggleMinigameManager: {fileID: 1459891852}
   _cinemachineBrain: {fileID: 1508741597}
   _povCam: {fileID: 1132808095}
   _dockCam: {fileID: 848917054}
   _lakeCam: {fileID: 2121842839}
   _pauseMenu: {fileID: 463312200}
   _options: {fileID: 11400000, guid: 2f50d8ebcbcf65f45994f1b2d449992d, type: 2}
+  _inputReader: {fileID: 11400000, guid: 063a760d2203fda4e80723a04b0388de, type: 2}
+  _onScanStart: {fileID: 11400000, guid: e8748569b3b000149b3893899f92c709, type: 2}
   _onScanSucceed: {fileID: 11400000, guid: 6f493a508b7e8914d9efccf8bad46ada, type: 2}
+  _onCastStart: {fileID: 11400000, guid: d7da8ffcd8560fd4a91e2e2564c83c2a, type: 2}
   _onCastSucceed: {fileID: 11400000, guid: 95b483d82355c1042b25da6dc6be2b7b, type: 2}
+  _onTuggleStart: {fileID: 11400000, guid: 72a51ffdc4546b94f811a24ba2d9d591, type: 2}
   _onTuggleSucceed: {fileID: 11400000, guid: daefbfa40829d9643b109aa025597eb1, type: 2}
+  _onReelStart: {fileID: 11400000, guid: efcca6629f6ee2449b17243cdd190aea, type: 2}
   _onReelSucceed: {fileID: 11400000, guid: d6157594f8982f2438d732894fa43162, type: 2}
   _onDamageTaken: {fileID: 11400000, guid: 28719e99e4bb5ee41aea4fb105678875, type: 2}
 --- !u!4 &2004049133
@@ -2457,18 +2545,6 @@ MonoBehaviour:
     m_DissipationDistance: 100
     m_PropagationSpeed: 343
   m_DefaultVelocity: {x: 0, y: -1, z: 0}
---- !u!114 &2004049136
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2004049131}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd15bc7cce8259a48a1e01fb1f206770, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2011633498
 GameObject:
   m_ObjectHideFlags: 0
