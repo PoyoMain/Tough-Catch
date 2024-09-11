@@ -7,8 +7,6 @@ using UnityEngine.Splines;
 
 public class TuggleMinigameManager : MinigameBase
 {
-    [SerializeField] private bool _useOptionValues;
-
     [Header("Laser Minigame Settings")]
     [SerializeField] private float _minSpawnTime = 5f;
     [SerializeField] private float _maxSpawnTime = 15f;
@@ -22,11 +20,8 @@ public class TuggleMinigameManager : MinigameBase
     [Header("Prefabs")]
     [SerializeField] private Trash _testPrefab;
 
-    [Header("Broadcast Events")]
+    [Header("Tuggle Broadcast Events")]
     [SerializeField] private VoidEventChannelSO _onTakeDamage;
-
-    [Header("Listen Events")]
-    [SerializeField] private VoidEventChannelSO _onTuggleSucceed;
 
     private float _leftSpawnTimer;
     private float _rightSpawnTimer;
@@ -76,7 +71,7 @@ public class TuggleMinigameManager : MinigameBase
     {
         base.OnEnable();
 
-        _onTuggleSucceed.OnEventRaised += DisableMinigame;
+        _minigameSuccess.OnEventRaised += DisableMinigame;
 
         InitializeLaserMinigame();
     }
@@ -184,7 +179,7 @@ public class TuggleMinigameManager : MinigameBase
         Controls.LaserShootLeft.performed -= ShootLeft;
         Controls.LaserShootRight.performed -= ShootRight;
 
-        _onTuggleSucceed.OnEventRaised -= DisableMinigame;
+        _minigameSuccess.OnEventRaised -= DisableMinigame;
 
         if (_leftObject != null) Destroy(_leftObject.gameObject);
         if (_rightObject != null) Destroy(_rightObject.gameObject);

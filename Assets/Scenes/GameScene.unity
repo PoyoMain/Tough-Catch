@@ -987,8 +987,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b65949610afb4f41944d0c86ca89175, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _menu: {fileID: 0}
-  _firstSelectButton: {fileID: 0}
+  _menu: {fileID: 2016822132}
+  _firstSelectButton: {fileID: 2012672851}
+  _gamePaused: {fileID: 11400000, guid: fbdc0a7fde734154ebfa725d3c9d1719, type: 2}
 --- !u!1 &735583936
 GameObject:
   m_ObjectHideFlags: 0
@@ -1302,7 +1303,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1065599345}
   m_Layer: 0
-  m_Name: Managers
+  m_Name: Minigames
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1321,7 +1322,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2004049133}
   - {fileID: 1459891850}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1869,7 +1869,7 @@ GameObject:
   - component: {fileID: 1459891852}
   - component: {fileID: 1459891853}
   m_Layer: 0
-  m_Name: TuggleManager
+  m_Name: TuggleMinigameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1902,9 +1902,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b5d14d5a3069f74e93f5990d2cfaf0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _useOptionValues: 0
   _options: {fileID: 11400000, guid: 2f50d8ebcbcf65f45994f1b2d449992d, type: 2}
   _inputReader: {fileID: 11400000, guid: 063a760d2203fda4e80723a04b0388de, type: 2}
-  _useOptionValues: 0
+  _minigameSuccess: {fileID: 11400000, guid: daefbfa40829d9643b109aa025597eb1, type: 2}
+  gamePaused: {fileID: 11400000, guid: fbdc0a7fde734154ebfa725d3c9d1719, type: 2}
   _minSpawnTime: 5
   _maxSpawnTime: 15
   _laserCooldownTime: 2
@@ -1914,7 +1916,6 @@ MonoBehaviour:
   _testPrefab: {fileID: -474052877256103520, guid: 02ac9a1e033521a4fa2d05281ba26554,
     type: 3}
   _onTakeDamage: {fileID: 11400000, guid: 28719e99e4bb5ee41aea4fb105678875, type: 2}
-  _onTuggleSucceed: {fileID: 0}
 --- !u!114 &1459891853
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2030,8 +2031,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1508741592}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.20118114, y: -0, z: -0, w: 0.9795541}
-  m_LocalPosition: {x: 0, y: 3.5, z: -18.67}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 16, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2465,18 +2466,19 @@ MonoBehaviour:
   _povCam: {fileID: 1132808095}
   _dockCam: {fileID: 848917054}
   _lakeCam: {fileID: 2121842839}
-  _pauseMenu: {fileID: 463312200}
   _options: {fileID: 11400000, guid: 2f50d8ebcbcf65f45994f1b2d449992d, type: 2}
   _inputReader: {fileID: 11400000, guid: 063a760d2203fda4e80723a04b0388de, type: 2}
-  _onScanStart: {fileID: 11400000, guid: e8748569b3b000149b3893899f92c709, type: 2}
-  _onScanSucceed: {fileID: 11400000, guid: 6f493a508b7e8914d9efccf8bad46ada, type: 2}
-  _onCastStart: {fileID: 11400000, guid: d7da8ffcd8560fd4a91e2e2564c83c2a, type: 2}
-  _onCastSucceed: {fileID: 11400000, guid: 95b483d82355c1042b25da6dc6be2b7b, type: 2}
-  _onTuggleStart: {fileID: 11400000, guid: 72a51ffdc4546b94f811a24ba2d9d591, type: 2}
-  _onTuggleSucceed: {fileID: 11400000, guid: daefbfa40829d9643b109aa025597eb1, type: 2}
-  _onReelStart: {fileID: 11400000, guid: efcca6629f6ee2449b17243cdd190aea, type: 2}
-  _onReelSucceed: {fileID: 11400000, guid: d6157594f8982f2438d732894fa43162, type: 2}
-  _onDamageTaken: {fileID: 11400000, guid: 28719e99e4bb5ee41aea4fb105678875, type: 2}
+  _gamePaused: {fileID: 11400000, guid: fbdc0a7fde734154ebfa725d3c9d1719, type: 2}
+  _gameReset: {fileID: 11400000, guid: c3a0ba408a469b84fa8345c4a1910566, type: 2}
+  _scanStart: {fileID: 11400000, guid: e8748569b3b000149b3893899f92c709, type: 2}
+  _castStart: {fileID: 11400000, guid: d7da8ffcd8560fd4a91e2e2564c83c2a, type: 2}
+  _tuggleStart: {fileID: 11400000, guid: 72a51ffdc4546b94f811a24ba2d9d591, type: 2}
+  _reelStart: {fileID: 11400000, guid: efcca6629f6ee2449b17243cdd190aea, type: 2}
+  _damageTaken: {fileID: 11400000, guid: 28719e99e4bb5ee41aea4fb105678875, type: 2}
+  _scanSucceed: {fileID: 11400000, guid: 6f493a508b7e8914d9efccf8bad46ada, type: 2}
+  _castSucceed: {fileID: 11400000, guid: 95b483d82355c1042b25da6dc6be2b7b, type: 2}
+  _tuggleSucceed: {fileID: 11400000, guid: daefbfa40829d9643b109aa025597eb1, type: 2}
+  _reelSucceed: {fileID: 11400000, guid: d6157594f8982f2438d732894fa43162, type: 2}
 --- !u!4 &2004049133
 Transform:
   m_ObjectHideFlags: 0
@@ -2490,7 +2492,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1065599345}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2004049135
 MonoBehaviour:
@@ -3308,6 +3310,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 1956792034}
   - {fileID: 1759929960}
+  - {fileID: 2004049133}
   - {fileID: 1065599345}
   - {fileID: 463312199}
   - {fileID: 294058776}

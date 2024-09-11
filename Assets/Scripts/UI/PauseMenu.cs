@@ -7,10 +7,19 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
+    [Header("Inspector Objects")]
     [SerializeField] private GameObject _menu;
     [SerializeField] private GameObject _firstSelectButton;
 
+    [Header("Listen Events")]
+    [SerializeField] private VoidEventChannelSO _gamePaused;
+
     public bool IsPaused { get; private set; }
+
+    private void OnEnable()
+    {
+        _gamePaused.OnEventRaised += Pause;
+    }
 
     public void Pause()
     {

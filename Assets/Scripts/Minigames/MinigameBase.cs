@@ -4,9 +4,17 @@ using UnityEngine;
 
 public abstract class MinigameBase : MonoBehaviour
 {
+    [SerializeField] protected bool _useOptionValues;
+
     [Header("ScriptableObjects")]
     [SerializeField] private OptionsSO _options;
     [SerializeField] private InputReaderSO _inputReader;
+
+    [Header("Base Broadcast Events")]
+    [SerializeField] protected VoidEventChannelSO _minigameSuccess;
+
+    [Header("Base Listen Events")]
+    [SerializeField] private VoidEventChannelSO gamePaused;
 
     public MinigameState Finished { get; private set; }
     protected OptionsSO Options => _options;
