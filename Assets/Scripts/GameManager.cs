@@ -46,6 +46,7 @@ public class GameManager : MonoBehaviour
     private bool IsBlendingBetweenCams => _cinemachineBrain.IsBlending;
     public OptionsSO Options => _options;
 
+     
 
     private void Awake()
     {
@@ -321,6 +322,11 @@ public class GameManager : MonoBehaviour
     }
 
     #endregion
+
+    private void OnApplicationQuit()
+    {
+        _gameReset.RaiseEvent();
+    }
 }
 
 public enum GameState

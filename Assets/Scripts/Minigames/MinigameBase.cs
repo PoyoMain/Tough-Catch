@@ -4,6 +4,7 @@ using UnityEngine;
 
 public abstract class MinigameBase : MonoBehaviour
 {
+    [Header("Base Settings")]
     [SerializeField] protected bool _useOptionValues;
 
     [Header("ScriptableObjects")]
@@ -19,6 +20,8 @@ public abstract class MinigameBase : MonoBehaviour
     public MinigameState Finished { get; private set; }
     protected OptionsSO Options => _options;
     protected PlayerControls.GameplayControlsActions Controls => _inputReader.Controls;
+
+    private bool isPaused;
 
     public virtual void OnEnable()
     {

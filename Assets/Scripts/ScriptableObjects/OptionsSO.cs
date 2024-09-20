@@ -10,6 +10,7 @@ public class OptionsSO : ScriptableObject
     [Header("General Settings")]
     [SerializeField] private Difficulty _difficulty;
     [SerializeField] private bool _guideImages;
+    [SerializeField] private bool _tutorialPopUps;
     [SerializeField] private bool _controlRumble;
     [SerializeField] private FullScreenMode _fullscreenMode;
     [SerializeField] private AudioMixer _mainAudioMixer;
