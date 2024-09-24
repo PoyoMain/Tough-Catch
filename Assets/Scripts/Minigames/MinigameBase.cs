@@ -21,7 +21,7 @@ public abstract class MinigameBase : MonoBehaviour
     protected OptionsSO Options => _options;
     protected PlayerControls.GameplayControlsActions Controls => _inputReader.Controls;
 
-    private bool isPaused;
+    protected bool isPaused;
 
     public virtual void OnEnable()
     {

@@ -1867,6 +1867,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1459891850}
   - component: {fileID: 1459891852}
+  - component: {fileID: 1459891854}
   - component: {fileID: 1459891853}
   m_Layer: 0
   m_Name: TuggleMinigameManager
@@ -1902,20 +1903,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b5d14d5a3069f74e93f5990d2cfaf0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _useOptionValues: 0
-  _options: {fileID: 11400000, guid: 2f50d8ebcbcf65f45994f1b2d449992d, type: 2}
-  _inputReader: {fileID: 11400000, guid: 063a760d2203fda4e80723a04b0388de, type: 2}
-  _minigameSuccess: {fileID: 11400000, guid: daefbfa40829d9643b109aa025597eb1, type: 2}
-  gamePaused: {fileID: 11400000, guid: fbdc0a7fde734154ebfa725d3c9d1719, type: 2}
-  _minSpawnTime: 5
-  _maxSpawnTime: 15
-  _laserCooldownTime: 2
-  _objectHitTime: 3
-  _leftSpline: {fileID: 1439240711}
-  _rightSpline: {fileID: 295008390}
-  _testPrefab: {fileID: -474052877256103520, guid: 02ac9a1e033521a4fa2d05281ba26554,
-    type: 3}
-  _onTakeDamage: {fileID: 11400000, guid: 28719e99e4bb5ee41aea4fb105678875, type: 2}
+  laserMinigameSpawnChance: 1
+  tuggleSucceedSO: {fileID: 11400000, guid: daefbfa40829d9643b109aa025597eb1, type: 2}
+  laserMinigameSucceedSO: {fileID: 11400000, guid: 7dc54b95d6dff84489b0c706f68fe7e1,
+    type: 2}
 --- !u!114 &1459891853
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1944,6 +1935,33 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+--- !u!114 &1459891854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1459891849}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54966ced8f185194fa350ef3acd7fbad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _useOptionValues: 0
+  _options: {fileID: 11400000, guid: 2f50d8ebcbcf65f45994f1b2d449992d, type: 2}
+  _inputReader: {fileID: 11400000, guid: 063a760d2203fda4e80723a04b0388de, type: 2}
+  _minigameSuccess: {fileID: 11400000, guid: 7dc54b95d6dff84489b0c706f68fe7e1, type: 2}
+  gamePaused: {fileID: 11400000, guid: fbdc0a7fde734154ebfa725d3c9d1719, type: 2}
+  _activeTime: 20
+  _minSpawnTime: 5
+  _maxSpawnTime: 15
+  _laserCooldownTime: 2
+  _objectHitTime: 3
+  _leftSpline: {fileID: 1439240711}
+  _rightSpline: {fileID: 295008390}
+  _testPrefab: {fileID: -474052877256103520, guid: 02ac9a1e033521a4fa2d05281ba26554,
+    type: 3}
+  _onTakeDamage: {fileID: 11400000, guid: 28719e99e4bb5ee41aea4fb105678875, type: 2}
 --- !u!1 &1508741592
 GameObject:
   m_ObjectHideFlags: 0
