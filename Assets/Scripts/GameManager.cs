@@ -119,17 +119,17 @@ public class GameManager : MonoBehaviour
 
     private void ActivateCastPhase()
     {
-        ChangeState(GameState.Scan);
+        ChangeState(GameState.Cast);
     }
 
     private void ActivateTugglePhase()
     {
-        ChangeState(GameState.Scan);
+        ChangeState(GameState.Tuggle);
     }
 
     private void ActivateReelPhase()
     {
-        ChangeState(GameState.Scan);
+        ChangeState(GameState.Reel);
     }
 
     private void ChangeState(GameState newState)
