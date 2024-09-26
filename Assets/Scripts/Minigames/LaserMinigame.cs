@@ -21,7 +21,7 @@ public class LaserMinigame : MinigameBase
     [SerializeField] private Trash _testPrefab;
 
     [Header("Tuggle Broadcast Events")]
-    [SerializeField] private VoidEventChannelSO _onTakeDamage;
+    [SerializeField] private VoidEventChannelSO _damagePlayer;
 
     private float _activeTimer;
     private float _leftSpawnTimer;
@@ -106,12 +106,12 @@ public class LaserMinigame : MinigameBase
 
         if (_leftObject != null && _leftObject.Hit)
         {
-            _onTakeDamage.RaiseEvent();
+            _damagePlayer.RaiseEvent();
             Destroy(_leftObject.gameObject);
         }
         if (_rightObject != null && _rightObject.Hit)
         {
-            _onTakeDamage.RaiseEvent();
+            _damagePlayer.RaiseEvent();
             Destroy(_rightObject.gameObject);
         }
 
