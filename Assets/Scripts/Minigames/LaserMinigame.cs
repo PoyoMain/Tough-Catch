@@ -20,7 +20,7 @@ public class LaserMinigame : MinigameBase
     [Header("Prefabs")]
     [SerializeField] private Trash _testPrefab;
 
-    [Header("Tuggle Broadcast Events")]
+    [Header("Broadcast Events")]
     [SerializeField] private VoidEventChannelSO _damagePlayer;
 
     private float _activeTimer;
@@ -35,7 +35,7 @@ public class LaserMinigame : MinigameBase
     {
         get
         {
-            if (_useOptionValues) return Options.TuggleMinigameOptions.minSpawnTime;
+            if (_useOptionValues) return Options.LaserMinigameOptions.minSpawnTime;
             else return _minSpawnTime;
         }
     }
@@ -43,7 +43,7 @@ public class LaserMinigame : MinigameBase
     {
         get
         {
-            if (_useOptionValues) return Options.TuggleMinigameOptions.maxSpawnTime;
+            if (_useOptionValues) return Options.LaserMinigameOptions.maxSpawnTime;
             else return _maxSpawnTime;
         }
     }
@@ -51,7 +51,7 @@ public class LaserMinigame : MinigameBase
     {
         get
         {
-            if (_useOptionValues) return Options.TuggleMinigameOptions.laserCooldownTime;
+            if (_useOptionValues) return Options.LaserMinigameOptions.laserCooldownTime;
             else return _laserCooldownTime;
         }
     }
@@ -59,14 +59,14 @@ public class LaserMinigame : MinigameBase
     {
         get
         {
-            if (_useOptionValues) return Options.TuggleMinigameOptions.objectHitTime;
+            if (_useOptionValues) return Options.LaserMinigameOptions.objectHitTime;
             else return _objectHitTime;
         }
     }
     private bool LeftLaserCanShoot => _leftCooldownTimer <= 0;
     private bool RightLaserCanShoot => _rightCooldownTimer <= 0;
 
-    public override void OnEnable()
+    protected override void OnEnable()
     {
         base.OnEnable();
 
@@ -74,8 +74,6 @@ public class LaserMinigame : MinigameBase
 
         Controls.LaserShootLeft.performed += ShootLeft;
         Controls.LaserShootRight.performed += ShootRight;
-
-        _minigameSuccess.OnEventRaised += DisableMinigame;
 
         ResetSpawnTimer(Direction.Left);
         ResetSpawnTimer(Direction.Right);
@@ -86,8 +84,6 @@ public class LaserMinigame : MinigameBase
         Controls.LaserShootLeft.performed -= ShootLeft;
         Controls.LaserShootRight.performed -= ShootRight;
 
-        _minigameSuccess.OnEventRaised -= DisableMinigame;
-
         if (_leftObject != null) Destroy(_leftObject.gameObject);
         if (_rightObject != null) Destroy(_rightObject.gameObject);
     }
@@ -96,7 +92,11 @@ public class LaserMinigame : MinigameBase
     {
         if (isPaused) return;
 
-        if (_leftObject == null && _rightObject == null && _activeTimer <= 0) _minigameSuccess.RaiseEvent();
+        if (_leftObject == null && _rightObject == null && _activeTimer <= 0)
+        {
+            _minigameSuccess.RaiseEvent();
+            this.enabled = false;
+        }
         CheckTimers();
     }
 
@@ -170,15 +170,10 @@ public class LaserMinigame : MinigameBase
         if (_rightObject != null) Destroy(_rightObject.gameObject);
         _rightCooldownTimer = LaserCooldownTime;
     }
+}
 
-    private enum Direction
-    {
-        Left,
-        Right
-    }
-
-    private void DisableMinigame()
-    {
-        this.enabled = false;
-    }
+public enum Direction
+{
+    Left,
+    Right
 }

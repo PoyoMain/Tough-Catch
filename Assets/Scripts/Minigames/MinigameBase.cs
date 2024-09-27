@@ -18,12 +18,13 @@ public abstract class MinigameBase : MonoBehaviour
     [SerializeField] private VoidEventChannelSO gamePaused;
 
     public MinigameState Finished { get; private set; }
+    public VoidEventChannelSO MinigameSuccessEvent => _minigameSuccess;
     protected OptionsSO Options => _options;
     protected PlayerControls.GameplayControlsActions Controls => _inputReader.Controls;
 
     protected bool isPaused;
 
-    public virtual void OnEnable()
+    protected virtual void OnEnable()
     {
         Finished = MinigameState.Unfinished;
     }

@@ -1,87 +1,94 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
-using System.Xml.Schema;
+using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.Splines;
 
 public class TuggleMinigameManager : MonoBehaviour
 {
-    [Header("Settings")]
-    [Range(0f, 1f)]
-    [SerializeField] private float laserMinigameSpawnChance;
+    [Header("Minigames")]
+    [SerializeField] private SpawnableMinigame[] minigames;
 
     [Header("Listen Events")]
     [SerializeField] private VoidEventChannelSO tuggleSucceedSO;
-    [SerializeField] private VoidEventChannelSO laserMinigameSucceedSO;
-
-    private LaserMinigame laserMinigame;
-
-    private bool LaserActive
-    {
-        get => laserMinigame.enabled;
-        set => laserMinigame.enabled = value;
-    }
-
-    private void Awake()
-    {
-        TryGetComponent(out laserMinigame);
-    }
 
     private void Start()
     {
         StartNewMinigame();
-        Invoke(nameof(StartNewMinigame), 5f);
+        Invoke(nameof(StartNewMinigame), 3f);
     }
 
     private void OnEnable()
     {
         tuggleSucceedSO.OnEventRaised += FinishPhase;
 
-        laserMinigameSucceedSO.OnEventRaised += LaserSucceed;
+        foreach (SpawnableMinigame minigame in minigames)
+        {
+            minigame.minigame.MinigameSuccessEvent.OnEventRaised += MinigameFinished;
+        }
     }
 
     private void OnDisable()
     {
         tuggleSucceedSO.OnEventRaised -= FinishPhase;
 
-        laserMinigameSucceedSO.OnEventRaised -= LaserSucceed;
-    }
-
-    private void LaserSucceed()
-    {
-        LaserActive = false;
-        print("Done");
-        Invoke(nameof(StartNewMinigame), 0.05f);
+        foreach (SpawnableMinigame minigame in minigames)
+        {
+            minigame.Enabled = false;
+            minigame.minigame.MinigameSuccessEvent.OnEventRaised -= MinigameFinished;
+        }
     }
 
     private void StartNewMinigame()
     {
-        List<MinigameBase> inactiveMinigames = new();
-
+        List<SpawnableMinigame> inactiveMinigames = new();
         float totalPercent = 0f;
 
-        if (!LaserActive)
+        foreach (SpawnableMinigame minigame in minigames)
         {
-            inactiveMinigames.Add(laserMinigame);
-            totalPercent += laserMinigameSpawnChance;
+            if (!minigame.Enabled)
+            {
+                inactiveMinigames.Add(minigame);
+                totalPercent += minigame.spawnChance;
+            }
         }
 
         if (inactiveMinigames.Count <= 0) return;
 
-        float chosenPercent = Random.Range(0, totalPercent);
+        float chosenPercent = UnityEngine.Random.Range(0, totalPercent);
 
-        if (chosenPercent <= laserMinigameSpawnChance)
+        foreach (SpawnableMinigame minigame in inactiveMinigames)
         {
-            LaserActive = true;
-            return;
+            if (chosenPercent <= minigame.spawnChance)
+            {
+                minigame.Enabled = true;
+                return;
+            }
+            else chosenPercent -= minigame.spawnChance;
         }
-        else chosenPercent -= laserMinigameSpawnChance;
+    }
+
+    private void MinigameFinished()
+    {
+        Invoke(nameof(StartNewMinigame), 0.05f);
     }
 
     private void FinishPhase()
     {
-        LaserActive = false;
+        this.enabled = false;
+    }
+
+    [Serializable]
+    private struct SpawnableMinigame
+    {
+        public MinigameBase minigame;
+        [Range(0f, 1f)]
+        public float spawnChance;
+
+        public readonly bool Enabled { 
+            get => minigame.enabled;
+            set => minigame.enabled = value;
+        }
+
     }
 }

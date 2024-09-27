@@ -310,13 +310,69 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   testing: 1
-  testHealth: 20
+  testHealth: 120
   stunGunDamageAmount: 30
   tugglePhaseSuccessSO: {fileID: 11400000, guid: daefbfa40829d9643b109aa025597eb1,
     type: 2}
   fishFoundSO: {fileID: 11400000, guid: 9f46a17edfb70fb43b715026eb5395d0, type: 2}
   tugglePhaseStartSO: {fileID: 11400000, guid: 72a51ffdc4546b94f811a24ba2d9d591, type: 2}
   fishTakeDamageSO: {fileID: 11400000, guid: 4f1284e2669db7348bc65b863de93e2d, type: 2}
+--- !u!1 &253810600
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 253810601}
+  - component: {fileID: 253810602}
+  m_Layer: 0
+  m_Name: FishingRodMinigame
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &253810601
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 253810600}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1459891850}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &253810602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 253810600}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b156230f10c019b4c982dc4bdc522c6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _useOptionValues: 0
+  _options: {fileID: 11400000, guid: 2f50d8ebcbcf65f45994f1b2d449992d, type: 2}
+  _inputReader: {fileID: 11400000, guid: 063a760d2203fda4e80723a04b0388de, type: 2}
+  _minigameSuccess: {fileID: 11400000, guid: fd07c957b984e6b4dac6bb49b1d275e5, type: 2}
+  gamePaused: {fileID: 11400000, guid: fbdc0a7fde734154ebfa725d3c9d1719, type: 2}
+  activeTime: 20
+  minDriftTime: 5
+  maxDriftTime: 10
+  minigameFailTime: 3
+  damagePlayerWhenFail: 1
+  fishingRodAnim: {fileID: 1553530195}
+  damagePlayerSO: {fileID: 11400000, guid: 28719e99e4bb5ee41aea4fb105678875, type: 2}
 --- !u!1 &283599861
 GameObject:
   m_ObjectHideFlags: 0
@@ -2020,7 +2076,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 180147738}
-  - {fileID: 1639896743}
+  - {fileID: 1553530194}
   - {fileID: 1439240712}
   - {fileID: 295008391}
   m_Father: {fileID: 1177675812}
@@ -2725,7 +2781,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1459891850}
   - component: {fileID: 1459891852}
-  - component: {fileID: 1459891854}
   - component: {fileID: 1459891853}
   m_Layer: 0
   m_Name: TuggleMinigameManager
@@ -2746,7 +2801,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1461839133}
+  - {fileID: 253810601}
   m_Father: {fileID: 1065599345}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1459891852
@@ -2761,10 +2818,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b5d14d5a3069f74e93f5990d2cfaf0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  laserMinigameSpawnChance: 1
+  minigames:
+  - minigame: {fileID: 1461839134}
+    spawnChance: 1
+  - minigame: {fileID: 253810602}
+    spawnChance: 1
   tuggleSucceedSO: {fileID: 11400000, guid: daefbfa40829d9643b109aa025597eb1, type: 2}
-  laserMinigameSucceedSO: {fileID: 11400000, guid: 7dc54b95d6dff84489b0c706f68fe7e1,
-    type: 2}
 --- !u!114 &1459891853
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2793,13 +2852,45 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
---- !u!114 &1459891854
+--- !u!1 &1461839132
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1461839133}
+  - component: {fileID: 1461839134}
+  m_Layer: 0
+  m_Name: LaserMinigame
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1461839133
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1461839132}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1459891850}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1461839134
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1459891849}
+  m_GameObject: {fileID: 1461839132}
   m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 54966ced8f185194fa350ef3acd7fbad, type: 3}
@@ -2811,7 +2902,7 @@ MonoBehaviour:
   _minigameSuccess: {fileID: 11400000, guid: 7dc54b95d6dff84489b0c706f68fe7e1, type: 2}
   gamePaused: {fileID: 11400000, guid: fbdc0a7fde734154ebfa725d3c9d1719, type: 2}
   _activeTime: 20
-  _minSpawnTime: 0
+  _minSpawnTime: 5
   _maxSpawnTime: 10
   _laserCooldownTime: 2
   _objectHitTime: 3
@@ -2992,6 +3083,60 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &1553530193
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1553530194}
+  - component: {fileID: 1553530195}
+  m_Layer: 0
+  m_Name: FishingRodParent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1553530194
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1553530193}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.1889919, y: -0, z: -0, w: 0.98197865}
+  m_LocalPosition: {x: 0, y: -0.657, z: 1.008}
+  m_LocalScale: {x: 0.1, y: 1, z: 0.10000003}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1639896743}
+  m_Father: {fileID: 1132808094}
+  m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
+--- !u!95 &1553530195
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1553530193}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3e9ee40445df52149a40f5fbd022c978, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1639896739
 GameObject:
   m_ObjectHideFlags: 0
@@ -3004,13 +3149,15 @@ GameObject:
   - component: {fileID: 1639896742}
   - component: {fileID: 1639896741}
   - component: {fileID: 1639896740}
+  - component: {fileID: 1639896745}
+  - component: {fileID: 1639896744}
   m_Layer: 0
   m_Name: FishingRod
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!65 &1639896740
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3039,7 +3186,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1639896739}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -3090,13 +3237,69 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1639896739}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.18899193, y: -0, z: -0, w: 0.98197865}
-  m_LocalPosition: {x: 0, y: -0.13, z: 1.05}
-  m_LocalScale: {x: 0.1, y: 1, z: 0.100000024}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1132808094}
-  m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
+  m_Father: {fileID: 1553530194}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1639896744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1639896739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b37950ec679f647a9ab698ec0275e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _channel: {fileID: 11400000, guid: daefbfa40829d9643b109aa025597eb1, type: 2}
+  OnEventRaised:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1639896741}
+        m_TargetAssemblyTypeName: UnityEngine.Renderer, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1639896745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1639896739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b37950ec679f647a9ab698ec0275e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _channel: {fileID: 11400000, guid: 72a51ffdc4546b94f811a24ba2d9d591, type: 2}
+  OnEventRaised:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1639896741}
+        m_TargetAssemblyTypeName: UnityEngine.Renderer, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!1 &1759929958
 GameObject:
   m_ObjectHideFlags: 0
