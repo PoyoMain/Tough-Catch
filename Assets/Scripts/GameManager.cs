@@ -112,25 +112,13 @@ public class GameManager : MonoBehaviour
 
     #region StateChangeMethods
 
-    private void ActivateScanPhase()
-    {
-        ChangeState(GameState.Scan);
-    }
+    private void ActivateScanPhase() => ChangeState(GameState.Scan);
 
-    private void ActivateCastPhase()
-    {
-        ChangeState(GameState.Cast);
-    }
+    private void ActivateCastPhase() => ChangeState(GameState.Cast);
 
-    private void ActivateTugglePhase()
-    {
-        ChangeState(GameState.Tuggle);
-    }
+    private void ActivateTugglePhase() => ChangeState(GameState.Tuggle);
 
-    private void ActivateReelPhase()
-    {
-        ChangeState(GameState.Reel);
-    }
+    private void ActivateReelPhase() => ChangeState(GameState.Reel);
 
     private void ChangeState(GameState newState)
     {
@@ -200,11 +188,11 @@ public class GameManager : MonoBehaviour
 
         _tuggleStart.RaiseEvent();
 
-        while (!temp) yield return null;
+        //while (!temp) yield return null;
 
-        temp = false;
-        _tuggleSucceed.RaiseEvent();
-        ChangeState(GameState.Reel);
+        //temp = false;
+        //_tuggleSucceed.RaiseEvent();
+        //ChangeState(GameState.Reel);
         yield break;
     }
 

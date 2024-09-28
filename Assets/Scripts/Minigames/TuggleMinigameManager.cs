@@ -2,15 +2,20 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 public class TuggleMinigameManager : MonoBehaviour
 {
+    [Header("Settings")]
+    [SerializeField] private float minigameGapTime;
+
     [Header("Minigames")]
     [SerializeField] private SpawnableMinigame[] minigames;
 
     [Header("Listen Events")]
     [SerializeField] private VoidEventChannelSO tuggleSucceedSO;
+
 
     private void Start()
     {
@@ -46,7 +51,7 @@ public class TuggleMinigameManager : MonoBehaviour
 
         foreach (SpawnableMinigame minigame in minigames)
         {
-            if (!minigame.Enabled)
+            if (!minigame.Enabled && minigame.spawnChance > 0)
             {
                 inactiveMinigames.Add(minigame);
                 totalPercent += minigame.spawnChance;
@@ -70,7 +75,7 @@ public class TuggleMinigameManager : MonoBehaviour
 
     private void MinigameFinished()
     {
-        Invoke(nameof(StartNewMinigame), 0.05f);
+        Invoke(nameof(StartNewMinigame), minigameGapTime);
     }
 
     private void FinishPhase()

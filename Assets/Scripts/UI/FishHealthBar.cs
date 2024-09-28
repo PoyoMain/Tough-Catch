@@ -79,5 +79,12 @@ public class FishHealthBar : MonoBehaviour
     private void TakeDamage()
     {
         _fishCurrentHealth -= stunGunDamageAmount;
+        _healthSlider.value = _fishCurrentHealth;
+
+        if (_fishCurrentHealth <= 0)
+        {
+            tugglePhaseSuccessSO.RaiseEvent();
+            this.enabled = false;
+        }
     }
 }
