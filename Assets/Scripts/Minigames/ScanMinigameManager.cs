@@ -9,7 +9,7 @@ public class ScanMinigameManager : MinigameBase
     [SerializeField] float minTime;
     [SerializeField] float maxTime;
 
-    [Header("Fish Time")]
+    [Header("Confirm Time")]
     [SerializeField] float maxFishTime;
 
     [Header("Dynamic")]
@@ -20,10 +20,15 @@ public class ScanMinigameManager : MinigameBase
     ScannerMove scanner;
     TextMeshProUGUI tmp;
 
+    [Header("Fish")]
+    [SerializeField] private FishEventChannelSO FishFoundEvent;
+    [SerializeField] List<FishSO> fishList;
+
+
 
     private void Start()
     {
-        scanner = ScannerMove.GET_SCANNER();
+        scanner = ScannerMove.GET_SCANNER(); // Must happen after Awake() is called for the ScannerMove class
         tmp = scanner.gameObject.GetComponentInChildren<TextMeshProUGUI>();
         tmp.text = "";
         SetCatchTime();
@@ -90,7 +95,18 @@ public class ScanMinigameManager : MinigameBase
 
     void Catch()
     {
-        print("Caught the fish!");
+        Debug.Log("Caught the fish!");
+
+        FishSO selected;
+
+        //Selects random fish from the serialized list
+        int index = Random.Range(0, fishList.Count);
+        selected = fishList[index];
+        
+
+        //Raises FishFoundEvent with the random fish
+        FishFoundEvent.RaiseEvent(new Fish(selected));
+        
     }
 
 
