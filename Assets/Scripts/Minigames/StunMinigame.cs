@@ -8,9 +8,11 @@ public class StunMinigame : MinigameBase
 {
     [Header("Settings")]
     [SerializeField] private int numberOfButtonsForCombo;
+    [SerializeField] private float minigameCompleteTime;
     [SerializeField] private GameObject stunPanel;
     [SerializeField] private Transform imageParent;
     [SerializeField] private Image imagePrefab;
+    [SerializeField] private Slider timeBar;
 
     [Header("Images")]
     [SerializeField] private Sprite upButtonSelected;
@@ -28,6 +30,7 @@ public class StunMinigame : MinigameBase
 
     private FaceButton[] directionCombo;
     private int comboIndex = 0;
+    private float minigameCompleteTimer;
 
     private FaceButton ActiveButton => directionCombo[comboIndex];
 
@@ -35,6 +38,8 @@ public class StunMinigame : MinigameBase
     protected override void OnEnable()
     {
         base.OnEnable();
+
+        minigameCompleteTimer = timeBar.value = timeBar.maxValue = minigameCompleteTime;
 
         SetCombo();
 
@@ -51,6 +56,20 @@ public class StunMinigame : MinigameBase
             Destroy(button.image.gameObject);
         }
         Controls.StunPanelButtons.performed -= HitButtonInCombo;
+    }
+
+    private void Update()
+    {
+        if (minigameCompleteTimer > 0)
+        {
+            timeBar.value = minigameCompleteTimer -= Time.deltaTime;
+
+            if (minigameCompleteTimer <= 0)
+            {
+                _minigameSuccess.RaiseEvent();
+                this.enabled = false;
+            }
+        }
     }
 
     private void SetCombo()
