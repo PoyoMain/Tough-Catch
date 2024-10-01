@@ -100,6 +100,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Select"",
+                    ""type"": ""Button"",
+                    ""id"": ""3ff1a36c-6fea-4c91-a770-20b47601d8c6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Pause"",
                     ""type"": ""Button"",
                     ""id"": ""529f76c0-4f35-412e-b93a-42abddcca4f1"",
@@ -615,6 +624,28 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""215e59c5-ba83-4fb0-bf52-d585a483d33c"",
+                    ""path"": ""<Gamepad>/select"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Select"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a410a869-6772-4229-8681-6151ab637306"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Select"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -654,6 +685,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_GameplayControls_StunPanelButtons = m_GameplayControls.FindAction("Stun Panel Buttons", throwIfNotFound: true);
         m_GameplayControls_Reeling = m_GameplayControls.FindAction("Reeling", throwIfNotFound: true);
         m_GameplayControls_Confirm = m_GameplayControls.FindAction("Confirm", throwIfNotFound: true);
+        m_GameplayControls_Select = m_GameplayControls.FindAction("Select", throwIfNotFound: true);
         m_GameplayControls_Pause = m_GameplayControls.FindAction("Pause", throwIfNotFound: true);
     }
 
@@ -724,6 +756,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_GameplayControls_StunPanelButtons;
     private readonly InputAction m_GameplayControls_Reeling;
     private readonly InputAction m_GameplayControls_Confirm;
+    private readonly InputAction m_GameplayControls_Select;
     private readonly InputAction m_GameplayControls_Pause;
     public struct GameplayControlsActions
     {
@@ -737,6 +770,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @StunPanelButtons => m_Wrapper.m_GameplayControls_StunPanelButtons;
         public InputAction @Reeling => m_Wrapper.m_GameplayControls_Reeling;
         public InputAction @Confirm => m_Wrapper.m_GameplayControls_Confirm;
+        public InputAction @Select => m_Wrapper.m_GameplayControls_Select;
         public InputAction @Pause => m_Wrapper.m_GameplayControls_Pause;
         public InputActionMap Get() { return m_Wrapper.m_GameplayControls; }
         public void Enable() { Get().Enable(); }
@@ -771,6 +805,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Confirm.started += instance.OnConfirm;
             @Confirm.performed += instance.OnConfirm;
             @Confirm.canceled += instance.OnConfirm;
+            @Select.started += instance.OnSelect;
+            @Select.performed += instance.OnSelect;
+            @Select.canceled += instance.OnSelect;
             @Pause.started += instance.OnPause;
             @Pause.performed += instance.OnPause;
             @Pause.canceled += instance.OnPause;
@@ -802,6 +839,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Confirm.started -= instance.OnConfirm;
             @Confirm.performed -= instance.OnConfirm;
             @Confirm.canceled -= instance.OnConfirm;
+            @Select.started -= instance.OnSelect;
+            @Select.performed -= instance.OnSelect;
+            @Select.canceled -= instance.OnSelect;
             @Pause.started -= instance.OnPause;
             @Pause.performed -= instance.OnPause;
             @Pause.canceled -= instance.OnPause;
@@ -850,6 +890,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnStunPanelButtons(InputAction.CallbackContext context);
         void OnReeling(InputAction.CallbackContext context);
         void OnConfirm(InputAction.CallbackContext context);
+        void OnSelect(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
     }
 }

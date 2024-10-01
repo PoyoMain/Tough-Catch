@@ -48,7 +48,7 @@ MonoBehaviour:
   _useOptionValues: 0
   _options: {fileID: 11400000, guid: 2f50d8ebcbcf65f45994f1b2d449992d, type: 2}
   _inputReader: {fileID: 11400000, guid: 063a760d2203fda4e80723a04b0388de, type: 2}
-  _minigameSuccess: {fileID: 11400000, guid: 76890dae9a104c1479b855046ba7c539, type: 2}
+  _minigameSuccess: {fileID: 11400000, guid: 6f493a508b7e8914d9efccf8bad46ada, type: 2}
   gamePaused: {fileID: 11400000, guid: fbdc0a7fde734154ebfa725d3c9d1719, type: 2}
   minTime: 5
   maxTime: 10

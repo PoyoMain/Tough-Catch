@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour
     private void OnEnable()
     {
         Controls.Pause.performed += PauseGame;
-        Controls.Confirm.performed += TempMethod;
+        Controls.Select.performed += TempMethod;
 
         _gameReset.OnEventRaised += DestroyGameManager;
 
@@ -81,7 +81,7 @@ public class GameManager : MonoBehaviour
         Controls.Disable();
 
         Controls.Pause.performed -= PauseGame;
-        Controls.Confirm.performed -= TempMethod;
+        Controls.Select.performed -= TempMethod;
 
         _gameReset.OnEventRaised -= DestroyGameManager;
 
@@ -157,12 +157,13 @@ public class GameManager : MonoBehaviour
         while (IsBlendingBetweenCams) yield return null;
 
         _scanStart.RaiseEvent();
+        yield return 0;
 
-        while (!temp) yield return null;
+        //while (!temp) yield return null;
 
-        temp = false;
-        _scanSucceed.RaiseEvent();
-        ChangeState(GameState.Cast);
+        //temp = false;
+        //_scanSucceed.RaiseEvent();
+        //ChangeState(GameState.Cast);
         yield break;
     }
 
@@ -172,6 +173,7 @@ public class GameManager : MonoBehaviour
         while (IsBlendingBetweenCams) yield return null;
 
         _castStart.RaiseEvent();
+        yield return 0;
 
         while (!temp) yield return null;
 

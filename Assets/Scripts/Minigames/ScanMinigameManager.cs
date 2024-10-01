@@ -63,7 +63,7 @@ public class ScanMinigameManager : MinigameBase
         SetCatchTime();
     }
 
-    public override void OnEnable()
+    protected override void OnEnable()
     {
         base.OnEnable();
 
@@ -77,12 +77,12 @@ public class ScanMinigameManager : MinigameBase
         if (input.magnitude > 0) moving = true; else moving = false;
 
         //Calculate move
-        Vector2 move = new Vector2(input.normalized.x, input.normalized.y) * speed * Time.deltaTime;
+        Vector2 move = speed * Time.deltaTime * new Vector2(input.normalized.x, input.normalized.y);
         if (paused) move = Vector2.zero; //No movement while paused
 
 
         Vector3 pos = scanner.rectTransform.position;
-        pos += new Vector3(move.x, move.y, 0);
+        pos += (Vector3)move;
 
         //Check bounds
         if (pos.x > xMax) pos.x = xMax;
@@ -120,7 +120,7 @@ public class ScanMinigameManager : MinigameBase
             if (fishTimer < 0)
             {
                 //Fish leaves
-                fishFlee();
+                FishFlee();
             }
         }
 
@@ -139,7 +139,7 @@ public class ScanMinigameManager : MinigameBase
     }
 
     //Resets the minigame after the player fails to confirm
-    void fishFlee()
+    void FishFlee()
     {
         tmp.text = "";
         SetCatchTime();
