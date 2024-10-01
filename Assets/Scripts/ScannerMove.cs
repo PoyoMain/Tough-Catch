@@ -39,6 +39,8 @@ public class ScannerMove : MonoBehaviour
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
 
+        
+
         //Update moving bool when there is input
         if (Mathf.Abs(verticalInput) > 0 || Mathf.Abs(horizontalInput) > 0)
         {

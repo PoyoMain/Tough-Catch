@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class ScanMinigameManager : MinigameBase
 {
@@ -17,27 +18,75 @@ public class ScanMinigameManager : MinigameBase
     [SerializeField] float fishTimer;
     [SerializeField] bool found;
 
-    ScannerMove scanner;
     TextMeshProUGUI tmp;
 
     [Header("Fish")]
     [SerializeField] private FishEventChannelSO FishFoundEvent;
     [SerializeField] List<FishSO> fishList;
 
+    [Header("Scanner Movement")]
+    [SerializeField] float speed;
+    [Header("Bounds")]
+    [SerializeField] float xMax;
+    [SerializeField] float xMin;
+    [SerializeField] float yMax;
+    [SerializeField] float yMin;
+
+    bool moving;
+    bool paused;
+
+    Image scanner;
+
+
 
 
     private void Start()
     {
-        scanner = ScannerMove.GET_SCANNER(); // Must happen after Awake() is called for the ScannerMove class
-        tmp = scanner.gameObject.GetComponentInChildren<TextMeshProUGUI>();
+        //Find the exclamation point
+        tmp = GetComponentInChildren<TextMeshProUGUI>();
         tmp.text = "";
+
+        //Find the scanner among other images
+        Image[] images = GetComponentsInChildren<Image>();
+
+        foreach (Image image in images)
+        {
+            if (image.transform.gameObject.CompareTag("Scanner"))
+            {
+                scanner = image;
+                print("found!");
+            }
+        }
+
+        //Set up the time
         SetCatchTime();
     }
 
     private void Update()
     {
+        //Handle Input
+        Vector2 input = Controls.MoveScanner.ReadValue<Vector2>();
+        if (input.magnitude > 0) moving = true; else moving = false;
+
+        //Calculate move
+        Vector2 move = new Vector2(input.normalized.x, input.normalized.y) * speed * Time.deltaTime;
+        if (paused) move = Vector2.zero; //No movement while paused
+
+
+        Vector3 pos = scanner.rectTransform.position;
+        pos += new Vector3(move.x, move.y, 0);
+
+        //Check bounds
+        if (pos.x > xMax) pos.x = xMax;
+        if (pos.y > yMax) pos.y = yMax;
+        if (pos.x < xMin) pos.x = xMin;
+        if (pos.y < yMin) pos.y = yMin;
+
+        scanner.rectTransform.position = pos;
+        
+
         //Run the timer while the scanner is moving and the fish is not found
-        if (!found && scanner.moving)
+        if (!found && moving)
         {
             timeUntilCatch -= Time.deltaTime;
         }
@@ -46,7 +95,7 @@ public class ScanMinigameManager : MinigameBase
         if (!found && timeUntilCatch < 0)
         {
             //Stop the movement and update the exclamation text
-            scanner.Pause();
+            Pause();
             print("times up");
             tmp.text = "!";
 
@@ -57,7 +106,7 @@ public class ScanMinigameManager : MinigameBase
         //While the fish is found 
         if (found && !(fishTimer < 0))
         {
-            if (Controls.Confirm.IsPressed() || Input.GetKeyDown(KeyCode.Space))
+            if (Controls.Confirm.IsPressed())
             {
                 //Caught the fish
                 Catch();
@@ -71,11 +120,13 @@ public class ScanMinigameManager : MinigameBase
                 fishFlee();
             }
         }
+
     }
 
     void SetCatchTime()
     {
         timeUntilCatch = Random.Range(minTime, maxTime);
+        Unpause();
     }
 
     void Find()
@@ -88,7 +139,6 @@ public class ScanMinigameManager : MinigameBase
     void fishFlee()
     {
         tmp.text = "";
-        scanner.Unpause();
         SetCatchTime();
         found = false;
     }
@@ -106,7 +156,26 @@ public class ScanMinigameManager : MinigameBase
 
         //Raises FishFoundEvent with the random fish
         FishFoundEvent.RaiseEvent(new Fish(selected));
+
+        //Succeeds at the minigame
+        _minigameSuccess.RaiseEvent();
         
+    }
+
+    /// <summary>
+    /// Pauses the movement of the scanner
+    /// </summary>
+    public void Pause()
+    {
+        paused = true;
+    }
+
+    /// <summary>
+    /// Unpauses the movement of the scanner
+    /// </summary>
+    public void Unpause()
+    {
+        paused = false;
     }
 
 
