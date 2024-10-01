@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class ScanMinigameManager : MinigameBase
 {
@@ -62,6 +63,13 @@ public class ScanMinigameManager : MinigameBase
         SetCatchTime();
     }
 
+    public override void OnEnable()
+    {
+        base.OnEnable();
+
+        Controls.Confirm.performed += Catch;
+    }
+
     private void Update()
     {
         //Handle Input
@@ -106,11 +114,6 @@ public class ScanMinigameManager : MinigameBase
         //While the fish is found 
         if (found && !(fishTimer < 0))
         {
-            if (Controls.Confirm.IsPressed())
-            {
-                //Caught the fish
-                Catch();
-            }
 
             fishTimer -= Time.deltaTime;
 
@@ -143,8 +146,12 @@ public class ScanMinigameManager : MinigameBase
         found = false;
     }
 
-    void Catch()
+    void Catch(InputAction.CallbackContext _)
     {
+        print("pressed");
+        if (!found) return;
+        if (fishTimer < 0) return; 
+
         Debug.Log("Caught the fish!");
 
         FishSO selected;
@@ -176,6 +183,11 @@ public class ScanMinigameManager : MinigameBase
     public void Unpause()
     {
         paused = false;
+    }
+
+    private void OnDestroy()
+    {
+        Controls.Confirm.performed -= Catch;
     }
 
 
