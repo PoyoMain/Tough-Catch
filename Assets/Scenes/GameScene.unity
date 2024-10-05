@@ -443,6 +443,7 @@ MonoBehaviour:
   minDriftTime: 5
   maxDriftTime: 10
   minigameFailTime: 3
+  minigameHoldTime: 2
   damagePlayerWhenFail: 1
   fishingRodAnim: {fileID: 1553530195}
   damagePlayerSO: {fileID: 11400000, guid: 28719e99e4bb5ee41aea4fb105678875, type: 2}
@@ -3828,6 +3829,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b5d14d5a3069f74e93f5990d2cfaf0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  numberOfMinigamesAtOnce: 2
+  firstMinigameSpawnTime: 5
   minigameGapTime: 5
   minigames:
   - minigame: {fileID: 1461839134}
@@ -4011,8 +4014,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1508741592}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.025968712, y: -0.7069518, z: -0.025989857, w: -0.7063068}
-  m_LocalPosition: {x: -9, y: 4, z: -15}
+  m_LocalRotation: {x: 0.20118114, y: -0, z: -0, w: 0.9795541}
+  m_LocalPosition: {x: 0, y: 3.5, z: -18.67}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

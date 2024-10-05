@@ -8,7 +8,10 @@ using UnityEngine;
 public class TuggleMinigameManager : MonoBehaviour
 {
     [Header("Settings")]
-    [SerializeField] private float minigameGapTime;
+    [Range(1, 3)]
+    [SerializeField] private int numberOfMinigamesAtOnce = 2;
+    [SerializeField] private float firstMinigameSpawnTime = 5;
+    [SerializeField] private float minigameGapTime = 5;
 
     [Header("Minigames")]
     [SerializeField] private SpawnableMinigame[] minigames;
@@ -19,8 +22,12 @@ public class TuggleMinigameManager : MonoBehaviour
 
     private void Start()
     {
-        StartNewMinigame();
-        Invoke(nameof(StartNewMinigame), 3f);
+        Invoke(nameof(StartNewMinigame), firstMinigameSpawnTime);
+
+        for (int i = 1; i < numberOfMinigamesAtOnce; i++)
+        {
+            Invoke(nameof(StartNewMinigame), (minigameGapTime * i) + firstMinigameSpawnTime);
+        }
     }
 
     private void OnEnable()

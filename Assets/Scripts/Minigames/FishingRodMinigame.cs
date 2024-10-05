@@ -10,6 +10,7 @@ public class FishingRodMinigame : MinigameBase
     [SerializeField] private float minDriftTime = 5f;
     [SerializeField] private float maxDriftTime = 15f;
     [SerializeField] private float minigameFailTime = 3f;
+    [SerializeField] private float minigameHoldTime = 2f;
     [SerializeField] private bool damagePlayerWhenFail;
 
     [Header("Fishing Rod")]
@@ -21,6 +22,7 @@ public class FishingRodMinigame : MinigameBase
     private float activeTimer;
     private float driftTimer;
     private float minigameFailTimer;
+    private float minigameHoldTimer;
     private bool isDrifting;
     private Direction driftDirection;
 
@@ -49,6 +51,8 @@ public class FishingRodMinigame : MinigameBase
         }
     }
 
+    private bool HoldingButton => minigameHoldTimer > 0;
+
 
     protected override void OnEnable()
     {
@@ -57,13 +61,28 @@ public class FishingRodMinigame : MinigameBase
         activeTimer = activeTime;
         driftTimer = Random.Range(MinDriftTime, MaxDriftTime);
 
-        Controls.FishingRodControl.performed += JoltRod;
+        //Controls.FishingRodControl.performed += JoltRod;
+        Controls.FishingRodControl.started += FishingRodControl_started;
+        Controls.FishingRodControl.canceled += FishingRodControl_canceled;
 
+    }
+
+    private void FishingRodControl_canceled(InputAction.CallbackContext obj)
+    {
+        minigameHoldTimer = -1;
+        print("Cancelled");
+    }
+
+    private void FishingRodControl_started(InputAction.CallbackContext obj)
+    {
+        minigameHoldTimer = minigameHoldTime;
     }
 
     private void OnDisable()
     {
-        Controls.FishingRodControl.performed -= JoltRod;
+        //Controls.FishingRodControl.performed -= JoltRod;
+        Controls.FishingRodControl.started -= FishingRodControl_started;
+        Controls.FishingRodControl.canceled -= FishingRodControl_canceled;
     }
 
     private void Update()
@@ -91,6 +110,18 @@ public class FishingRodMinigame : MinigameBase
             {
                 Direction dir = Random.Range(0f,1f) == 0 ? Direction.Left : Direction.Right;
                 DriftRod(dir);
+            }
+        }
+
+        if (HoldingButton)
+        {
+            minigameHoldTimer -= Time.deltaTime;
+            print("Active");
+
+            if (minigameHoldTimer <= 0)
+            {
+                print("Complete");
+                JoltRod();
             }
         }
 
@@ -138,6 +169,37 @@ public class FishingRodMinigame : MinigameBase
         {
             if (damagePlayerWhenFail) 
             { 
+                damagePlayerSO.RaiseEvent();
+                fishingRodAnim.SetTrigger("DriftStop");
+            }
+            return;
+        }
+
+        isDrifting = false;
+        minigameFailTimer = 0;
+        driftTimer = Random.Range(MinDriftTime, MaxDriftTime);
+
+        fishingRodAnim.SetTrigger("DriftStop");
+    }
+
+    private void JoltRod()
+    {
+        if (!isDrifting) return;
+
+        float playerDirection = Controls.FishingRodControl.ReadValue<float>();
+        if (driftDirection == Direction.Left && playerDirection < 0)
+        {
+            if (damagePlayerWhenFail)
+            {
+                damagePlayerSO.RaiseEvent();
+                fishingRodAnim.SetTrigger("DriftStop");
+            }
+            return;
+        }
+        else if (driftDirection == Direction.Right && playerDirection > 0)
+        {
+            if (damagePlayerWhenFail)
+            {
                 damagePlayerSO.RaiseEvent();
                 fishingRodAnim.SetTrigger("DriftStop");
             }
