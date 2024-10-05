@@ -70,7 +70,6 @@ public class FishingRodMinigame : MinigameBase
     private void FishingRodControl_canceled(InputAction.CallbackContext obj)
     {
         minigameHoldTimer = -1;
-        print("Cancelled");
     }
 
     private void FishingRodControl_started(InputAction.CallbackContext obj)
@@ -116,11 +115,9 @@ public class FishingRodMinigame : MinigameBase
         if (HoldingButton)
         {
             minigameHoldTimer -= Time.deltaTime;
-            print("Active");
 
             if (minigameHoldTimer <= 0)
             {
-                print("Complete");
                 JoltRod();
             }
         }
