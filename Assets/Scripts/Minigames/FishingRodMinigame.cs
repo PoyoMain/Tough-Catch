@@ -148,36 +148,36 @@ public class FishingRodMinigame : MinigameBase
         
     }
 
-    private void JoltRod(InputAction.CallbackContext context)
-    {
-        if (!isDrifting) return;
+    //private void JoltRod(InputAction.CallbackContext context)
+    //{
+    //    if (!isDrifting) return;
 
-        float playerDirection = context.ReadValue<float>();
-        if (driftDirection == Direction.Left && playerDirection < 0)
-        {
-            if (damagePlayerWhenFail)
-            {
-                damagePlayerSO.RaiseEvent();
-                fishingRodAnim.SetTrigger("DriftStop");
-            }
-            return;
-        }
-        else if (driftDirection == Direction.Right && playerDirection > 0)
-        {
-            if (damagePlayerWhenFail) 
-            { 
-                damagePlayerSO.RaiseEvent();
-                fishingRodAnim.SetTrigger("DriftStop");
-            }
-            return;
-        }
+    //    float playerDirection = context.ReadValue<float>();
+    //    if (driftDirection == Direction.Left && playerDirection < 0)
+    //    {
+    //        if (damagePlayerWhenFail)
+    //        {
+    //            damagePlayerSO.RaiseEvent();
+    //            fishingRodAnim.SetTrigger("DriftStop");
+    //        }
+    //        return;
+    //    }
+    //    else if (driftDirection == Direction.Right && playerDirection > 0)
+    //    {
+    //        if (damagePlayerWhenFail) 
+    //        { 
+    //            damagePlayerSO.RaiseEvent();
+    //            fishingRodAnim.SetTrigger("DriftStop");
+    //        }
+    //        return;
+    //    }
 
-        isDrifting = false;
-        minigameFailTimer = 0;
-        driftTimer = Random.Range(MinDriftTime, MaxDriftTime);
+    //    isDrifting = false;
+    //    minigameFailTimer = 0;
+    //    driftTimer = Random.Range(MinDriftTime, MaxDriftTime);
 
-        fishingRodAnim.SetTrigger("DriftStop");
-    }
+    //    fishingRodAnim.SetTrigger("DriftStop");
+    //}
 
     private void JoltRod()
     {

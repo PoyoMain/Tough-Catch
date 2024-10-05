@@ -22,6 +22,13 @@ public class LaserMinigame : MinigameBase
 
     [Header("Broadcast Events")]
     [SerializeField] private VoidEventChannelSO _damagePlayer;
+    [SerializeField] private VoidEventChannelSO _laserLeftCharge;
+    [SerializeField] private VoidEventChannelSO _laserRightCharge;
+    [SerializeField] private VoidEventChannelSO _laserLeftDecharge;
+    [SerializeField] private VoidEventChannelSO _laserRightDecharge;
+    [SerializeField] private VoidEventChannelSO _laserLeftFire;
+    [SerializeField] private VoidEventChannelSO _laserRightFire;
+
 
     private float _activeTimer;
     private float _leftSpawnTimer;
@@ -30,6 +37,10 @@ public class LaserMinigame : MinigameBase
     private float _rightCooldownTimer;
     private Trash _leftObject;
     private Trash _rightObject;
+    private bool _leftLaserFired;
+    private bool _rightLaserFired;
+    private bool _leftLaserCharging;
+    private bool _rightLaserCharging;
 
     private float MinSpawnTime
     {
@@ -72,8 +83,12 @@ public class LaserMinigame : MinigameBase
 
         _activeTimer = _activeTime;
 
+        Controls.LaserShootLeft.started += ChargeLeft;
         Controls.LaserShootLeft.performed += ShootLeft;
+        Controls.LaserShootLeft.canceled += DechargeLeft;
+        Controls.LaserShootRight.started += ChargeRight;
         Controls.LaserShootRight.performed += ShootRight;
+        Controls.LaserShootRight.canceled += DechargeRight;
 
         ResetSpawnTimer(Direction.Left);
         ResetSpawnTimer(Direction.Right);
@@ -81,8 +96,12 @@ public class LaserMinigame : MinigameBase
 
     private void OnDisable()
     {
+        Controls.LaserShootLeft.started -= ChargeLeft;
         Controls.LaserShootLeft.performed -= ShootLeft;
+        Controls.LaserShootLeft.canceled -= DechargeLeft;
+        Controls.LaserShootRight.started -= ChargeRight;
         Controls.LaserShootRight.performed -= ShootRight;
+        Controls.LaserShootRight.canceled -= DechargeRight;
 
         if (_leftObject != null) Destroy(_leftObject.gameObject);
         if (_rightObject != null) Destroy(_rightObject.gameObject);
@@ -155,21 +174,73 @@ public class LaserMinigame : MinigameBase
         }
     }
 
-    private void ShootLeft(InputAction.CallbackContext _)
+    private void ChargeLeft(InputAction.CallbackContext _)
     {
         if (!LeftLaserCanShoot) return;
 
-        if (_leftObject != null) Destroy(_leftObject.gameObject);
-        _leftCooldownTimer = LaserCooldownTime;
+        _leftLaserCharging = true;
+        _laserLeftCharge.RaiseEvent();
     }
-
-    private void ShootRight(InputAction.CallbackContext _)
+    private void ChargeRight(InputAction.CallbackContext _)
     {
         if (!RightLaserCanShoot) return;
 
-        if (_rightObject != null) Destroy(_rightObject.gameObject);
-        _rightCooldownTimer = LaserCooldownTime;
+        _rightLaserCharging = true;
+        _laserRightCharge.RaiseEvent();
     }
+
+    private void ShootLeft(InputAction.CallbackContext _)
+    {
+        if (!_leftLaserCharging) return;
+        if (!LeftLaserCanShoot) return;
+
+        _leftCooldownTimer = LaserCooldownTime;
+        _leftLaserCharging = false;
+        _leftLaserFired = true;
+        _laserLeftFire.RaiseEvent();
+
+        Invoke(nameof(DestroyLeftObject), 0.2f);
+    }    
+
+    private void ShootRight(InputAction.CallbackContext _)
+    {
+        if (!_rightLaserCharging) return;
+        if (!RightLaserCanShoot) return;
+
+        _rightCooldownTimer = LaserCooldownTime;
+        _rightLaserCharging = false;
+        _rightLaserFired = true;
+        _laserRightFire.RaiseEvent();
+
+        Invoke(nameof(DestroyRightObject), 0.2f);
+    }
+    private void DestroyLeftObject()
+    {
+        if (_leftObject != null) Destroy(_leftObject.gameObject);
+    }
+
+    private void DestroyRightObject()
+    {
+        if (_rightObject != null) Destroy(_rightObject.gameObject);
+    }
+
+    private void DechargeLeft(InputAction.CallbackContext _)
+    {
+        if (!_leftLaserCharging) return;
+
+        if (!_leftLaserFired) _laserLeftDecharge.RaiseEvent();
+        else _leftLaserFired = false;
+    }
+
+    private void DechargeRight(InputAction.CallbackContext _)
+    {
+        if (!_rightLaserCharging) return;
+
+        if (!_rightLaserFired) _laserRightDecharge.RaiseEvent();
+        else _rightLaserFired = false;
+    }
+
+    
 }
 
 public enum Direction
