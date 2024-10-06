@@ -19,13 +19,15 @@ public class ScanMinigameManager : MinigameBase
     [SerializeField] float fishTimer;
     [SerializeField] bool found;
 
-    TextMeshProUGUI tmp;
+    
 
     [Header("Fish")]
     [SerializeField] private FishEventChannelSO FishFoundEvent;
     [SerializeField] List<FishSO> fishList;
 
-    [Header("Scanner Movement")]
+    [Header("Scanner")]
+    [SerializeField] Image scanner;
+    [SerializeField] TextMeshProUGUI scannerTMP;
     [SerializeField] float speed;
     [Header("Bounds")]
     [SerializeField] float xMax;
@@ -36,7 +38,7 @@ public class ScanMinigameManager : MinigameBase
     bool moving;
     bool paused;
 
-    Image scanner;
+    
 
 
 
@@ -44,20 +46,20 @@ public class ScanMinigameManager : MinigameBase
     private void Start()
     {
         //Find the exclamation point
-        tmp = GetComponentInChildren<TextMeshProUGUI>();
-        tmp.text = "";
+        //tmp = GetComponentInChildren<TextMeshProUGUI>();
+        scannerTMP.text = "";
 
         //Find the scanner among other images
-        Image[] images = GetComponentsInChildren<Image>();
+        //Image[] images = GetComponentsInChildren<Image>();
 
-        foreach (Image image in images)
-        {
-            if (image.transform.gameObject.CompareTag("Scanner"))
-            {
-                scanner = image;
-                print("found!");
-            }
-        }
+        //foreach (Image image in images)
+        //{
+        //    if (image.transform.gameObject.CompareTag("Scanner"))
+        //    {
+        //        scanner = image;
+        //        print("found!");
+        //    }
+        //}
 
         //Set up the time
         SetCatchTime();
@@ -105,7 +107,7 @@ public class ScanMinigameManager : MinigameBase
             //Stop the movement and update the exclamation text
             Pause();
             print("times up");
-            tmp.text = "!";
+            scannerTMP.text = "!";
 
             //Player found the fish
             Find();
@@ -141,7 +143,7 @@ public class ScanMinigameManager : MinigameBase
     //Resets the minigame after the player fails to confirm
     void FishFlee()
     {
-        tmp.text = "";
+        scannerTMP.text = "";
         SetCatchTime();
         found = false;
     }
