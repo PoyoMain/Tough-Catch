@@ -53,7 +53,7 @@ public class ReelMinigame : MinigameBase
             MeterPhase++;
             do
                 buttonSprite = buttonSpriteList[Random.Range(0, buttonSpriteList.Length)];
-            while (buttonFrame == buttonSprite);
+            while (buttonFrame.sprite == buttonSprite);
             buttonFrame.sprite = buttonSprite;
         }
 
@@ -63,7 +63,7 @@ public class ReelMinigame : MinigameBase
             MeterPhase++;
             do
                 buttonSprite = buttonSpriteList[Random.Range(0, buttonSpriteList.Length)];
-            while (buttonFrame == buttonSprite);
+            while (buttonFrame.sprite == buttonSprite);
             buttonFrame.sprite = buttonSprite;
         }
         //raises success event once meter is full

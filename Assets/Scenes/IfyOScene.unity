@@ -270,7 +270,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21f2130a7aa82584fba910e99d5f3286, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _useOptionValues: 0
+  _useOptionValues: 1
   _options: {fileID: 11400000, guid: 2f50d8ebcbcf65f45994f1b2d449992d, type: 2}
   _inputReader: {fileID: 11400000, guid: 063a760d2203fda4e80723a04b0388de, type: 2}
   _minigameSuccess: {fileID: 11400000, guid: 95b483d82355c1042b25da6dc6be2b7b, type: 2}
