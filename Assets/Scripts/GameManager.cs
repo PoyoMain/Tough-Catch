@@ -76,9 +76,9 @@ public class GameManager : MonoBehaviour
         _damageTaken.OnEventRaised += TakeDamage;
 
         _scanSucceed.OnEventRaised += ActivateCastPhase;
-        //_castSucceed.OnEventRaised += ActivateTugglePhase;
+        _castSucceed.OnEventRaised += ActivateTugglePhase;
         _tuggleSucceed.OnEventRaised += ActivateReelPhase;
-        //_reelSucceed.OnEventRaised += ActivateResultsPhase;
+        _reelSucceed.OnEventRaised += ActivateResultsPhase;
     }
 
     private void OnDisable()
@@ -91,9 +91,9 @@ public class GameManager : MonoBehaviour
         _damageTaken.OnEventRaised -= TakeDamage;
 
         _scanSucceed.OnEventRaised -= ActivateCastPhase;
-        //_castSucceed.OnEventRaised -= ActivateTugglePhase;
+        _castSucceed.OnEventRaised -= ActivateTugglePhase;
         _tuggleSucceed.OnEventRaised -= ActivateReelPhase;
-        //_reelSucceed.OnEventRaised -= ActivateResultsPhase;
+        _reelSucceed.OnEventRaised -= ActivateResultsPhase;
     }
 
 
@@ -184,11 +184,11 @@ public class GameManager : MonoBehaviour
         _castStart.RaiseEvent();
         yield return 0;
 
-        while (!temp) yield return null;
+        //while (!temp) yield return null;
 
-        temp = false;
-        _castSucceed.RaiseEvent();
-        ChangeState(GameState.Tuggle);
+        //temp = false;
+        //_castSucceed.RaiseEvent();
+        //ChangeState(GameState.Tuggle);
         yield break;
     }
 
@@ -214,11 +214,11 @@ public class GameManager : MonoBehaviour
 
         _reelStart.RaiseEvent();
 
-        while (!temp) yield return null;
+        //while (!temp) yield return null;
 
-        temp = false;
-        _reelSucceed.RaiseEvent();
-        ChangeState(GameState.Results);
+        //temp = false;
+        //_reelSucceed.RaiseEvent();
+        //ChangeState(GameState.Results);
 
         yield break;
     }
