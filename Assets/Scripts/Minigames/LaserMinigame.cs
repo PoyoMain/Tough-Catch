@@ -17,8 +17,13 @@ public class LaserMinigame : MinigameBase
     [SerializeField] private SplineContainer _leftSpline;
     [SerializeField] private SplineContainer _rightSpline;
 
+    [Header("Laser Fields")]
+    [SerializeField] private Transform _leftLaser;
+    [SerializeField] private Transform _rightLaser;
+
     [Header("Prefabs")]
     [SerializeField] private Trash _testPrefab;
+    [SerializeField] private LaserBeam _laserPrefab;
 
     [Header("Broadcast Events")]
     [SerializeField] private VoidEventChannelSO _damagePlayer;
@@ -197,6 +202,14 @@ public class LaserMinigame : MinigameBase
         _leftCooldownTimer = LaserCooldownTime;
         _leftLaserCharging = false;
         _leftLaserFired = true;
+
+        Vector3 target = _leftObject != null ? _leftObject.transform.position : _leftSpline.transform.position;
+        Vector3 dir = target - _leftLaser.position;
+        Quaternion lookDir = Quaternion.LookRotation(dir);
+        LaserBeam laserBeam = Instantiate(_laserPrefab, _leftLaser.position, lookDir);
+
+        laserBeam.SetUp(target);
+
         _laserLeftFire.RaiseEvent();
 
         Invoke(nameof(DestroyLeftObject), 0.2f);
@@ -210,9 +223,18 @@ public class LaserMinigame : MinigameBase
         _rightCooldownTimer = LaserCooldownTime;
         _rightLaserCharging = false;
         _rightLaserFired = true;
+
+
+        Vector3 target = _rightObject != null ? _rightObject.transform.position : _rightSpline.transform.position;
+        Vector3 dir = target - _rightLaser.position;
+        Quaternion lookDir = Quaternion.LookRotation(dir);
+        LaserBeam laserBeam = Instantiate(_laserPrefab, _rightLaser.position, lookDir);
+
+        laserBeam.SetUp(target);
+
         _laserRightFire.RaiseEvent();
 
-        Invoke(nameof(DestroyRightObject), 0.2f);
+        Invoke(nameof(DestroyRightObject), 0.4f);
     }
     private void DestroyLeftObject()
     {

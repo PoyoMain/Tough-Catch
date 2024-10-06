@@ -5615,7 +5615,11 @@ MonoBehaviour:
   _objectHitTime: 3
   _leftSpline: {fileID: 1439240711}
   _rightSpline: {fileID: 295008390}
+  _leftLaser: {fileID: 1805710879}
+  _rightLaser: {fileID: 353925946}
   _testPrefab: {fileID: -474052877256103520, guid: 02ac9a1e033521a4fa2d05281ba26554,
+    type: 3}
+  _laserPrefab: {fileID: 3342081132567688682, guid: 321aaffb64762a04face764d746e80ad,
     type: 3}
   _damagePlayer: {fileID: 11400000, guid: 28719e99e4bb5ee41aea4fb105678875, type: 2}
   _laserLeftCharge: {fileID: 11400000, guid: 438ed97a6d6163249b2941a08cbb0a91, type: 2}
