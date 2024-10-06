@@ -88,6 +88,11 @@ public class TuggleMinigameManager : MonoBehaviour
     private void FinishPhase()
     {
         this.enabled = false;
+        foreach (SpawnableMinigame minigame in minigames)
+        {
+            minigame.Enabled = false;
+            minigame.minigame.MinigameSuccessEvent.OnEventRaised -= MinigameFinished;
+        }
     }
 
     [Serializable]

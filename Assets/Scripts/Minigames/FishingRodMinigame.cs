@@ -133,6 +133,8 @@ public class FishingRodMinigame : MinigameBase
 
             if (minigameFailTimer <= 0)
             {
+                leftArrow.gameObject.SetActive(false);
+                rightArrow.gameObject.SetActive(false);
                 damagePlayerSO.RaiseEvent();
                 isDrifting = false;
                 fishingRodAnim.SetTrigger("DriftStop");
