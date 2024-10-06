@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class FishingRodMinigame : MinigameBase
 {
@@ -15,6 +16,10 @@ public class FishingRodMinigame : MinigameBase
 
     [Header("Fishing Rod")]
     [SerializeField] private Animator fishingRodAnim;
+
+    [Header("Image Fields")]
+    [SerializeField] private Image leftArrow;
+    [SerializeField] private Image rightArrow;
 
     [Header("Broadcast Events")]
     [SerializeField] private VoidEventChannelSO damagePlayerSO;
@@ -142,8 +147,16 @@ public class FishingRodMinigame : MinigameBase
         minigameFailTimer = MinigameFailTime;
 
         driftDirection = direction;
-        if (direction == Direction.Left) fishingRodAnim.SetTrigger("DriftLeft");
-        else fishingRodAnim.SetTrigger("DriftRight");
+        if (direction == Direction.Left)
+        {
+            rightArrow.gameObject.SetActive(true);
+            fishingRodAnim.SetTrigger("DriftLeft");
+        }
+        else
+        {
+            leftArrow.gameObject.SetActive(true);
+            fishingRodAnim.SetTrigger("DriftRight");
+        }
 
         
     }
@@ -182,6 +195,9 @@ public class FishingRodMinigame : MinigameBase
     private void JoltRod()
     {
         if (!isDrifting) return;
+
+        leftArrow.gameObject.SetActive(false);
+        rightArrow.gameObject.SetActive(false);
 
         float playerDirection = Controls.FishingRodControl.ReadValue<float>();
         if (driftDirection == Direction.Left && playerDirection < 0)
