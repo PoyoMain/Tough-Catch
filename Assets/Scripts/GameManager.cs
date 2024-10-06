@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private VoidEventChannelSO _tuggleSucceed;
     [SerializeField] private VoidEventChannelSO _reelSucceed;
 
-    private bool temp = false;
+    //private bool temp = false;
     private Coroutine _controllerShakeCoroutine;
     private Coroutine _controllerFlashCoroutine;
 
@@ -69,7 +69,7 @@ public class GameManager : MonoBehaviour
     private void OnEnable()
     {
         Controls.Pause.performed += PauseGame;
-        Controls.Select.performed += TempMethod;
+        //Controls.Select.performed += TempMethod;
 
         _gameReset.OnEventRaised += DestroyGameManager;
 
@@ -84,7 +84,7 @@ public class GameManager : MonoBehaviour
     private void OnDisable()
     {
         Controls.Pause.performed -= PauseGame;
-        Controls.Select.performed -= TempMethod;
+        //Controls.Select.performed -= TempMethod;
 
         _gameReset.OnEventRaised -= DestroyGameManager;
 
@@ -111,10 +111,10 @@ public class GameManager : MonoBehaviour
         //ShakeCamera(1);
     }
 
-    void TempMethod(InputAction.CallbackContext context)
-    {
-        if (!IsBlendingBetweenCams) temp = true;
-    }
+    //void TempMethod(InputAction.CallbackContext context)
+    //{
+    //    if (!IsBlendingBetweenCams) temp = true;
+    //}
 
     #region StateChangeMethods
 
