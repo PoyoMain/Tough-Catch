@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class EnlargeCircle : MinigameBase
+public class CastMinigame : MinigameBase
 {
     public bool Win = false;
     public bool CompRing1;
@@ -157,6 +157,7 @@ public class EnlargeCircle : MinigameBase
             targetRenderer3.color = Color.green;
             MinigameDone = true;
             Win = true;
+            _minigameSuccess.RaiseEvent();
         }
 
         return;

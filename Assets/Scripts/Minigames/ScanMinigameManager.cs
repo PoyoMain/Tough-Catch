@@ -185,7 +185,7 @@ public class ScanMinigameManager : MinigameBase
         paused = false;
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         Controls.Confirm.performed -= Catch;
     }
