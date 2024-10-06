@@ -3207,8 +3207,8 @@ MonoBehaviour:
   FishFoundEvent: {fileID: 11400000, guid: 41fb3e6516e4863478cc7be26e805500, type: 2}
   fishList:
   - {fileID: 11400000, guid: f20a771d1d49b4d4098a18282cc7ea05, type: 2}
-  scanner: {fileID: 0}
-  scannerTMP: {fileID: 0}
+  scanner: {fileID: 1974319864}
+  scannerTMP: {fileID: 730253419}
   speed: 500
   xMax: 1820
   xMin: 80
