@@ -33,6 +33,7 @@ public class LaserMinigame : MinigameBase
     [SerializeField] private VoidEventChannelSO _laserRightDecharge;
     [SerializeField] private VoidEventChannelSO _laserLeftFire;
     [SerializeField] private VoidEventChannelSO _laserRightFire;
+    [SerializeField] private VoidEventChannelSO _trashDestroyed;
 
 
     private float _activeTimer;
@@ -211,6 +212,7 @@ public class LaserMinigame : MinigameBase
         laserBeam.SetUp(target);
 
         _laserLeftFire.RaiseEvent();
+        if (_leftObject != null) _trashDestroyed.RaiseEvent();
 
         Invoke(nameof(DestroyLeftObject), 0.2f);
     }    
@@ -233,17 +235,24 @@ public class LaserMinigame : MinigameBase
         laserBeam.SetUp(target);
 
         _laserRightFire.RaiseEvent();
+        if (_rightObject != null) _trashDestroyed.RaiseEvent();
 
         Invoke(nameof(DestroyRightObject), 0.4f);
     }
     private void DestroyLeftObject()
     {
-        if (_leftObject != null) Destroy(_leftObject.gameObject);
+        if (_leftObject != null)
+        {
+            Destroy(_leftObject.gameObject);
+        }
     }
 
     private void DestroyRightObject()
     {
-        if (_rightObject != null) Destroy(_rightObject.gameObject);
+        if (_rightObject != null)
+        {
+            Destroy(_rightObject.gameObject);
+        }
     }
 
     private void DechargeLeft(InputAction.CallbackContext _)
