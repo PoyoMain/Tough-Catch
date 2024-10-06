@@ -66,7 +66,7 @@ public class ReelMinigame : MinigameBase
             while (buttonFrame.sprite == buttonSprite);
             buttonFrame.sprite = buttonSprite;
         }
-        //raises success event once meter is full
+        //calls success event once the meter becomes full
         if (MeterPhase == 2 && reelMeter.value == reelMeter.maxValue)
         {
             _minigameSuccess.RaiseEvent();
