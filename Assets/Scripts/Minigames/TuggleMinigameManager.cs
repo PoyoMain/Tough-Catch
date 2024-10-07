@@ -46,8 +46,10 @@ public class TuggleMinigameManager : MonoBehaviour
 
         foreach (SpawnableMinigame minigame in minigames)
         {
-            minigame.Enabled = false;
             minigame.minigame.MinigameSuccessEvent.OnEventRaised -= MinigameFinished;
+
+            if (minigame.destroyOnTuggleEnd) Destroy(minigame.minigame.gameObject);
+            else minigame.Enabled = false;
         }
     }
 
@@ -107,5 +109,6 @@ public class TuggleMinigameManager : MonoBehaviour
             set => minigame.enabled = value;
         }
 
+        public bool destroyOnTuggleEnd;
     }
 }

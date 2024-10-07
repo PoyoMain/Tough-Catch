@@ -83,18 +83,23 @@ public class LaserMinigame : MinigameBase
     private bool LeftLaserCanShoot => _leftCooldownTimer <= 0;
     private bool RightLaserCanShoot => _rightCooldownTimer <= 0;
 
-    protected override void OnEnable()
+    private void Start()
     {
-        base.OnEnable();
-
-        _activeTimer = _activeTime;
-
         Controls.LaserShootLeft.started += ChargeLeft;
         Controls.LaserShootLeft.performed += ShootLeft;
         Controls.LaserShootLeft.canceled += DechargeLeft;
         Controls.LaserShootRight.started += ChargeRight;
         Controls.LaserShootRight.performed += ShootRight;
         Controls.LaserShootRight.canceled += DechargeRight;
+    }
+
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+
+        _activeTimer = _activeTime;
+
+        
 
         ResetSpawnTimer(Direction.Left);
         ResetSpawnTimer(Direction.Right);
@@ -102,15 +107,25 @@ public class LaserMinigame : MinigameBase
 
     private void OnDisable()
     {
+        //Controls.LaserShootLeft.started -= ChargeLeft;
+        //Controls.LaserShootLeft.performed -= ShootLeft;
+        //Controls.LaserShootLeft.canceled -= DechargeLeft;
+        //Controls.LaserShootRight.started -= ChargeRight;
+        //Controls.LaserShootRight.performed -= ShootRight;
+        //Controls.LaserShootRight.canceled -= DechargeRight;
+
+        if (_leftObject != null) Destroy(_leftObject.gameObject);
+        if (_rightObject != null) Destroy(_rightObject.gameObject);
+    }
+
+    private void OnDestroy()
+    {
         Controls.LaserShootLeft.started -= ChargeLeft;
         Controls.LaserShootLeft.performed -= ShootLeft;
         Controls.LaserShootLeft.canceled -= DechargeLeft;
         Controls.LaserShootRight.started -= ChargeRight;
         Controls.LaserShootRight.performed -= ShootRight;
         Controls.LaserShootRight.canceled -= DechargeRight;
-
-        if (_leftObject != null) Destroy(_leftObject.gameObject);
-        if (_rightObject != null) Destroy(_rightObject.gameObject);
     }
 
     private void Update()

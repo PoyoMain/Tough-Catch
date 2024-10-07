@@ -1179,7 +1179,7 @@ MonoBehaviour:
   minDriftTime: 5
   maxDriftTime: 10
   minigameFailTime: 3
-  minigameHoldTime: 2
+  minigameHoldTime: 1
   damagePlayerWhenFail: 1
   fishingRodAnim: {fileID: 1553530195}
   leftArrow: {fileID: 766161224}
@@ -7006,10 +7006,13 @@ MonoBehaviour:
   minigames:
   - minigame: {fileID: 1461839134}
     spawnChance: 1
+    destroyOnTuggleEnd: 0
   - minigame: {fileID: 253810602}
     spawnChance: 1
+    destroyOnTuggleEnd: 0
   - minigame: {fileID: 2098696214}
     spawnChance: 0.25
+    destroyOnTuggleEnd: 0
   tuggleSucceedSO: {fileID: 11400000, guid: daefbfa40829d9643b109aa025597eb1, type: 2}
 --- !u!114 &1459891853
 MonoBehaviour:
@@ -7089,8 +7092,8 @@ MonoBehaviour:
   _minigameSuccess: {fileID: 11400000, guid: 7dc54b95d6dff84489b0c706f68fe7e1, type: 2}
   gamePaused: {fileID: 11400000, guid: fbdc0a7fde734154ebfa725d3c9d1719, type: 2}
   _activeTime: 20
-  _minSpawnTime: 5
-  _maxSpawnTime: 10
+  _minSpawnTime: 3
+  _maxSpawnTime: 6
   _laserCooldownTime: 2
   _objectHitTime: 3
   _leftSpline: {fileID: 1439240711}
