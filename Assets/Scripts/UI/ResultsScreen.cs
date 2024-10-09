@@ -2,10 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class ResultsScreen : MonoBehaviour
 {
+    [Header("Settings")]
+    [SerializeField] private string mainMenuSceneName;
+    [SerializeField] private string gameSceneName;
+
     [Header("Text & Image Fields")]
     [SerializeField] private TextMeshProUGUI fishName;
     [SerializeField] private TextMeshProUGUI fishDescription;
@@ -37,4 +42,13 @@ public class ResultsScreen : MonoBehaviour
         fishWeightClass.text = fish.WeightClass.ToString();
     }
 
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(gameSceneName);
+    }
+
+    public void GoToMainMenu()
+    {
+        SceneManager.LoadScene(mainMenuSceneName);
+    }
 }

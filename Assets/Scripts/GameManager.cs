@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour
 
         VariableSetUp();
     }
-
+    
     void VariableSetUp()
     {
         if (_povCam == null) Debug.LogError("Pov Camera not set in Inspector");
