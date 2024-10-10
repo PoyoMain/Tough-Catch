@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class ReelMinigame : MinigameBase
     
@@ -21,6 +22,19 @@ public class ReelMinigame : MinigameBase
     //keeps track of how many times the button changes
     private int MeterPhase = 0;
 
+
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+
+        Controls.Reeling.performed += reelCheck;
+    }
+
+    private void OnDisable()
+    {
+        Controls.Reeling.performed -= reelCheck;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,7 +53,7 @@ public class ReelMinigame : MinigameBase
         
 
         phaseChange();
-        reelCheck();
+        //reelCheck();
 
     }
 
@@ -109,6 +123,57 @@ public class ReelMinigame : MinigameBase
             }
         }
         if (Input.GetKeyUp("right"))
+        {
+            if (buttonFrame.sprite == buttonSpriteList[3])
+            {
+                reelMeter.value += reelStrength;
+            }
+            else
+            {
+                reelMeter.value -= reelStrength;
+            }
+        }
+    }
+
+    void reelCheck(InputAction.CallbackContext value)
+    {
+        Vector2 dir = value.ReadValue<Vector2>();
+
+        //When player presses an input, a check is conducted for the right or wrong input and changes meter accordingly
+        if (dir == Vector2.up)
+        { 
+            if (buttonFrame.sprite == buttonSpriteList[0])
+            {
+                reelMeter.value += reelStrength;
+            }
+            else
+            {
+                reelMeter.value -= reelStrength;
+            }
+        }
+        if (dir == Vector2.down)
+        {
+            if (buttonFrame.sprite == buttonSpriteList[1])
+            {
+                reelMeter.value += reelStrength;
+            }
+            else
+            {
+                reelMeter.value -= reelStrength;
+            }
+        }
+        if (dir == Vector2.left)
+        {
+            if (buttonFrame.sprite == buttonSpriteList[2])
+            {
+                reelMeter.value += reelStrength;
+            }
+            else
+            {
+                reelMeter.value -= reelStrength;
+            }
+        }
+        if (dir == Vector2.right)
         {
             if (buttonFrame.sprite == buttonSpriteList[3])
             {
