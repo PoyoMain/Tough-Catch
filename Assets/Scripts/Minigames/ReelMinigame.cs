@@ -25,15 +25,15 @@ public class ReelMinigame : MinigameBase
     private int MeterPhase = 0;
 
     //enabling and disabling reeling controls
-    private void OnEnable()
-    {
+    protected override void OnEnable() 
+    { 
         base.OnEnable();
-        Controls.Reeling.performed += reelCheck;
+        Controls.Reeling.performed += ReelCheck;
     }
 
     private void OnDisable()
     {
-        Controls.Reeling.performed -= reelCheck;
+        Controls.Reeling.performed -= ReelCheck;
     }
 
     // Start is called before the first frame update
@@ -53,11 +53,11 @@ public class ReelMinigame : MinigameBase
             reelMeter.value -= meterDecay;
         }
         
-        phaseChange();
+        PhaseChange();
 
     }
 
-    void phaseChange()
+    void PhaseChange()
     {
         //button changes once meter reacher a third of the amount
         if (reelMeter.value >= .33 && MeterPhase < 1)
@@ -88,7 +88,7 @@ public class ReelMinigame : MinigameBase
     }
 
 
-    void reelCheck(InputAction.CallbackContext context)
+    void ReelCheck(InputAction.CallbackContext context)
     {
         var buttonValue = context.ReadValue<Vector2>();
         //When player presses an input, a check is conducted for the right or wrong input and changes meter accordingly
