@@ -1198,6 +1198,47 @@ PrefabInstance:
       propertyPath: m_Name
       value: ReelMeter
       objectReference: {fileID: 0}
+    - target: {fileID: 4162097686686181220, guid: b32ab5204aebdca4191c7d857db71026,
+        type: 3}
+      propertyPath: m_Type
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4162097686686181220, guid: b32ab5204aebdca4191c7d857db71026,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: eafd31a5ae92d224385ac970d417d379,
+        type: 3}
+    - target: {fileID: 4162097686686181220, guid: b32ab5204aebdca4191c7d857db71026,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4162097686686181220, guid: b32ab5204aebdca4191c7d857db71026,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4162097686686181220, guid: b32ab5204aebdca4191c7d857db71026,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4162097686686181220, guid: b32ab5204aebdca4191c7d857db71026,
+        type: 3}
+      propertyPath: m_FillAmount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4162097686686181220, guid: b32ab5204aebdca4191c7d857db71026,
+        type: 3}
+      propertyPath: m_FillMethod
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6190410116907257553, guid: b32ab5204aebdca4191c7d857db71026,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6190410116907257553, guid: b32ab5204aebdca4191c7d857db71026,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -7958,8 +7999,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1508741592}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.08715578, y: -0, z: -0, w: 0.9961947}
-  m_LocalPosition: {x: 0, y: 3.5, z: -20.699997}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -3, y: 15.999999, z: 2.2000008}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11576,7 +11617,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2026715134}
   m_Enabled: 1
-  m_Alpha: 0
+  m_Alpha: 1
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
