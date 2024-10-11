@@ -8,6 +8,10 @@ using UnityEngine.UI;
 
 public class LossScreen : MonoBehaviour
 {
+    [Header("Settings")]
+    [SerializeField] private string mainMenuSceneName;
+    [SerializeField] private string gameSceneName;
+
     [Header("Images")]
     [SerializeField] private Image fishermanImage;
 
@@ -44,12 +48,11 @@ public class LossScreen : MonoBehaviour
 
     public void ReturnToHome()
     {
-        SceneManager.LoadScene("AndresScene");
+        SceneManager.LoadScene(mainMenuSceneName);
     }
 
     public void RestartScene()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        print("The Button is working");
+        SceneManager.LoadScene(gameSceneName);
     }
 }
