@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 0b846be1b116429409a7669cacf2a62e, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18094832, g: 0.22650468, b: 0.3072494, a: 1}
+  m_IndirectSpecularColor: {r: 0.637367, g: 0.6828255, b: 0.90858686, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3438,6 +3438,12 @@ MonoBehaviour:
   fishLength: {fileID: 1810274506}
   fishWeight: {fileID: 199051997}
   fishWeightClass: {fileID: 33460896}
+  weightClassImage: {fileID: 0}
+  smallWeightSprite: {fileID: 0}
+  mediumWeightSprite: {fileID: 0}
+  largeWeightSprite: {fileID: 0}
+  giganticWeightSprite: {fileID: 0}
+  fishModelDisplay: {fileID: 0}
   fishFoundEventSO: {fileID: 11400000, guid: 41fb3e6516e4863478cc7be26e805500, type: 2}
 --- !u!225 &595228444
 CanvasGroup:
@@ -10762,7 +10768,6 @@ MonoBehaviour:
   _gamePaused: {fileID: 11400000, guid: fbdc0a7fde734154ebfa725d3c9d1719, type: 2}
   _gameReset: {fileID: 11400000, guid: c3a0ba408a469b84fa8345c4a1910566, type: 2}
   _gameWon: {fileID: 11400000, guid: 6142172caeb2a2a42ad3ff96056fd070, type: 2}
-  _gameLost: {fileID: 11400000, guid: 6505dfd0726963646a1ad579dd88079c, type: 2}
   _scanStart: {fileID: 11400000, guid: e8748569b3b000149b3893899f92c709, type: 2}
   _castStart: {fileID: 11400000, guid: d7da8ffcd8560fd4a91e2e2564c83c2a, type: 2}
   _tuggleStart: {fileID: 11400000, guid: 72a51ffdc4546b94f811a24ba2d9d591, type: 2}
@@ -10773,6 +10778,7 @@ MonoBehaviour:
   _castSucceed: {fileID: 11400000, guid: 95b483d82355c1042b25da6dc6be2b7b, type: 2}
   _tuggleSucceed: {fileID: 11400000, guid: daefbfa40829d9643b109aa025597eb1, type: 2}
   _reelSucceed: {fileID: 11400000, guid: d6157594f8982f2438d732894fa43162, type: 2}
+  _gameLost: {fileID: 11400000, guid: 6505dfd0726963646a1ad579dd88079c, type: 2}
 --- !u!4 &2004049133
 Transform:
   m_ObjectHideFlags: 0
@@ -10936,7 +10942,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!64 &2011633499
 MeshCollider:
   m_ObjectHideFlags: 0
