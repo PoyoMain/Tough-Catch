@@ -4,6 +4,9 @@ using Unity.VisualScripting;
 using UnityEditor.UI;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.LowLevel;
+using UnityEngine.TextCore.Text;
 
 public class ReelMinigame : MinigameBase
     
@@ -23,6 +26,14 @@ public class ReelMinigame : MinigameBase
     //keeps track of how many times the button changes
     private int MeterPhase = 0;
 
+    public InputAction Reeling;
+
+
+    /*private void OnDisable()
+    {
+        Controls.Reeling.performed -= reelCheck;
+    }*/
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,7 +52,6 @@ public class ReelMinigame : MinigameBase
         
 
         phaseChange();
-        reelCheck();
 
     }
 
@@ -74,10 +84,10 @@ public class ReelMinigame : MinigameBase
         }
     }
 
-    void reelCheck()
+    /*void reelCheck(InputAction.CallbackContext context)
     {
         //When player presses an input, a check is conducted for the right or wrong input and changes meter accordingly
-        if (Input.GetKeyUp("up"))
+        if ()
         {
             if (buttonFrame.sprite == buttonSpriteList[0])
             {
@@ -88,7 +98,7 @@ public class ReelMinigame : MinigameBase
                 reelMeter.value -= reelStrength;
             }
         }
-        if (Input.GetKeyUp("down"))
+        if ()
         {
             if (buttonFrame.sprite == buttonSpriteList[1])
             {
@@ -99,7 +109,7 @@ public class ReelMinigame : MinigameBase
                 reelMeter.value -= reelStrength;
             }
         }
-        if (Input.GetKeyUp("left"))
+        if ()
         {
             if (buttonFrame.sprite == buttonSpriteList[2])
             {
@@ -110,7 +120,7 @@ public class ReelMinigame : MinigameBase
                 reelMeter.value -= reelStrength;
             }
         }
-        if (Input.GetKeyUp("right"))
+        if ()
         {
             if (buttonFrame.sprite == buttonSpriteList[3])
             {
@@ -121,5 +131,5 @@ public class ReelMinigame : MinigameBase
                 reelMeter.value -= reelStrength;
             }
         }
-    }
+    }*/
 }
