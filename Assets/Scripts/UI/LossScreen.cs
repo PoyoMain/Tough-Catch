@@ -16,7 +16,7 @@ public class LossScreen : MonoBehaviour
     [SerializeField] private Image fishermanImage;
 
     [Header("ListenEvent")]
-    [SerializeField] private FishEventChannelSO GameLostEventSO;
+    [SerializeField] private VoidEventChannelSO GameLostEventSO;
 
     [Header("Fisherman Image")]
     [SerializeField] private Sprite fisherMan;
@@ -31,7 +31,7 @@ public class LossScreen : MonoBehaviour
         GameLostEventSO.OnEventRaised -= InitializeLossScreen;
     }
 
-    private void InitializeLossScreen(Fish fish)
+    private void InitializeLossScreen()
     {
         
         if (fishermanImage != null)
