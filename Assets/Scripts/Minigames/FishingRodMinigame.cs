@@ -139,6 +139,7 @@ public class FishingRodMinigame : MinigameBase
                 rightArrow.gameObject.SetActive(false);
                 damagePlayerSO.RaiseEvent();
                 isDrifting = false;
+                fishingRodStopDriftSO.RaiseEvent();
                 fishingRodAnim.SetTrigger("DriftStop");
             }
         }
