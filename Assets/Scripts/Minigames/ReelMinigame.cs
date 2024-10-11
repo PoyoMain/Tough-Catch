@@ -1,9 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.UI;
 using UnityEngine;
-using UnityEngine.UIElements;
 using UnityEngine.InputSystem;
 
 public class ReelMinigame : MinigameBase

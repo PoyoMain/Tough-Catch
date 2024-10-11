@@ -760,7 +760,18 @@
                 {
                     "name": "",
                     "id": "341a7304-6350-45ab-8983-0682ea76dc43",
-                    "path": "<Gamepad>/start",
+                    "path": "<DualShockGamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f3f505bb-4a78-437e-a6ee-2e78d97e81fb",
+                    "path": "<SwitchProControllerHID>/start",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
