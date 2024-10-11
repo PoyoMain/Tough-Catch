@@ -23,6 +23,8 @@ public class FishingRodMinigame : MinigameBase
 
     [Header("Broadcast Events")]
     [SerializeField] private VoidEventChannelSO damagePlayerSO;
+    [SerializeField] private VoidEventChannelSO fishingRodStartDriftSO;
+    [SerializeField] private VoidEventChannelSO fishingRodStopDriftSO;
 
     private float activeTimer;
     private float driftTimer;
@@ -160,7 +162,7 @@ public class FishingRodMinigame : MinigameBase
             fishingRodAnim.SetTrigger("DriftRight");
         }
 
-        
+        fishingRodStartDriftSO.RaiseEvent();
     }
 
     //private void JoltRod(InputAction.CallbackContext context)
@@ -204,20 +206,17 @@ public class FishingRodMinigame : MinigameBase
         float playerDirection = Controls.FishingRodControl.ReadValue<float>();
         if (driftDirection == Direction.Left && playerDirection < 0)
         {
-            if (damagePlayerWhenFail)
-            {
-                damagePlayerSO.RaiseEvent();
-                fishingRodAnim.SetTrigger("DriftStop");
-            }
+            if (damagePlayerWhenFail) damagePlayerSO.RaiseEvent();
+            fishingRodAnim.SetTrigger("DriftStop");
+            fishingRodStopDriftSO.RaiseEvent();
+
             return;
         }
         else if (driftDirection == Direction.Right && playerDirection > 0)
         {
-            if (damagePlayerWhenFail)
-            {
-                damagePlayerSO.RaiseEvent();
-                fishingRodAnim.SetTrigger("DriftStop");
-            }
+            if (damagePlayerWhenFail) damagePlayerSO.RaiseEvent();
+            fishingRodAnim.SetTrigger("DriftStop");
+            fishingRodStopDriftSO.RaiseEvent();
             return;
         }
 
@@ -225,6 +224,7 @@ public class FishingRodMinigame : MinigameBase
         minigameFailTimer = 0;
         driftTimer = Random.Range(MinDriftTime, MaxDriftTime);
 
+        fishingRodStopDriftSO.RaiseEvent();
         fishingRodAnim.SetTrigger("DriftStop");
     }
 }
