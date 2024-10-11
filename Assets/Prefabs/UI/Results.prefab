@@ -395,7 +395,7 @@ MonoBehaviour:
   largeWeightSprite: {fileID: 0}
   giganticWeightSprite: {fileID: 0}
   fishModelDisplay: {fileID: 0}
-  fishFoundEventSO: {fileID: 0}
+  fishFoundEventSO: {fileID: 11400000, guid: 41fb3e6516e4863478cc7be26e805500, type: 2}
 --- !u!1 &1181189492685964943
 GameObject:
   m_ObjectHideFlags: 0
