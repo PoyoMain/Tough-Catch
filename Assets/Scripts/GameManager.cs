@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.DualShock;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -26,7 +27,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private VoidEventChannelSO _gamePaused;
     [SerializeField] private VoidEventChannelSO _gameReset;
     [SerializeField] private VoidEventChannelSO _gameWon;
-    [SerializeField] private VoidEventChannelSO _gameLost;
     [Space(10)]
     [SerializeField] private VoidEventChannelSO _scanStart;
     [SerializeField] private VoidEventChannelSO _castStart;
@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private VoidEventChannelSO _castSucceed;
     [SerializeField] private VoidEventChannelSO _tuggleSucceed;
     [SerializeField] private VoidEventChannelSO _reelSucceed;
+    [SerializeField] private VoidEventChannelSO _gameLost;
 
     //private bool temp = false;
     private Coroutine _controllerShakeCoroutine;
@@ -72,6 +73,7 @@ public class GameManager : MonoBehaviour
         //Controls.Select.performed += TempMethod;
 
         _gameReset.OnEventRaised += DestroyGameManager;
+        _gameLost.OnEventRaised += GameLost;
 
         _damageTaken.OnEventRaised += TakeDamage;
 
@@ -87,6 +89,7 @@ public class GameManager : MonoBehaviour
         //Controls.Select.performed -= TempMethod;
 
         _gameReset.OnEventRaised -= DestroyGameManager;
+        _gameLost.OnEventRaised -= GameLost;
 
         _damageTaken.OnEventRaised -= TakeDamage;
 
@@ -334,6 +337,12 @@ public class GameManager : MonoBehaviour
     private void DestroyGameManager()
     {
         Destroy(this.gameObject);
+    }
+
+    private void GameLost()
+    {
+        SceneManager.LoadScene("LossScene");
+        _gameReset.RaiseEvent();
     }
 
     #endregion
