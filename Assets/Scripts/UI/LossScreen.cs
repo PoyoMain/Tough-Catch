@@ -15,7 +15,7 @@ public class LossScreen : MonoBehaviour
     [SerializeField] private FishEventChannelSO GameLostEventSO;
 
     [Header("Fisherman Image")]
-    [SerializeField] private Image fisherMan;
+    [SerializeField] private Sprite fisherMan;
 
     private void OnEnable()
     {
@@ -32,7 +32,7 @@ public class LossScreen : MonoBehaviour
         
         if (fishermanImage != null)
         {
-            fishermanImage = fisherMan;
+            fishermanImage.sprite = fisherMan;
         }
         else
         {
@@ -41,17 +41,7 @@ public class LossScreen : MonoBehaviour
         
     }
 
-    private void Start()
-    {
-        if (fishermanImage != null)
-        {
-            fishermanImage = fisherMan;
-        }
-        else
-        {
-            print("Image not found");
-        }
-    }
+
     public void ReturnToHome()
     {
         SceneManager.LoadScene("AndresScene");
