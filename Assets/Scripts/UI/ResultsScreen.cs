@@ -19,6 +19,15 @@ public class ResultsScreen : MonoBehaviour
     [SerializeField] private TextMeshProUGUI fishWeight;
     [SerializeField] private TextMeshProUGUI fishWeightClass;
 
+    [Header("Weight Class Sprites")]
+    [SerializeField] private Sprite smallWeightSprite;
+    [SerializeField] private Sprite mediumWeightSprite;
+    [SerializeField] private Sprite largeWeightSprite;
+    [SerializeField] private Sprite giganticWeightSprite;
+
+    [Header("Fish Model Display")]
+    [SerializeField] private GameObject fishModelDisplay;
+
     [Header("ListenEvent")]
     [SerializeField] private FishEventChannelSO fishFoundEventSO;
 
@@ -39,7 +48,22 @@ public class ResultsScreen : MonoBehaviour
         fishImage.sprite = fish.Image;
         fishLength.text = fish.Length.ToString() + "ft";
         fishWeight.text = fish.Weight.ToString() + "lbs";
-        fishWeightClass.text = fish.WeightClass.ToString();
+
+        UpdateWeightClass(fish.WeightClass);
+    }
+
+    private void UpdateWeightClass(FishWeightClass weightClass)
+    {
+        fishWeightClass.text = weightClass.ToString();
+
+        fishImage.sprite = weightClass switch
+        {
+            FishWeightClass.Small => smallWeightSprite,
+            FishWeightClass.Medium => mediumWeightSprite,
+            FishWeightClass.Large => largeWeightSprite,
+            FishWeightClass.Gigantic => giganticWeightSprite,
+            _ => throw new System.NotImplementedException(),
+        };
     }
 
     public void RestartGame()
