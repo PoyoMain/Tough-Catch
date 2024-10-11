@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.UI;
 using UnityEngine;
+using UnityEngine.UIElements;
 using UnityEngine.InputSystem;
 
 public class ReelMinigame : MinigameBase
@@ -22,11 +24,10 @@ public class ReelMinigame : MinigameBase
     //keeps track of how many times the button changes
     private int MeterPhase = 0;
 
-
-    protected override void OnEnable()
+    //enabling and disabling reeling controls
+    private void OnEnable()
     {
         base.OnEnable();
-
         Controls.Reeling.performed += reelCheck;
     }
 
@@ -41,6 +42,7 @@ public class ReelMinigame : MinigameBase
         //sets random sprite for button ui
         buttonSprite = buttonSpriteList[Random.Range(0, buttonSpriteList.Length)];
         buttonFrame.sprite = buttonSprite;
+
     }
 
     // Update is called once per frame
@@ -51,9 +53,7 @@ public class ReelMinigame : MinigameBase
             reelMeter.value -= meterDecay;
         }
         
-
         phaseChange();
-        //reelCheck();
 
     }
 
@@ -81,15 +81,18 @@ public class ReelMinigame : MinigameBase
         //calls success event once the meter becomes full
         if (MeterPhase == 2 && reelMeter.value == reelMeter.maxValue)
         {
+            MeterPhase++;
             _minigameSuccess.RaiseEvent();
             Debug.Log("reel game succeeded!");
         }
     }
 
-    void reelCheck()
+
+    void reelCheck(InputAction.CallbackContext context)
     {
+        var buttonValue = context.ReadValue<Vector2>();
         //When player presses an input, a check is conducted for the right or wrong input and changes meter accordingly
-        if (Input.GetKeyUp("up"))
+        if (buttonValue == Vector2.up)
         {
             if (buttonFrame.sprite == buttonSpriteList[0])
             {
@@ -100,7 +103,7 @@ public class ReelMinigame : MinigameBase
                 reelMeter.value -= reelStrength;
             }
         }
-        if (Input.GetKeyUp("down"))
+        if (buttonValue == Vector2.down)
         {
             if (buttonFrame.sprite == buttonSpriteList[1])
             {
@@ -111,7 +114,7 @@ public class ReelMinigame : MinigameBase
                 reelMeter.value -= reelStrength;
             }
         }
-        if (Input.GetKeyUp("left"))
+        if (buttonValue == Vector2.left)
         {
             if (buttonFrame.sprite == buttonSpriteList[2])
             {
@@ -122,7 +125,7 @@ public class ReelMinigame : MinigameBase
                 reelMeter.value -= reelStrength;
             }
         }
-        if (Input.GetKeyUp("right"))
+        if (buttonValue == Vector2.right)
         {
             if (buttonFrame.sprite == buttonSpriteList[3])
             {
@@ -135,54 +138,5 @@ public class ReelMinigame : MinigameBase
         }
     }
 
-    void reelCheck(InputAction.CallbackContext value)
-    {
-        Vector2 dir = value.ReadValue<Vector2>();
 
-        //When player presses an input, a check is conducted for the right or wrong input and changes meter accordingly
-        if (dir == Vector2.up)
-        { 
-            if (buttonFrame.sprite == buttonSpriteList[0])
-            {
-                reelMeter.value += reelStrength;
-            }
-            else
-            {
-                reelMeter.value -= reelStrength;
-            }
-        }
-        if (dir == Vector2.down)
-        {
-            if (buttonFrame.sprite == buttonSpriteList[1])
-            {
-                reelMeter.value += reelStrength;
-            }
-            else
-            {
-                reelMeter.value -= reelStrength;
-            }
-        }
-        if (dir == Vector2.left)
-        {
-            if (buttonFrame.sprite == buttonSpriteList[2])
-            {
-                reelMeter.value += reelStrength;
-            }
-            else
-            {
-                reelMeter.value -= reelStrength;
-            }
-        }
-        if (dir == Vector2.right)
-        {
-            if (buttonFrame.sprite == buttonSpriteList[3])
-            {
-                reelMeter.value += reelStrength;
-            }
-            else
-            {
-                reelMeter.value -= reelStrength;
-            }
-        }
-    }
 }
