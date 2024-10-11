@@ -258,6 +258,7 @@ public class LaserMinigame : MinigameBase
     {
         if (_leftObject != null)
         {
+            _leftObject.Destroy();
             Destroy(_leftObject.gameObject);
         }
     }
@@ -266,6 +267,7 @@ public class LaserMinigame : MinigameBase
     {
         if (_rightObject != null)
         {
+            _rightObject.Destroy();
             Destroy(_rightObject.gameObject);
         }
     }
