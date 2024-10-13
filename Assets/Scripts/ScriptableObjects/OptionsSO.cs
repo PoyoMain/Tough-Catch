@@ -16,31 +16,51 @@ public class OptionsSO : ScriptableObject
     [SerializeField] private AudioMixer _mainAudioMixer;
 
     [Header("Minigame Settings")]
-    [SerializeField] private TuggleOptions _easyTuggleMinigameOptions;
-    [SerializeField] private TuggleOptions _mediumTuggleMinigameOptions;
-    [SerializeField] private TuggleOptions _hardTuggleMinigameOptions;
+    [SerializeField] private LaserMinigameSettings _easyLaserMinigameOptions;
+    [SerializeField] private LaserMinigameSettings _mediumLaserMinigameOptions;
+    [SerializeField] private LaserMinigameSettings _hardLaserMinigameOptions;
+    [Space(10)]
+    [SerializeField] private FishingRodMinigameSettings _easyFishingRodMinigameOptions;
+    [SerializeField] private FishingRodMinigameSettings _mediumFishingRodMinigameOptions;
+    [SerializeField] private FishingRodMinigameSettings _hardFishingRodMinigameOptions;
 
     public Difficulty Difficulty => _difficulty;    
     public bool GuideImages => _guideImages;
     public bool ControlRumble => _controlRumble;
     public FullScreenMode FullScreenMode => _fullscreenMode;
-    public TuggleOptions TuggleMinigameOptions => Difficulty switch
+    public LaserMinigameSettings LaserMinigameOptions => Difficulty switch
     {
-        Difficulty.Easy => _easyTuggleMinigameOptions,
-        Difficulty.Medium => _mediumTuggleMinigameOptions,
-        Difficulty.Hard => _hardTuggleMinigameOptions,
-        _ => _mediumTuggleMinigameOptions
+        Difficulty.Easy => _easyLaserMinigameOptions,
+        Difficulty.Medium => _mediumLaserMinigameOptions,
+        Difficulty.Hard => _hardLaserMinigameOptions,
+        _ => _mediumLaserMinigameOptions
+    };
+
+    public FishingRodMinigameSettings FishingRodMinigameOptions => Difficulty switch
+    {
+        Difficulty.Easy => _easyFishingRodMinigameOptions,
+        Difficulty.Medium => _mediumFishingRodMinigameOptions,
+        Difficulty.Hard => _hardFishingRodMinigameOptions,
+        _ => _mediumFishingRodMinigameOptions
     };
 
     [Serializable]
-    public struct TuggleOptions
+    public struct LaserMinigameSettings
     {
-        [Header("Laser Minigame Settings")]
         public float minSpawnTime;
         public float maxSpawnTime;
         public float laserCooldownTime;
         public float objectHitTime;
     }
+
+    [Serializable]
+    public struct FishingRodMinigameSettings
+    {
+        public float minDriftTime;
+        public float maxDriftTime;
+        public float minigameFailTime;
+    }
+
 }
 
 public enum Difficulty

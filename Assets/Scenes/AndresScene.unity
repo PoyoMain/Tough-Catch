@@ -215,18 +215,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &526376962 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 948437450141449225, guid: 8fa0b271c6b043d4ea645f1c7d59f9fd,
-    type: 3}
-  m_PrefabInstance: {fileID: 6885615745692132135}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4192f40d8915c3942b8de829ae384a4b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1894228332
 GameObject:
   m_ObjectHideFlags: 0
@@ -421,81 +409,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1135744129094038008, guid: 8fa0b271c6b043d4ea645f1c7d59f9fd,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1135744129094038008, guid: 8fa0b271c6b043d4ea645f1c7d59f9fd,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1135744129094038008, guid: 8fa0b271c6b043d4ea645f1c7d59f9fd,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 526376962}
-    - target: {fileID: 1135744129094038008, guid: 8fa0b271c6b043d4ea645f1c7d59f9fd,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: LoadGameScene
-      objectReference: {fileID: 0}
-    - target: {fileID: 1135744129094038008, guid: 8fa0b271c6b043d4ea645f1c7d59f9fd,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: NewBehaviourScript, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 1135744129094038008, guid: 8fa0b271c6b043d4ea645f1c7d59f9fd,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3185741851516769760, guid: 8fa0b271c6b043d4ea645f1c7d59f9fd,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3185741851516769760, guid: 8fa0b271c6b043d4ea645f1c7d59f9fd,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3185741851516769760, guid: 8fa0b271c6b043d4ea645f1c7d59f9fd,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4512252897822137260, guid: 8fa0b271c6b043d4ea645f1c7d59f9fd,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4512252897822137260, guid: 8fa0b271c6b043d4ea645f1c7d59f9fd,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4512252897822137260, guid: 8fa0b271c6b043d4ea645f1c7d59f9fd,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 526376962}
-    - target: {fileID: 4512252897822137260, guid: 8fa0b271c6b043d4ea645f1c7d59f9fd,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ExitButton
-      objectReference: {fileID: 0}
-    - target: {fileID: 4512252897822137260, guid: 8fa0b271c6b043d4ea645f1c7d59f9fd,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: NewBehaviourScript, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 4512252897822137260, guid: 8fa0b271c6b043d4ea645f1c7d59f9fd,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5146719224603331532, guid: 8fa0b271c6b043d4ea645f1c7d59f9fd,
         type: 3}
       propertyPath: m_Pivot.x
@@ -601,32 +514,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: MainMenu_Tings
       objectReference: {fileID: 0}
-    - target: {fileID: 7578897092462684219, guid: 8fa0b271c6b043d4ea645f1c7d59f9fd,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7578897092462684219, guid: 8fa0b271c6b043d4ea645f1c7d59f9fd,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7578897092462684219, guid: 8fa0b271c6b043d4ea645f1c7d59f9fd,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8146579857323211659, guid: 8fa0b271c6b043d4ea645f1c7d59f9fd,
-        type: 3}
-      propertyPath: m_text
-      value: "Tough \n      Catch"
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 5696029842294239956, guid: 8fa0b271c6b043d4ea645f1c7d59f9fd, type: 3}
-    - {fileID: 1825098311755316287, guid: 8fa0b271c6b043d4ea645f1c7d59f9fd, type: 3}
-    - {fileID: 8662748361654690343, guid: 8fa0b271c6b043d4ea645f1c7d59f9fd, type: 3}
-    - {fileID: 8052483029337992937, guid: 8fa0b271c6b043d4ea645f1c7d59f9fd, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8fa0b271c6b043d4ea645f1c7d59f9fd, type: 3}

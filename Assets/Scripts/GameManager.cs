@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.DualShock;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -22,13 +23,16 @@ public class GameManager : MonoBehaviour
     [SerializeField] private InputReaderSO _inputReader;
 
     [Header("Broadcast Events")]
+    [SerializeField] private VoidEventChannelSO _gameStart;
     [SerializeField] private VoidEventChannelSO _gamePaused;
     [SerializeField] private VoidEventChannelSO _gameReset;
+    [SerializeField] private VoidEventChannelSO _gameWon;
     [Space(10)]
     [SerializeField] private VoidEventChannelSO _scanStart;
     [SerializeField] private VoidEventChannelSO _castStart;
     [SerializeField] private VoidEventChannelSO _tuggleStart;
     [SerializeField] private VoidEventChannelSO _reelStart;
+    [SerializeField] private VoidEventChannelSO _resultsShow;
 
     [Header("Listen Events")]
     [SerializeField] private VoidEventChannelSO _damageTaken;
@@ -36,8 +40,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private VoidEventChannelSO _castSucceed;
     [SerializeField] private VoidEventChannelSO _tuggleSucceed;
     [SerializeField] private VoidEventChannelSO _reelSucceed;
+    [SerializeField] private VoidEventChannelSO _gameLost;
 
-    private bool temp = false;
+    //private bool temp = false;
     private Coroutine _controllerShakeCoroutine;
     private Coroutine _controllerFlashCoroutine;
 
@@ -54,7 +59,7 @@ public class GameManager : MonoBehaviour
 
         VariableSetUp();
     }
-
+    
     void VariableSetUp()
     {
         if (_povCam == null) Debug.LogError("Pov Camera not set in Inspector");
@@ -65,36 +70,40 @@ public class GameManager : MonoBehaviour
     private void OnEnable()
     {
         Controls.Pause.performed += PauseGame;
-        Controls.Confirm.performed += TempMethod;
+        //Controls.Select.performed += TempMethod;
 
         _gameReset.OnEventRaised += DestroyGameManager;
+        _gameLost.OnEventRaised += GameLost;
 
         _damageTaken.OnEventRaised += TakeDamage;
 
         _scanSucceed.OnEventRaised += ActivateCastPhase;
         _castSucceed.OnEventRaised += ActivateTugglePhase;
         _tuggleSucceed.OnEventRaised += ActivateReelPhase;
+        _reelSucceed.OnEventRaised += ActivateResultsPhase;
     }
 
     private void OnDisable()
     {
-        Controls.Disable();
-
         Controls.Pause.performed -= PauseGame;
-        Controls.Confirm.performed -= TempMethod;
+        //Controls.Select.performed -= TempMethod;
 
         _gameReset.OnEventRaised -= DestroyGameManager;
+        _gameLost.OnEventRaised -= GameLost;
 
         _damageTaken.OnEventRaised -= TakeDamage;
 
         _scanSucceed.OnEventRaised -= ActivateCastPhase;
         _castSucceed.OnEventRaised -= ActivateTugglePhase;
         _tuggleSucceed.OnEventRaised -= ActivateReelPhase;
+        _reelSucceed.OnEventRaised -= ActivateResultsPhase;
     }
 
 
     void Start()
     {
+        _gameStart.RaiseEvent();
+
         ChangeState(GameState.Scan);
         InvokeRepeating(nameof(Test), 0, 2f);
     }
@@ -105,32 +114,22 @@ public class GameManager : MonoBehaviour
         //ShakeCamera(1);
     }
 
-    void TempMethod(InputAction.CallbackContext context)
-    {
-        if (!IsBlendingBetweenCams) temp = true;
-    }
+    //void TempMethod(InputAction.CallbackContext context)
+    //{
+    //    if (!IsBlendingBetweenCams) temp = true;
+    //}
 
     #region StateChangeMethods
 
-    private void ActivateScanPhase()
-    {
-        ChangeState(GameState.Scan);
-    }
+    private void ActivateScanPhase() => ChangeState(GameState.Scan);
 
-    private void ActivateCastPhase()
-    {
-        ChangeState(GameState.Scan);
-    }
+    private void ActivateCastPhase() => ChangeState(GameState.Cast);
 
-    private void ActivateTugglePhase()
-    {
-        ChangeState(GameState.Scan);
-    }
+    private void ActivateTugglePhase() => ChangeState(GameState.Tuggle);
 
-    private void ActivateReelPhase()
-    {
-        ChangeState(GameState.Scan);
-    }
+    private void ActivateReelPhase() => ChangeState(GameState.Reel);
+
+    private void ActivateResultsPhase() => ChangeState(GameState.Results);
 
     private void ChangeState(GameState newState)
     {
@@ -155,6 +154,7 @@ public class GameManager : MonoBehaviour
                 StartCoroutine(ReelCoroutine());
                 break;
             case GameState.Results:
+                StartCoroutine(ResultsCoroutine());
                 break;
         }
     }
@@ -169,12 +169,13 @@ public class GameManager : MonoBehaviour
         while (IsBlendingBetweenCams) yield return null;
 
         _scanStart.RaiseEvent();
+        yield return 0;
 
-        while (!temp) yield return null;
+        //while (!temp) yield return null;
 
-        temp = false;
-        _scanSucceed.RaiseEvent();
-        ChangeState(GameState.Cast);
+        //temp = false;
+        //_scanSucceed.RaiseEvent();
+        //ChangeState(GameState.Cast);
         yield break;
     }
 
@@ -184,12 +185,13 @@ public class GameManager : MonoBehaviour
         while (IsBlendingBetweenCams) yield return null;
 
         _castStart.RaiseEvent();
+        yield return 0;
 
-        while (!temp) yield return null;
+        //while (!temp) yield return null;
 
-        temp = false;
-        _castSucceed.RaiseEvent();
-        ChangeState(GameState.Tuggle);
+        //temp = false;
+        //_castSucceed.RaiseEvent();
+        //ChangeState(GameState.Tuggle);
         yield break;
     }
 
@@ -200,11 +202,11 @@ public class GameManager : MonoBehaviour
 
         _tuggleStart.RaiseEvent();
 
-        while (!temp) yield return null;
+        //while (!temp) yield return null;
 
-        temp = false;
-        _tuggleSucceed.RaiseEvent();
-        ChangeState(GameState.Reel);
+        //temp = false;
+        //_tuggleSucceed.RaiseEvent();
+        //ChangeState(GameState.Reel);
         yield break;
     }
 
@@ -214,6 +216,24 @@ public class GameManager : MonoBehaviour
         while (IsBlendingBetweenCams) yield return null;
 
         _reelStart.RaiseEvent();
+
+        //while (!temp) yield return null;
+
+        //temp = false;
+        //_reelSucceed.RaiseEvent();
+        //ChangeState(GameState.Results);
+
+        yield break;
+    }
+
+    private IEnumerator ResultsCoroutine()
+    {
+        //ActivateCamera(_dockCam);
+        //while (IsBlendingBetweenCams) yield return null;
+
+        yield return new WaitForSeconds(2);
+
+        _resultsShow.RaiseEvent();
 
         yield break;
     }
@@ -319,6 +339,12 @@ public class GameManager : MonoBehaviour
     private void DestroyGameManager()
     {
         Destroy(this.gameObject);
+    }
+
+    private void GameLost()
+    {
+        SceneManager.LoadScene("LossScene");
+        _gameReset.RaiseEvent();
     }
 
     #endregion
