@@ -285,6 +285,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: a59c912af494ee1499f9eaa9250c21ac, type: 3}
   reelStrength: 0.03
   meterDecay: 0.0003
+  shakeValue: 0
 --- !u!4 &653707200
 Transform:
   m_ObjectHideFlags: 0
@@ -1065,7 +1066,7 @@ PrefabInstance:
     - target: {fileID: 6621676240474434586, guid: c62fa404b3ad6464ba88e35d849e05dc,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 74.3
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 6621676240474434586, guid: c62fa404b3ad6464ba88e35d849e05dc,
         type: 3}
