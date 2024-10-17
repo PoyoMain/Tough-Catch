@@ -33,6 +33,8 @@ public class ScanMinigameManager : MinigameBase
     [SerializeField] float yMax;
     [SerializeField] float yMin;
 
+    [SerializeField] Animator animator;
+
     bool moving;
     bool paused;
 
@@ -154,19 +156,25 @@ public class ScanMinigameManager : MinigameBase
 
         Debug.Log("Caught the fish!");
 
+        animator.SetTrigger("successTrigger");
+
+        Invoke(nameof(Success), 2f);
+        
+    }
+
+    void Success()
+    {
         FishSO selected;
 
         //Selects random fish from the serialized list
         int index = Random.Range(0, fishList.Count);
         selected = fishList[index];
-        
 
         //Raises FishFoundEvent with the random fish
         FishFoundEvent.RaiseEvent(new Fish(selected));
 
         //Succeeds at the minigame
         _minigameSuccess.RaiseEvent();
-        
     }
 
     /// <summary>
