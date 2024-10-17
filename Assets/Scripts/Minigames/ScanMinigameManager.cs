@@ -19,50 +19,36 @@ public class ScanMinigameManager : MinigameBase
     [SerializeField] float fishTimer;
     [SerializeField] bool found;
 
-    TextMeshProUGUI tmp;
-
     [Header("Fish")]
     [SerializeField] private FishEventChannelSO FishFoundEvent;
     [SerializeField] List<FishSO> fishList;
 
     [Header("Scanner Movement")]
     [SerializeField] float speed;
+
     [Header("Bounds")]
     [SerializeField] float xMax;
     [SerializeField] float xMin;
     [SerializeField] float yMax;
     [SerializeField] float yMin;
 
+    [Header("Elements")]
     [SerializeField] Animator animator;
+    [SerializeField] Image scanner;
+    [SerializeField] TextMeshProUGUI scannerTMP;
 
     bool moving;
     bool paused;
-
-    Image scanner;
-
-
-
+    bool caught;
 
     private void Start()
     {
-        //Find the exclamation point
-        tmp = GetComponentInChildren<TextMeshProUGUI>();
-        tmp.text = "";
-
-        //Find the scanner among other images
-        Image[] images = GetComponentsInChildren<Image>();
-
-        foreach (Image image in images)
-        {
-            if (image.transform.gameObject.CompareTag("Scanner"))
-            {
-                scanner = image;
-                print("found!");
-            }
-        }
+        Pause();
 
         //Set up the time
-        SetCatchTime();
+        StartCoroutine(nameof(InitCatchTime));
+
+        caught = false;
     }
 
     public override void OnEnable()
@@ -106,8 +92,10 @@ public class ScanMinigameManager : MinigameBase
         {
             //Stop the movement and update the exclamation text
             Pause();
-            print("times up");
-            tmp.text = "!";
+
+            //print("times up");
+
+            scannerTMP.text = "!";
 
             //Player found the fish
             Find();
@@ -119,13 +107,24 @@ public class ScanMinigameManager : MinigameBase
 
             fishTimer -= Time.deltaTime;
 
-            if (fishTimer < 0)
+            if (fishTimer <= 0)
             {
+                //print("fleeing");
+
                 //Fish leaves
                 fishFlee();
             }
         }
 
+    }
+
+    IEnumerator InitCatchTime()
+    {
+        animator.SetTrigger("scanTrigger");
+
+        yield return new WaitForSeconds(2f); // Wait for scan to go away and game to start
+
+        SetCatchTime();
     }
 
     void SetCatchTime()
@@ -143,18 +142,22 @@ public class ScanMinigameManager : MinigameBase
     //Resets the minigame after the player fails to confirm
     void fishFlee()
     {
-        tmp.text = "";
+        scannerTMP.text = "";
         SetCatchTime();
         found = false;
     }
 
     void Catch(InputAction.CallbackContext _)
     {
-        print("pressed");
+        //print("pressed");
+
         if (!found) return;
+        if (caught) return;
         if (fishTimer < 0) return; 
 
-        Debug.Log("Caught the fish!");
+        caught = true;
+
+        //Debug.Log("Caught the fish!");
 
         animator.SetTrigger("successTrigger");
 
