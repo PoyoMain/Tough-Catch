@@ -18,8 +18,6 @@ public class FishingRodMinigame : MinigameBase
     [SerializeField] private Animator fishingRodAnim;
 
     [Header("UI")]
-    [SerializeField] private Image leftArrow;
-    [SerializeField] private Image rightArrow;
     [SerializeField] private Slider leftArrowPromptSlider;
     [SerializeField] private Slider rightArrowPromptSlider;
     [SerializeField] private Animator leftArrowPromptAnim;
@@ -130,7 +128,7 @@ public class FishingRodMinigame : MinigameBase
 
             if (driftTimer <= 0)
             {
-                Direction dir = Random.Range(0f,1f) == 0 ? Direction.Left : Direction.Right;
+                Direction dir = Random.Range(0,2) == 0 ? Direction.Left : Direction.Right;
                 DriftRod(dir);
             }
         }
