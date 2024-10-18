@@ -19,50 +19,36 @@ public class ScanMinigameManager : MinigameBase
     [SerializeField] float fishTimer;
     [SerializeField] bool found;
 
-    
-
     [Header("Fish")]
     [SerializeField] private FishEventChannelSO FishFoundEvent;
     [SerializeField] List<FishSO> fishList;
 
-    [Header("Scanner")]
-    [SerializeField] Image scanner;
-    [SerializeField] TextMeshProUGUI scannerTMP;
+    [Header("Scanner Movement")]
     [SerializeField] float speed;
+
     [Header("Bounds")]
     [SerializeField] float xMax;
     [SerializeField] float xMin;
     [SerializeField] float yMax;
     [SerializeField] float yMin;
 
+    [Header("Elements")]
+    [SerializeField] Animator animator;
+    [SerializeField] Image scanner;
+    [SerializeField] TextMeshProUGUI scannerTMP;
+
     bool moving;
     bool paused;
-
-    
-
-
-
+    bool caught;
 
     private void Start()
     {
-        //Find the exclamation point
-        //tmp = GetComponentInChildren<TextMeshProUGUI>();
-        scannerTMP.text = "";
-
-        //Find the scanner among other images
-        //Image[] images = GetComponentsInChildren<Image>();
-
-        //foreach (Image image in images)
-        //{
-        //    if (image.transform.gameObject.CompareTag("Scanner"))
-        //    {
-        //        scanner = image;
-        //        print("found!");
-        //    }
-        //}
+        Pause();
 
         //Set up the time
-        SetCatchTime();
+        StartCoroutine(nameof(InitCatchTime));
+
+        caught = false;
     }
 
     protected override void OnEnable()
@@ -79,12 +65,12 @@ public class ScanMinigameManager : MinigameBase
         if (input.magnitude > 0) moving = true; else moving = false;
 
         //Calculate move
-        Vector2 move = speed * Time.deltaTime * new Vector2(input.normalized.x, input.normalized.y);
+        Vector2 move = new Vector2(input.normalized.x, input.normalized.y) * speed * Time.deltaTime;
         if (paused) move = Vector2.zero; //No movement while paused
 
 
         Vector3 pos = scanner.rectTransform.position;
-        pos += (Vector3)move;
+        pos += new Vector3(move.x, move.y, 0);
 
         //Check bounds
         if (pos.x > xMax) pos.x = xMax;
@@ -93,7 +79,7 @@ public class ScanMinigameManager : MinigameBase
         if (pos.y < yMin) pos.y = yMin;
 
         scanner.rectTransform.position = pos;
-        
+
 
         //Run the timer while the scanner is moving and the fish is not found
         if (!found && moving)
@@ -106,7 +92,9 @@ public class ScanMinigameManager : MinigameBase
         {
             //Stop the movement and update the exclamation text
             Pause();
-            print("times up");
+
+            //print("times up");
+
             scannerTMP.text = "!";
 
             //Player found the fish
@@ -119,13 +107,24 @@ public class ScanMinigameManager : MinigameBase
 
             fishTimer -= Time.deltaTime;
 
-            if (fishTimer < 0)
+            if (fishTimer <= 0)
             {
+                //print("fleeing");
+
                 //Fish leaves
-                FishFlee();
+                fishFlee();
             }
         }
 
+    }
+
+    IEnumerator InitCatchTime()
+    {
+        animator.SetTrigger("scanTrigger");
+
+        yield return new WaitForSeconds(2f); // Wait for scan to go away and game to start
+
+        SetCatchTime();
     }
 
     void SetCatchTime()
@@ -141,7 +140,7 @@ public class ScanMinigameManager : MinigameBase
     }
 
     //Resets the minigame after the player fails to confirm
-    void FishFlee()
+    void fishFlee()
     {
         scannerTMP.text = "";
         SetCatchTime();
@@ -150,25 +149,35 @@ public class ScanMinigameManager : MinigameBase
 
     void Catch(InputAction.CallbackContext _)
     {
-        print("pressed");
+        //print("pressed");
+
         if (!found) return;
-        if (fishTimer < 0) return; 
+        if (caught) return;
+        if (fishTimer < 0) return;
 
-        Debug.Log("Caught the fish!");
+        caught = true;
 
+        //Debug.Log("Caught the fish!");
+
+        animator.SetTrigger("successTrigger");
+
+        Invoke(nameof(Success), 2f);
+
+    }
+
+    void Success()
+    {
         FishSO selected;
 
         //Selects random fish from the serialized list
         int index = Random.Range(0, fishList.Count);
         selected = fishList[index];
-        
 
         //Raises FishFoundEvent with the random fish
         FishFoundEvent.RaiseEvent(new Fish(selected));
 
         //Succeeds at the minigame
         _minigameSuccess.RaiseEvent();
-        
     }
 
     /// <summary>
@@ -187,7 +196,7 @@ public class ScanMinigameManager : MinigameBase
         paused = false;
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         Controls.Confirm.performed -= Catch;
     }
