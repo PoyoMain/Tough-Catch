@@ -409,6 +409,12 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2287451935166044265, guid: fca686759f943734caf1be43471806e9,
+        type: 3}
+      propertyPath: fisherMan
+      value: 
+      objectReference: {fileID: 21300000, guid: 124f18a9704db764ca88d846eb03064c,
+        type: 3}
     - target: {fileID: 6637173254057683042, guid: fca686759f943734caf1be43471806e9,
         type: 3}
       propertyPath: m_Name
