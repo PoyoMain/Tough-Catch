@@ -111,8 +111,6 @@ public class LaserMinigame : MinigameBase
 
         _activeTimer = _activeTime;
 
-        
-
         ResetSpawnTimer(Direction.Left);
         ResetSpawnTimer(Direction.Right);
     }
@@ -130,18 +128,18 @@ public class LaserMinigame : MinigameBase
         if (_rightObject != null) Destroy(_rightObject.gameObject);
     }
 
-    private void OnDestroy()
-    {
-        //Controls.LaserShootLeft.started -= ChargeLeft;
-        //Controls.LaserShootLeft.performed -= ShootLeft;
-        //Controls.LaserShootLeft.canceled -= DechargeLeft;
-        //Controls.LaserShootLeft.performed -= DechargeLeft;
+    //private void OnDestroy()
+    //{
+    //    //Controls.LaserShootLeft.started -= ChargeLeft;
+    //    //Controls.LaserShootLeft.performed -= ShootLeft;
+    //    //Controls.LaserShootLeft.canceled -= DechargeLeft;
+    //    //Controls.LaserShootLeft.performed -= DechargeLeft;
 
-        //Controls.LaserShootRight.started -= ChargeRight;
-        //Controls.LaserShootRight.performed -= ShootRight;
-        //Controls.LaserShootRight.canceled -= DechargeRight;
-        //Controls.LaserShootRight.performed -= DechargeRight;
-    }
+    //    //Controls.LaserShootRight.started -= ChargeRight;
+    //    //Controls.LaserShootRight.performed -= ShootRight;
+    //    //Controls.LaserShootRight.canceled -= DechargeRight;
+    //    //Controls.LaserShootRight.performed -= DechargeRight;
+    //}
 
     private void Update()
     {
