@@ -6,6 +6,8 @@ using UnityEngine.Splines;
 [RequireComponent(typeof(SplineAnimate))]
 public class Trash : MonoBehaviour
 {
+    [SerializeField] private GameObject explosionPrefab;
+
     private SplineAnimate _sAnim;
 
     public SplineContainer Spline
@@ -24,5 +26,10 @@ public class Trash : MonoBehaviour
     private void Awake()
     {
         _sAnim = GetComponent<SplineAnimate>();
+    }
+
+    public void Destroy()
+    {
+        Instantiate(explosionPrefab, transform.position, Quaternion.identity);
     }
 }

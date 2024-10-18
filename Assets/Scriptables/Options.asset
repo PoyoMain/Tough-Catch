@@ -14,21 +14,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _difficulty: 1
   _guideImages: 0
+  _tutorialPopUps: 0
   _controlRumble: 0
   _fullscreenMode: 0
   _mainAudioMixer: {fileID: 24100000, guid: 131f9b7c3e418bf4f8e5713434c21b39, type: 2}
-  _easyTuggleMinigameOptions:
-    minSpawnTime: 6
-    maxSpawnTime: 20
-    laserCooldownTime: 2
-    objectHitTime: 4
-  _mediumTuggleMinigameOptions:
-    minSpawnTime: 5
-    maxSpawnTime: 15
-    laserCooldownTime: 2
-    objectHitTime: 3
-  _hardTuggleMinigameOptions:
-    minSpawnTime: 4
-    maxSpawnTime: 10
-    laserCooldownTime: 4
-    objectHitTime: 1.5
+  _easyLaserMinigameOptions:
+    minSpawnTime: 0
+    maxSpawnTime: 0
+    laserCooldownTime: 0
+    objectHitTime: 0
+  _mediumLaserMinigameOptions:
+    minSpawnTime: 0
+    maxSpawnTime: 0
+    laserCooldownTime: 0
+    objectHitTime: 0
+  _hardLaserMinigameOptions:
+    minSpawnTime: 0
+    maxSpawnTime: 0
+    laserCooldownTime: 0
+    objectHitTime: 0
+  _easyFishingRodMinigameOptions:
+    minDriftTime: 8
+    maxDriftTime: 10
+    minigameFailTime: 5
+  _mediumFishingRodMinigameOptions:
+    minDriftTime: 5
+    maxDriftTime: 10
+    minigameFailTime: 3
+  _hardFishingRodMinigameOptions:
+    minDriftTime: 4
+    maxDriftTime: 7
+    minigameFailTime: 2
