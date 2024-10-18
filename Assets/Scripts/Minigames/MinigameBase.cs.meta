@@ -3,11 +3,7 @@ guid: 27532fe05dd61284db5180fb36d50a72
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences:
-  - _options: {instanceID: 0}
-  - _inputReader: {fileID: 11400000, guid: 063a760d2203fda4e80723a04b0388de, type: 2}
-  - _minigameSuccess: {instanceID: 0}
-  - gamePaused: {fileID: 11400000, guid: fbdc0a7fde734154ebfa725d3c9d1719, type: 2}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

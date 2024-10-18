@@ -7,9 +7,6 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
-    [Header("Settings")]
-    [SerializeField] private string mainMenuSceneName;
-
     [Header("Inspector Objects")]
     [SerializeField] private GameObject _menu;
     [SerializeField] private GameObject _firstSelectButton;
@@ -42,9 +39,6 @@ public class PauseMenu : MonoBehaviour
 
     public void Quit()
     {
-        IsPaused = false;
-        _menu.SetActive(IsPaused);
-        Time.timeScale = 1;
-        SceneManager.LoadScene(mainMenuSceneName);
+        //SceneManager.LoadScene(1);
     }
 }
