@@ -1706,8 +1706,6 @@ MonoBehaviour:
   minigameHoldTime: 1
   damagePlayerWhenFail: 1
   fishingRodAnim: {fileID: 1553530195}
-  leftArrow: {fileID: 766161224}
-  rightArrow: {fileID: 2037057846}
   leftArrowPromptSlider: {fileID: 1771248108}
   rightArrowPromptSlider: {fileID: 455069431}
   leftArrowPromptAnim: {fileID: 1771248107}
