@@ -1,18 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations;
 using UnityEngine.InputSystem;
 
 public class ReelMinigame : MinigameBase
     
 {
     //grabs the image and slider UI elements for button to press, reel/success texts, and the reel meter
-    public UnityEngine.UI.Image buttonFrame, reelText, successText;
+    public UnityEngine.UI.Image buttonFrame;
     public UnityEngine.UI.Slider reelMeter;
+    public Animator reelAnim, successAnim;
     private Vector3 buttonPosition, shakePosition;
 
     //holds image sprites for which button to mash
-    //***SET ORDER OF SPRITES IN UP, DOWN LEFT, RIGHT FOR PROPER FUNCTION***
+    //***SET ORDER OF SPRITES IN UP, DOWN, LEFT, RIGHT IN EDITOR FOR PROPER FUNCTION***
     public Sprite[] buttonSpriteList = new Sprite[4];
     private Sprite buttonSprite;
 
@@ -24,11 +26,11 @@ public class ReelMinigame : MinigameBase
     private float shakeSpeed = 30.0f;
     private int shakeActive = 0;
 
-    //keeps track of how many times the button changes
+    //keeps track of minigame events
     private int MeterPhase = -1;
 
-    //prevents coroutine from being called more than once at a time
-    private bool couroutineSwitch = false;
+    //prevents animations from being called more than once at a time
+    private bool animPlaying = false;
 
     //enabling and disabling reeling controls
     protected override void OnEnable() 
@@ -45,6 +47,8 @@ public class ReelMinigame : MinigameBase
     // Start is called before the first frame update
     void Start()
     {
+        successAnim.speed = 0;
+        //Keep player control disabled temporarily at start
         Controls.Reeling.Disable();
         //sets random sprite for button ui
         buttonSprite = buttonSpriteList[Random.Range(0, buttonSpriteList.Length)];
@@ -52,9 +56,29 @@ public class ReelMinigame : MinigameBase
         buttonPosition = buttonFrame.transform.position;
     }
 
+    void displayReelText()
+    {
+        if (animPlaying == false)
+        {
+            animPlaying = true;
+        }
+        if ((reelAnim.GetCurrentAnimatorStateInfo(0)).normalizedTime >= 1.0f)
+        {
+            Destroy(reelAnim);
+            animPlaying = false;
+            MeterPhase++;
+            Controls.Reeling.Enable();
+            Debug.Log("game start");
+        } 
+    }
+
     // Update is called once per frame
     void Update()
     {
+        if (MeterPhase == -1)
+        {
+            displayReelText();
+        }
         //meter constantly decreases until it becomes full
         if (reelMeter.value < 1) {
             reelMeter.value -= meterDecay;
@@ -62,12 +86,11 @@ public class ReelMinigame : MinigameBase
         
         buttonChange();
 
-        //allows the button to shake when set to true
+        //allows the button to shake when active state time is higher than 0
         if (shakeActive > 0) buttonShake();
         //displays reel text at game start
-        if (reelText.gameObject.activeSelf) displayReelText();
         //displays success text for win
-        if (MeterPhase >= 3)
+        if (MeterPhase == 3)
         {
             displaySuccessText();
         }
@@ -122,12 +145,12 @@ public class ReelMinigame : MinigameBase
         }
     }
 
-    //input check for button
+    //input check for button 
     void ReelCheck(InputAction.CallbackContext context)
     {
         var buttonValue = context.ReadValue<Vector2>();
         //When player presses an input, a check is conducted for the right or wrong input and changes meter accordingly
-        //correct button input will enable the button shake state
+        //correct button input will enable the button to shake
         if (buttonValue == Vector2.up)
         {
             if (buttonFrame.sprite == buttonSpriteList[0])
@@ -178,65 +201,22 @@ public class ReelMinigame : MinigameBase
         }
     }
 
-    void displayReelText()
-    {
-        //fades in reel text
-        if (reelText.color.a < 1)
-        {
-            var reelTextColor = reelText.color;
-            reelTextColor.a += 0.01f;
-            reelText.color = reelTextColor;
-        }
-        //text holds for short time
-        if(couroutineSwitch == false && MeterPhase == -1) StartCoroutine(TextDuration());
-        //text shifts out of view
-        if (reelText.color.a >= 1 && MeterPhase > -1)
-        {
-            var reelTextPos = reelText.transform.position;
-            reelTextPos.y += 1;
-            reelText.transform.position = reelTextPos;
-        }
-        //disables text gameobject once out of view
-        if (reelText.transform.position.y >= 700 && reelText.gameObject.activeSelf)
-        {
-            Controls.Reeling.Enable();
-            reelText.gameObject.SetActive(false);
-            Debug.Log("start game");
-        }
-    }
-
     void displaySuccessText()
     {
-        //fades in success text
-        if (successText.color.a < 1 && MeterPhase == 3)
+        if (animPlaying == false)
         {
-            var successTextColor = successText.color;
-            successTextColor.a += 0.01f;
-            successText.color = successTextColor;
-        }
-        //text holds for short time
-        if(couroutineSwitch == false && MeterPhase == 3) StartCoroutine(TextDuration());
-        //text fades out
-        if (successText.color.a > 0 && MeterPhase == 4)
-        {
-            var successTextColor = successText.color;
-            successTextColor.a -= 0.005f;
-            successText.color = successTextColor;
+            successAnim.speed = 1;
+            animPlaying = true;
         }
         //minigame ends once text disappears
-        if (successText.color.a <= 0 && MeterPhase == 4)
+        if ((successAnim.GetCurrentAnimatorStateInfo(0)).normalizedTime >= 1.0f)
         {
-            MeterPhase++;
+            Destroy(successAnim);
+            animPlaying = false;
             _minigameSuccess.RaiseEvent();
             Debug.Log("success event raised");
+            MeterPhase++;
         }
     }
 
-    IEnumerator TextDuration()
-    {
-        couroutineSwitch = true;
-        yield return new WaitForSeconds(1.5f);
-        couroutineSwitch = false;
-        MeterPhase ++;
-    }
 }
