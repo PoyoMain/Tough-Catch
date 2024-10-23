@@ -44,13 +44,13 @@ public class PlayerHealth : MonoBehaviour
 
     private void TakeDamage()
     {
+        Destroy(healthImages[Health - 1].gameObject);
+        healthImages.RemoveAt(Health - 1);
+
         if (Health <= 0)
         {
             gameOverSO.RaiseEvent();
             return;
         }
-
-        Destroy(healthImages[Health - 1].gameObject);
-        healthImages.RemoveAt(Health - 1);
     }
 }
