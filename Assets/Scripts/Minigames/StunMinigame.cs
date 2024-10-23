@@ -49,7 +49,7 @@ public class StunMinigame : MinigameBase
 
     private void OnDisable()
     {
-        stunPanel.SetActive(false);
+        if (stunPanel != null) stunPanel.SetActive(false);
 
         foreach (FaceButton button in directionCombo)
         {
