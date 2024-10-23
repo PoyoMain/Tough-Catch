@@ -70,6 +70,7 @@ public class FishingRodMinigame : MinigameBase
         base.OnEnable();
 
         activeTimer = activeTime;
+        minigameHoldTimer = -1;
         driftTimer = Random.Range(MinDriftTime, MaxDriftTime);
 
         //Controls.FishingRodControl.performed += JoltRod;

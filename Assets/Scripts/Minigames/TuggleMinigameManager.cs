@@ -55,6 +55,7 @@ public class TuggleMinigameManager : MonoBehaviour
 
     private void StartNewMinigame()
     {
+        List<SpawnableMinigame> activeMinigames = new();
         List<SpawnableMinigame> inactiveMinigames = new();
         float totalPercent = 0f;
 
@@ -65,8 +66,13 @@ public class TuggleMinigameManager : MonoBehaviour
                 inactiveMinigames.Add(minigame);
                 totalPercent += minigame.spawnChance;
             }
+            else if (minigame.Enabled)
+            {
+                activeMinigames.Add(minigame);
+            }
         }
 
+        if (activeMinigames.Count >= numberOfMinigamesAtOnce) return;
         if (inactiveMinigames.Count <= 0) return;
 
         float chosenPercent = UnityEngine.Random.Range(0, totalPercent);
