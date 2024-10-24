@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Splines;
+using UnityEngine.UI;
 
 public class LaserMinigame : MinigameBase
 {
@@ -11,6 +12,7 @@ public class LaserMinigame : MinigameBase
     [SerializeField] private float _minSpawnTime = 5f;
     [SerializeField] private float _maxSpawnTime = 15f;
     [SerializeField] private float _laserCooldownTime = 2f;
+    [SerializeField] private float _laserHoldTime = 0.6f;
     [SerializeField] private float _objectHitTime = 3f;
 
     [Header("Splines")]
@@ -20,6 +22,10 @@ public class LaserMinigame : MinigameBase
     [Header("Laser Fields")]
     [SerializeField] private Transform _leftLaser;
     [SerializeField] private Transform _rightLaser;
+    [SerializeField] private Slider _leftButtonPromptSlider;
+    [SerializeField] private Slider _rightButtonPromptSlider;
+    [SerializeField] private Animator _leftButtonPromptAnim;
+    [SerializeField] private Animator _rightButtonPromptAnim;
 
     [Header("Prefabs")]
     [SerializeField] private Trash _testPrefab;
@@ -85,12 +91,18 @@ public class LaserMinigame : MinigameBase
 
     private void Start()
     {
-        Controls.LaserShootLeft.started += ChargeLeft;
-        Controls.LaserShootLeft.performed += ShootLeft;
-        Controls.LaserShootLeft.canceled += DechargeLeft;
-        Controls.LaserShootRight.started += ChargeRight;
-        Controls.LaserShootRight.performed += ShootRight;
-        Controls.LaserShootRight.canceled += DechargeRight;
+        _leftButtonPromptSlider.maxValue = _laserHoldTime;
+        _leftButtonPromptSlider.value = 0;
+
+        //Controls.LaserShootLeft.started += ChargeLeft;
+        //Controls.LaserShootLeft.performed += ShootLeft;
+        //Controls.LaserShootLeft.canceled += DechargeLeft;
+        //Controls.LaserShootLeft.performed += DechargeLeft;
+
+        //Controls.LaserShootRight.started += ChargeRight;
+        //Controls.LaserShootRight.performed += ShootRight;
+        //Controls.LaserShootRight.canceled += DechargeRight;
+        //Controls.LaserShootRight.performed += DechargeRight;
     }
 
     protected override void OnEnable()
@@ -98,8 +110,6 @@ public class LaserMinigame : MinigameBase
         base.OnEnable();
 
         _activeTimer = _activeTime;
-
-        
 
         ResetSpawnTimer(Direction.Left);
         ResetSpawnTimer(Direction.Right);
@@ -118,15 +128,18 @@ public class LaserMinigame : MinigameBase
         if (_rightObject != null) Destroy(_rightObject.gameObject);
     }
 
-    private void OnDestroy()
-    {
-        Controls.LaserShootLeft.started -= ChargeLeft;
-        Controls.LaserShootLeft.performed -= ShootLeft;
-        Controls.LaserShootLeft.canceled -= DechargeLeft;
-        Controls.LaserShootRight.started -= ChargeRight;
-        Controls.LaserShootRight.performed -= ShootRight;
-        Controls.LaserShootRight.canceled -= DechargeRight;
-    }
+    //private void OnDestroy()
+    //{
+    //    //Controls.LaserShootLeft.started -= ChargeLeft;
+    //    //Controls.LaserShootLeft.performed -= ShootLeft;
+    //    //Controls.LaserShootLeft.canceled -= DechargeLeft;
+    //    //Controls.LaserShootLeft.performed -= DechargeLeft;
+
+    //    //Controls.LaserShootRight.started -= ChargeRight;
+    //    //Controls.LaserShootRight.performed -= ShootRight;
+    //    //Controls.LaserShootRight.canceled -= DechargeRight;
+    //    //Controls.LaserShootRight.performed -= DechargeRight;
+    //}
 
     private void Update()
     {
@@ -137,7 +150,16 @@ public class LaserMinigame : MinigameBase
             _minigameSuccess.RaiseEvent();
             this.enabled = false;
         }
+
+        if (Controls.LaserShootLeft.WasPressedThisFrame()) ChargeLeft();
+        else if (Controls.LaserShootLeft.WasReleasedThisFrame()) DechargeLeft();
+
+        if (Controls.LaserShootRight.WasPressedThisFrame()) ChargeRight();
+        else if (Controls.LaserShootRight.WasReleasedThisFrame()) DechargeRight();
+
+
         CheckTimers();
+        UpdateValues();
     }
 
     private void CheckTimers()
@@ -147,11 +169,13 @@ public class LaserMinigame : MinigameBase
         if (_leftObject != null && _leftObject.Hit)
         {
             _damagePlayer.RaiseEvent();
+            _leftButtonPromptAnim.SetTrigger("Fail");
             Destroy(_leftObject.gameObject);
         }
         if (_rightObject != null && _rightObject.Hit)
         {
             _damagePlayer.RaiseEvent();
+            _rightButtonPromptAnim.SetTrigger("Fail");
             Destroy(_rightObject.gameObject);
         }
 
@@ -171,6 +195,40 @@ public class LaserMinigame : MinigameBase
 
         if (!LeftLaserCanShoot) _leftCooldownTimer -= Time.deltaTime;
         if (!RightLaserCanShoot) _rightCooldownTimer -= Time.deltaTime;
+    }
+
+    private void UpdateValues()
+    {
+        if (_leftLaserCharging)
+        {
+            _leftButtonPromptSlider.value += Time.deltaTime;
+
+            if (_leftButtonPromptSlider.value >= _leftButtonPromptSlider.maxValue) ShootLeft();
+        }
+        else
+        {
+            if (_leftButtonPromptSlider.value > 0) _leftButtonPromptSlider.value -= Time.deltaTime;
+        }
+
+        if (_rightLaserCharging)
+        {
+            _rightButtonPromptSlider.value += Time.deltaTime;
+
+            if (_rightButtonPromptSlider.value >= _rightButtonPromptSlider.maxValue) ShootRight();
+        }
+        else
+        {
+            if (_rightButtonPromptSlider.value > 0) _rightButtonPromptSlider.value -= Time.deltaTime;
+        }
+
+        if (_leftLaserFired)
+        {
+            if (_leftButtonPromptSlider.value <= 0) _leftLaserFired = false;
+        }
+        if (_rightLaserFired)
+        {
+            if (_rightButtonPromptSlider.value <= 0) _rightLaserFired = false;
+        }
     }
 
     private void ResetSpawnTimer(Direction dir)
@@ -195,22 +253,25 @@ public class LaserMinigame : MinigameBase
         }
     }
 
-    private void ChargeLeft(InputAction.CallbackContext _)
+    private void ChargeLeft()
     {
         if (!LeftLaserCanShoot) return;
+        if (_leftButtonPromptSlider.value > 0) return;
 
         _leftLaserCharging = true;
         _laserLeftCharge.RaiseEvent();
     }
-    private void ChargeRight(InputAction.CallbackContext _)
+
+    private void ChargeRight()
     {
         if (!RightLaserCanShoot) return;
+        if (_rightButtonPromptSlider.value > 0) return;
 
         _rightLaserCharging = true;
         _laserRightCharge.RaiseEvent();
     }
 
-    private void ShootLeft(InputAction.CallbackContext _)
+    private void ShootLeft()
     {
         if (!_leftLaserCharging) return;
         if (!LeftLaserCanShoot) return;
@@ -230,9 +291,9 @@ public class LaserMinigame : MinigameBase
         if (_leftObject != null) _trashDestroyed.RaiseEvent();
 
         Invoke(nameof(DestroyLeftObject), 0.2f);
-    }    
+    }
 
-    private void ShootRight(InputAction.CallbackContext _)
+    private void ShootRight()
     {
         if (!_rightLaserCharging) return;
         if (!RightLaserCanShoot) return;
@@ -252,8 +313,10 @@ public class LaserMinigame : MinigameBase
         _laserRightFire.RaiseEvent();
         if (_rightObject != null) _trashDestroyed.RaiseEvent();
 
-        Invoke(nameof(DestroyRightObject), 0.4f);
+        Invoke(nameof(DestroyRightObject), 0.2f);
     }
+
+
     private void DestroyLeftObject()
     {
         if (_leftObject != null)
@@ -272,23 +335,23 @@ public class LaserMinigame : MinigameBase
         }
     }
 
-    private void DechargeLeft(InputAction.CallbackContext _)
+    private void DechargeLeft()
     {
         if (!_leftLaserCharging) return;
+        _leftLaserCharging = false;
 
         if (!_leftLaserFired) _laserLeftDecharge.RaiseEvent();
         else _leftLaserFired = false;
     }
 
-    private void DechargeRight(InputAction.CallbackContext _)
+    private void DechargeRight()
     {
         if (!_rightLaserCharging) return;
+        _rightLaserCharging = false;
 
         if (!_rightLaserFired) _laserRightDecharge.RaiseEvent();
         else _rightLaserFired = false;
     }
-
-    
 }
 
 public enum Direction

@@ -17,9 +17,11 @@ public class FishingRodMinigame : MinigameBase
     [Header("Fishing Rod")]
     [SerializeField] private Animator fishingRodAnim;
 
-    [Header("Image Fields")]
-    [SerializeField] private Image leftArrow;
-    [SerializeField] private Image rightArrow;
+    [Header("UI")]
+    [SerializeField] private Slider leftArrowPromptSlider;
+    [SerializeField] private Slider rightArrowPromptSlider;
+    [SerializeField] private Animator leftArrowPromptAnim;
+    [SerializeField] private Animator rightArrowPromptAnim;
 
     [Header("Broadcast Events")]
     [SerializeField] private VoidEventChannelSO damagePlayerSO;
@@ -31,7 +33,10 @@ public class FishingRodMinigame : MinigameBase
     private float minigameFailTimer;
     private float minigameHoldTimer;
     private bool isDrifting;
+    private bool holdingButton;
     private Direction driftDirection;
+    private Slider activePromptSlider;
+    private Animator activePromptAnim;
 
     private float MinDriftTime
     {
@@ -58,7 +63,6 @@ public class FishingRodMinigame : MinigameBase
         }
     }
 
-    private bool HoldingButton => minigameHoldTimer > 0;
 
 
     protected override void OnEnable()
@@ -69,27 +73,34 @@ public class FishingRodMinigame : MinigameBase
         driftTimer = Random.Range(MinDriftTime, MaxDriftTime);
 
         //Controls.FishingRodControl.performed += JoltRod;
-        Controls.FishingRodControl.started += FishingRodControl_started;
-        Controls.FishingRodControl.canceled += FishingRodControl_canceled;
+        //Controls.FishingRodControl.started += FishingRodControl_started;
+        //Controls.FishingRodControl.canceled += FishingRodControl_canceled;
 
     }
 
-    private void FishingRodControl_canceled(InputAction.CallbackContext obj)
+    private void FishingRodControl_canceled()
     {
+        holdingButton = false;
         minigameHoldTimer = -1;
     }
 
-    private void FishingRodControl_started(InputAction.CallbackContext obj)
+    private void FishingRodControl_started()
     {
+        holdingButton = true;
         minigameHoldTimer = minigameHoldTime;
+
+        float playerDirection = Controls.FishingRodControl.ReadValue<float>();
+
+        activePromptSlider = playerDirection < 0 ? leftArrowPromptSlider : rightArrowPromptSlider;
+        activePromptAnim = playerDirection < 0 ? leftArrowPromptAnim : rightArrowPromptAnim;
     }
 
-    private void OnDisable()
-    {
-        //Controls.FishingRodControl.performed -= JoltRod;
-        Controls.FishingRodControl.started -= FishingRodControl_started;
-        Controls.FishingRodControl.canceled -= FishingRodControl_canceled;
-    }
+    //private void OnDisable()
+    //{
+    //    //Controls.FishingRodControl.performed -= JoltRod;
+    //    //.FishingRodControl.started -= FishingRodControl_started;
+    //    //Controls.FishingRodControl.canceled -= FishingRodControl_canceled;
+    //}
 
     private void Update()
     {
@@ -100,6 +111,9 @@ public class FishingRodMinigame : MinigameBase
             _minigameSuccess.RaiseEvent();
             this.enabled = false;
         }
+
+        if (Controls.FishingRodControl.WasPressedThisFrame()) FishingRodControl_started();
+        else if (Controls.FishingRodControl.WasReleasedThisFrame()) FishingRodControl_canceled();
 
         CheckTimers();
     }
@@ -114,19 +128,22 @@ public class FishingRodMinigame : MinigameBase
 
             if (driftTimer <= 0)
             {
-                Direction dir = Random.Range(0f,1f) == 0 ? Direction.Left : Direction.Right;
+                Direction dir = Random.Range(0,2) == 0 ? Direction.Left : Direction.Right;
                 DriftRod(dir);
             }
         }
 
-        if (HoldingButton)
+        if (holdingButton)
         {
-            minigameHoldTimer -= Time.deltaTime;
+            activePromptSlider.value += Time.deltaTime;
 
-            if (minigameHoldTimer <= 0)
-            {
-                JoltRod();
-            }
+            if (activePromptSlider.value >= activePromptSlider.maxValue) JoltRod();
+        }
+        else
+        {
+            if (activePromptSlider == null) return;
+
+            if (activePromptSlider.value >= 0) activePromptSlider.value -= Time.deltaTime;
         }
 
         if (minigameFailTimer > 0)
@@ -135,12 +152,13 @@ public class FishingRodMinigame : MinigameBase
 
             if (minigameFailTimer <= 0)
             {
-                leftArrow.gameObject.SetActive(false);
-                rightArrow.gameObject.SetActive(false);
+                leftArrowPromptSlider.gameObject.SetActive(false);
+                rightArrowPromptSlider.gameObject.SetActive(false);
                 damagePlayerSO.RaiseEvent();
                 isDrifting = false;
                 fishingRodStopDriftSO.RaiseEvent();
                 fishingRodAnim.SetTrigger("DriftStop");
+                activePromptAnim.SetTrigger("Fail");
             }
         }
     }
@@ -154,55 +172,24 @@ public class FishingRodMinigame : MinigameBase
         driftDirection = direction;
         if (direction == Direction.Left)
         {
-            rightArrow.gameObject.SetActive(true);
+            rightArrowPromptSlider.gameObject.SetActive(true);
             fishingRodAnim.SetTrigger("DriftLeft");
         }
         else
         {
-            leftArrow.gameObject.SetActive(true);
+            leftArrowPromptSlider.gameObject.SetActive(true);
             fishingRodAnim.SetTrigger("DriftRight");
         }
 
         fishingRodStartDriftSO.RaiseEvent();
     }
 
-    //private void JoltRod(InputAction.CallbackContext context)
-    //{
-    //    if (!isDrifting) return;
-
-    //    float playerDirection = context.ReadValue<float>();
-    //    if (driftDirection == Direction.Left && playerDirection < 0)
-    //    {
-    //        if (damagePlayerWhenFail)
-    //        {
-    //            damagePlayerSO.RaiseEvent();
-    //            fishingRodAnim.SetTrigger("DriftStop");
-    //        }
-    //        return;
-    //    }
-    //    else if (driftDirection == Direction.Right && playerDirection > 0)
-    //    {
-    //        if (damagePlayerWhenFail) 
-    //        { 
-    //            damagePlayerSO.RaiseEvent();
-    //            fishingRodAnim.SetTrigger("DriftStop");
-    //        }
-    //        return;
-    //    }
-
-    //    isDrifting = false;
-    //    minigameFailTimer = 0;
-    //    driftTimer = Random.Range(MinDriftTime, MaxDriftTime);
-
-    //    fishingRodAnim.SetTrigger("DriftStop");
-    //}
-
     private void JoltRod()
     {
         if (!isDrifting) return;
 
-        leftArrow.gameObject.SetActive(false);
-        rightArrow.gameObject.SetActive(false);
+        leftArrowPromptSlider.gameObject.SetActive(false);
+        rightArrowPromptSlider.gameObject.SetActive(false);
 
         float playerDirection = Controls.FishingRodControl.ReadValue<float>();
         if (driftDirection == Direction.Left && playerDirection < 0)
@@ -224,6 +211,7 @@ public class FishingRodMinigame : MinigameBase
         isDrifting = false;
         minigameFailTimer = 0;
         driftTimer = Random.Range(MinDriftTime, MaxDriftTime);
+        activePromptSlider.value = 0;
 
         fishingRodStopDriftSO.RaiseEvent();
         fishingRodAnim.SetTrigger("DriftStop");
