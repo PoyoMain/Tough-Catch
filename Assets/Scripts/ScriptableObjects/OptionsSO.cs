@@ -24,13 +24,16 @@ public class OptionsSO : ScriptableObject
     [SerializeField] private FishingRodMinigameSettings _easyFishingRodMinigameOptions;
     [SerializeField] private FishingRodMinigameSettings _mediumFishingRodMinigameOptions;
     [SerializeField] private FishingRodMinigameSettings _hardFishingRodMinigameOptions;
+    [Space(10)]
+    [SerializeField] private StunMinigameSettings _easyStunMinigameOptions;
+    [SerializeField] private StunMinigameSettings _mediumStunMinigameOptions;
+    [SerializeField] private StunMinigameSettings _hardStunMinigameOptions;
 
-    public Difficulty Difficulty => _difficulty;    
     public bool GuideImages => _guideImages;
     public bool ControlRumble => _controlRumble;
-    public FullScreenMode FullScreenMode => _fullscreenMode;
-
     public bool ControllerConnected => Gamepad.current != null;
+    public Difficulty Difficulty => _difficulty;
+    public FullScreenMode FullScreenMode => _fullscreenMode;
     public LaserMinigameSettings LaserMinigameOptions => Difficulty switch
     {
         Difficulty.Easy => _easyLaserMinigameOptions,
@@ -38,13 +41,19 @@ public class OptionsSO : ScriptableObject
         Difficulty.Hard => _hardLaserMinigameOptions,
         _ => _mediumLaserMinigameOptions
     };
-
     public FishingRodMinigameSettings FishingRodMinigameOptions => Difficulty switch
     {
         Difficulty.Easy => _easyFishingRodMinigameOptions,
         Difficulty.Medium => _mediumFishingRodMinigameOptions,
         Difficulty.Hard => _hardFishingRodMinigameOptions,
         _ => _mediumFishingRodMinigameOptions
+    };
+    public StunMinigameSettings StunMinigameOptions => Difficulty switch
+    {
+        Difficulty.Easy => _easyStunMinigameOptions,
+        Difficulty.Medium => _mediumStunMinigameOptions,
+        Difficulty.Hard => _hardStunMinigameOptions,
+        _ => _mediumStunMinigameOptions
     };
 
     [Serializable]
@@ -63,6 +72,13 @@ public class OptionsSO : ScriptableObject
         public float maxDriftTime;
         public float minigameHoldTime;
         public float minigameFailTime;
+    }
+
+    [Serializable]
+    public struct StunMinigameSettings
+    {
+        public int numberOfButtonsForCombo;
+        public float minigameCompleteTime;
     }
 
 }

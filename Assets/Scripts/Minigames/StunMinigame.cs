@@ -53,8 +53,16 @@ public class StunMinigame : MinigameBase
     private int comboIndex = 0;
     private float minigameCompleteTimer;
 
-    private FaceButton ActiveButton => directionCombo[comboIndex];
+    private int NumberOfButtonsForCombo
+    {
+        get => _useOptionValues ? Options.StunMinigameOptions.numberOfButtonsForCombo : numberOfButtonsForCombo;
+    } 
+    private float MinigameCompleteTime
+    {
+        get => _useOptionValues ? Options.StunMinigameOptions.minigameCompleteTime : minigameCompleteTime;
+    } 
 
+    private FaceButton ActiveButton => directionCombo[comboIndex];
     private Sprite UpButtonSelected 
     {
         get => ControllerConnected ? upButtonSelected_Controller : upButtonSelected_Keyboard;
@@ -71,7 +79,6 @@ public class StunMinigame : MinigameBase
     {
         get => ControllerConnected ? rightButtonSelected_Controller : rightButtonSelected_Keyboard;
     }
-
     private Sprite UpButtonUnselected 
     {
         get => ControllerConnected ? upButtonUnselected_Controller : upButtonUnselected_Keyboard;
@@ -88,7 +95,6 @@ public class StunMinigame : MinigameBase
     {
         get => ControllerConnected ? rightButtonUnselected_Controller: rightButtonUnselected_Controller;
     }
-    
     private Sprite UpButtonFailed 
     {
         get => ControllerConnected ? upButtonFailed_Controller : upButtonFailed_Keyboard;
@@ -111,7 +117,7 @@ public class StunMinigame : MinigameBase
     {
         base.OnEnable();
 
-        minigameCompleteTimer = timeBar.value = timeBar.maxValue = minigameCompleteTime;
+        minigameCompleteTimer = timeBar.value = timeBar.maxValue = MinigameCompleteTime;
 
         SetCombo();
 
@@ -146,9 +152,9 @@ public class StunMinigame : MinigameBase
 
     private void SetCombo()
     {
-        FaceButton[] combo = new FaceButton[numberOfButtonsForCombo];
+        FaceButton[] combo = new FaceButton[NumberOfButtonsForCombo];
 
-        for (int i = 0; i < numberOfButtonsForCombo; i++)
+        for (int i = 0; i < NumberOfButtonsForCombo; i++)
         {
             Image img = Instantiate(imagePrefab, imageParent);
             int choice = Random.Range(0, 4);
@@ -185,7 +191,7 @@ public class StunMinigame : MinigameBase
         {
             ActiveButton.Activate();
 
-            if (comboIndex < numberOfButtonsForCombo - 1)
+            if (comboIndex < NumberOfButtonsForCombo - 1)
             {
                 comboIndex++;
                 return;
