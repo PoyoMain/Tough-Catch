@@ -14,6 +14,9 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private GameObject _menu;
     [SerializeField] private GameObject _firstSelectButton;
 
+    [Header("Broadcast Events")]
+    [SerializeField] private VoidEventChannelSO _gameUnpaused;
+
     [Header("Listen Events")]
     [SerializeField] private VoidEventChannelSO _gamePaused;
 
@@ -22,6 +25,7 @@ public class PauseMenu : MonoBehaviour
     private void OnEnable()
     {
         _gamePaused.OnEventRaised += Pause;
+        _gameUnpaused.OnEventRaised += Pause;
     }
 
     public void Pause()
@@ -30,6 +34,7 @@ public class PauseMenu : MonoBehaviour
         _menu.SetActive(IsPaused);
         Time.timeScale = IsPaused ? 0 : 1;
         if (IsPaused) EventSystem.current.SetSelectedGameObject(_firstSelectButton);
+        else _gameUnpaused.RaiseEvent();
     }
 
     public void Pause(InputAction.CallbackContext _)
@@ -38,6 +43,7 @@ public class PauseMenu : MonoBehaviour
         _menu.SetActive(IsPaused);
         Time.timeScale = IsPaused ? 0 : 1;
         if (IsPaused) EventSystem.current.SetSelectedGameObject(_firstSelectButton);
+        else _gameUnpaused.RaiseEvent();
     }
 
     public void Quit()
