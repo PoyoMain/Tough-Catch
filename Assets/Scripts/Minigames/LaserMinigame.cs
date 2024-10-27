@@ -299,7 +299,7 @@ public class LaserMinigame : MinigameBase
 
     private void SpawnTrash(Direction dir)
     {
-        Trash trashToSpawn = trashPrefabs[Random.Range(0, trashPrefabs.Count)];
+        Trash trashToSpawn = trashPrefabs[Random.Range(0, trashPrefabs.Count - 1)];
         if (dir == Direction.Left)
         {
             _leftObject = Instantiate(trashToSpawn);
