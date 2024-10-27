@@ -231,7 +231,7 @@ public class GameManager : MonoBehaviour
         //ActivateCamera(_dockCam);
         //while (IsBlendingBetweenCams) yield return null;
 
-        yield return new WaitForSeconds(2);
+        //yield return new WaitForSeconds(2);
 
         _resultsShow.RaiseEvent();
 

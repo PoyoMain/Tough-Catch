@@ -47,7 +47,6 @@ public class ReelMinigame : MinigameBase
     // Start is called before the first frame update
     void Start()
     {
-        successAnim.speed = 0;
         //Keep player control disabled temporarily at start
         Controls.Reeling.Disable();
         //sets random sprite for button ui
@@ -60,11 +59,12 @@ public class ReelMinigame : MinigameBase
     {
         if (animPlaying == false)
         {
+            reelAnim.gameObject.SetActive(true);
             animPlaying = true;
         }
         if ((reelAnim.GetCurrentAnimatorStateInfo(0)).normalizedTime >= 1.0f)
         {
-            Destroy(reelAnim);
+            Destroy(reelAnim.gameObject);
             animPlaying = false;
             MeterPhase++;
             Controls.Reeling.Enable();
@@ -205,7 +205,7 @@ public class ReelMinigame : MinigameBase
     {
         if (animPlaying == false)
         {
-            successAnim.speed = 1;
+            successAnim.gameObject.SetActive(true);
             animPlaying = true;
         }
         //minigame ends once text disappears
