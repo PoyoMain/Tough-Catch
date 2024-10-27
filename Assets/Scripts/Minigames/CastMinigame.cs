@@ -30,9 +30,26 @@ public class CastMinigame : MinigameBase
     public bool isFlashing3 = false;
     private bool MinigameDone = false;
 
+    [Header("Set in Inspector Objects")]
+    [SerializeField] private Image buttonPromptImage;
+
+    [Header("Keyboard Button Sprites")]
+    [SerializeField] private Sprite confirmButton_Keyboard;
+
+    [Header("Controller Button Sprites")]
+    [SerializeField] private Sprite confirmButton_Controller;
+
+    private Sprite ConfirmButtonSprite
+    {
+        get => Options.ControllerConnected ? confirmButton_Controller : confirmButton_Keyboard;
+    }
+    private Vector3 TargetRingScale => targetRing.transform.localScale;
+
     protected override void OnEnable()
     {
         base.OnEnable();
+
+        buttonPromptImage.sprite = ConfirmButtonSprite;
 
         Controls.HookRingSelect.performed += SizeCheck;
 
@@ -81,6 +98,11 @@ public class CastMinigame : MinigameBase
 
             // Apply the new scale uniformly in all directions
             targetRing.transform.localScale = new Vector3(newScale, newScale, newScale);
+
+            if (ring1.transform.localScale.x < TargetRingScale.x && TargetRingScale.x < ring2.transform.localScale.x) buttonPromptImage.enabled = true;
+            else if (ring3.transform.localScale.x < TargetRingScale.x && TargetRingScale.x < ring4.transform.localScale.x) buttonPromptImage.enabled = true;
+            else if (ring5.transform.localScale.x < TargetRingScale.x && TargetRingScale.x < ring6.transform.localScale.x) buttonPromptImage.enabled = true;
+            else buttonPromptImage.enabled = false;
         }
 
         if(isFlashing1)
