@@ -8,6 +8,7 @@ public class FishSO : ScriptableObject
     [TextArea(2,3)]
     [SerializeField] private string _description;
     [SerializeField] private Sprite _sprite;
+    [SerializeField] private GameObject _model;
     [SerializeField] private float _maxHealth = 100;
     [SerializeField] private float _minWeight;
     [SerializeField] private float _maxWeight;
@@ -16,6 +17,7 @@ public class FishSO : ScriptableObject
 
     public string Description => _description ?? string.Empty;    
     public Sprite Sprite => _sprite;
+    public GameObject Model => _model;
     public float MaxHealth => _maxHealth;
     public float MinWeight => _minWeight;
     public float MaxWeight => _maxWeight;
@@ -28,6 +30,7 @@ public class Fish
     public string Name { get; private set; }
     public string Description { get; private set; }
     public Sprite Image { get; private set; }
+    public GameObject Model {  get; private set; }
     public float Health { get; private set; }
     public float Weight { get; private set; }
     public float Length { get; private set; }
@@ -56,6 +59,7 @@ public class Fish
         Name = fishData.name;
         Description = fishData.Description;
         Image = fishData.Sprite;
+        Model = fishData.Model;
 
         _maxHealth = fishData.MaxHealth;
         Health = _maxHealth;
