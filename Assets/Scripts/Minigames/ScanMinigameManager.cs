@@ -4,7 +4,6 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
-using Unity.VisualScripting;
 
 public class ScanMinigameManager : MinigameBase
 {
@@ -43,7 +42,12 @@ public class ScanMinigameManager : MinigameBase
     [SerializeField] Animator animator;
     [SerializeField] Image scanner;
     [SerializeField] Animator buttonAnim;
+    
+    //Added by Chris
+    [SerializeField] Animator scanStartLettering;
+    [SerializeField] Animator scanSucceedLettering;
 
+    bool active; //Added by Chris
     bool moving;
     bool paused;
 
@@ -51,11 +55,19 @@ public class ScanMinigameManager : MinigameBase
 
     private void Start()
     {
+        scanStartLettering.gameObject.SetActive(true);
+        StartCoroutine(nameof(TextDisplayCoroutine));
+    }
+
+    //Added by Chris; Moved start into Activate
+    private void Activate()
+    {
         Pause();
 
         //Set up the time
         StartCoroutine(nameof(InitCatchTime));
 
+        active = true; // Added by Chris
         caught = false;
     }
 
@@ -66,8 +78,32 @@ public class ScanMinigameManager : MinigameBase
         Controls.Confirm.performed += Catch;
     }
 
+    //Added by Chris
+    private IEnumerator TextDisplayCoroutine()
+    {
+
+        while (scanStartLettering.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f) yield return null;
+
+        scanStartLettering.gameObject.SetActive(false);
+        Activate();
+
+        while (active == true) yield return null;
+
+        scanSucceedLettering.gameObject.SetActive(true);
+
+        while (scanSucceedLettering.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f) yield return null;
+
+        scanSucceedLettering.gameObject.SetActive(false);
+
+        MinigameSuccessEvent.RaiseEvent();
+        this.enabled = false;
+
+        yield break;
+    }
+
     private void Update()
     {
+        if (!active) return;
         if (found) return; // While the fish is found logic will be handled in a coroutine
 
         //Handle Input
@@ -131,11 +167,13 @@ public class ScanMinigameManager : MinigameBase
 
     IEnumerator InitCatchTime()
     {
-        animator.SetTrigger("scanTrigger");
+        //animator.SetTrigger("scanTrigger");
 
-        yield return new WaitForSeconds(2f); // Wait for scan to go away and game to start
+        //yield return new WaitForSeconds(2f); // Wait for scan to go away and game to start
 
         SetCatchTime();
+
+        yield break;
     }
 
     void SetCatchTime()
@@ -273,7 +311,7 @@ public class ScanMinigameManager : MinigameBase
         caught = true;
 
         // handle success animations
-        animator.SetTrigger("successTrigger");
+        //animator.SetTrigger("successTrigger");
         ShowPromptFeedback(true);
 
         Invoke(nameof(Success), 2f);
@@ -287,7 +325,7 @@ public class ScanMinigameManager : MinigameBase
         FishFoundEvent.RaiseEvent(caughtFish);
 
         //Succeeds at the minigame
-        _minigameSuccess.RaiseEvent();
+        active = false;
 
         fishFlee(); // Reset
     }
