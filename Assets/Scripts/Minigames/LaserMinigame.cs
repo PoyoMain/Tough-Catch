@@ -141,11 +141,15 @@ public class LaserMinigame : MinigameBase
     {
         _leftButtonPromptSlider.maxValue = LaserHoldTime;
         _leftButtonPromptSlider.value = 0;
+        _rightButtonPromptSlider.maxValue = LaserHoldTime;
+        _rightButtonPromptSlider.value = 0;
 
+        _leftButtonPromptSlider.gameObject.SetActive(true);
         _leftButtonPromptBG.sprite = LeftButtonPromptUnselected;
         _leftButtonPromptFG.sprite = LeftButtonPromptSelected;
         _leftButtonPromptFail.sprite = LeftButtonPromptFailed;
 
+        _rightButtonPromptSlider.gameObject.SetActive(true);
         _rightButtonPromptBG.sprite = RightButtonPromptUnselected;
         _rightButtonPromptFG.sprite = RightButtonPromptSelected;
         _rightButtonPromptFail.sprite = RightButtonPromptFailed;

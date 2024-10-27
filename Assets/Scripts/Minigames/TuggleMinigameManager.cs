@@ -16,12 +16,53 @@ public class TuggleMinigameManager : MonoBehaviour
     [Header("Minigames")]
     [SerializeField] private SpawnableMinigame[] minigames;
 
-    [Header("Listen Events")]
+    [Header("Inspector Objects")]
+    [SerializeField] private Animator startImage;
+    [SerializeField] private Animator successImage;
+
+    [Header("Broadcast Events")]
+    [SerializeField] private VoidEventChannelSO tuggleStartSO;
     [SerializeField] private VoidEventChannelSO tuggleSucceedSO;
 
+    [Header("Listen Events")]
+    [SerializeField] private VoidEventChannelSO fishHealthDepleatedSO;
+
+    private bool deactivate = false;
 
     private void Start()
     {
+        startImage.gameObject.SetActive(true);
+        StartCoroutine(nameof(TextDisplayCoroutine));
+    }
+    
+    private IEnumerator TextDisplayCoroutine()
+    {
+        while (startImage.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f) yield return null;
+
+        startImage.gameObject.SetActive(false);
+        Activate();
+
+        while (deactivate == false) yield return null;
+
+        successImage.gameObject.SetActive(true);
+
+        while(successImage.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f) yield return null;
+
+        successImage.gameObject.SetActive(false);
+        foreach (SpawnableMinigame minigame in minigames)
+        {
+            minigame.Enabled = false;
+            minigame.minigame.MinigameSuccessEvent.OnEventRaised -= MinigameFinished;
+        }
+        this.enabled = false;
+
+        yield break;
+    }
+
+    private void Activate()
+    {
+        tuggleStartSO.RaiseEvent();
+
         Invoke(nameof(StartNewMinigame), firstMinigameSpawnTime);
 
         for (int i = 1; i < numberOfMinigamesAtOnce; i++)
@@ -32,7 +73,7 @@ public class TuggleMinigameManager : MonoBehaviour
 
     private void OnEnable()
     {
-        tuggleSucceedSO.OnEventRaised += FinishPhase;
+        fishHealthDepleatedSO.OnEventRaised += FinishPhase;
 
         foreach (SpawnableMinigame minigame in minigames)
         {
@@ -42,7 +83,7 @@ public class TuggleMinigameManager : MonoBehaviour
 
     private void OnDisable()
     {
-        tuggleSucceedSO.OnEventRaised -= FinishPhase;
+        fishHealthDepleatedSO.OnEventRaised -= FinishPhase;
 
         foreach (SpawnableMinigame minigame in minigames)
         {
@@ -95,12 +136,7 @@ public class TuggleMinigameManager : MonoBehaviour
 
     private void FinishPhase()
     {
-        this.enabled = false;
-        foreach (SpawnableMinigame minigame in minigames)
-        {
-            minigame.Enabled = false;
-            minigame.minigame.MinigameSuccessEvent.OnEventRaised -= MinigameFinished;
-        }
+        deactivate = true;
     }
 
     [Serializable]
