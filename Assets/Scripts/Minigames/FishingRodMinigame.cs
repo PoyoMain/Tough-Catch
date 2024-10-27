@@ -259,6 +259,7 @@ public class FishingRodMinigame : MinigameBase
         if (driftDirection == Direction.Left && playerDirection < 0)
         {
             if (damagePlayerWhenFail) damagePlayerSO.RaiseEvent();
+            minigameFailTimer = 0;
             fishingRodAnim.SetTrigger("DriftStop");
             fishingRodStopDriftSO.RaiseEvent();
 
@@ -267,6 +268,7 @@ public class FishingRodMinigame : MinigameBase
         else if (driftDirection == Direction.Right && playerDirection > 0)
         {
             if (damagePlayerWhenFail) damagePlayerSO.RaiseEvent();
+            minigameFailTimer = 0;
             fishingRodAnim.SetTrigger("DriftStop");
             fishingRodStopDriftSO.RaiseEvent();
             return;
