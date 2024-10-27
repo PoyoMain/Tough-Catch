@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.InputSystem;
 
 [CreateAssetMenu(fileName = "NewOptions", menuName = "Options")]
 public class OptionsSO : ScriptableObject
@@ -28,6 +29,8 @@ public class OptionsSO : ScriptableObject
     public bool GuideImages => _guideImages;
     public bool ControlRumble => _controlRumble;
     public FullScreenMode FullScreenMode => _fullscreenMode;
+
+    public bool ControllerConnected => Gamepad.current != null;
     public LaserMinigameSettings LaserMinigameOptions => Difficulty switch
     {
         Difficulty.Easy => _easyLaserMinigameOptions,
@@ -49,7 +52,7 @@ public class OptionsSO : ScriptableObject
     {
         public float minSpawnTime;
         public float maxSpawnTime;
-        public float laserCooldownTime;
+        public float laserHoldTime;
         public float objectHitTime;
     }
 
@@ -58,6 +61,7 @@ public class OptionsSO : ScriptableObject
     {
         public float minDriftTime;
         public float maxDriftTime;
+        public float minigameHoldTime;
         public float minigameFailTime;
     }
 

@@ -1710,6 +1710,36 @@ MonoBehaviour:
   rightArrowPromptSlider: {fileID: 455069431}
   leftArrowPromptAnim: {fileID: 1771248107}
   rightArrowPromptAnim: {fileID: 455069430}
+  _leftArrowButtonBG: {fileID: 184610486}
+  _leftArrowButtonFG: {fileID: 1964986460}
+  _leftArrowButtonFail: {fileID: 13391805}
+  _rightArrowButtonBG: {fileID: 2140967590}
+  _rightArrowButtonFG: {fileID: 1109080689}
+  _rightArrowButtonFail: {fileID: 1476893706}
+  leftArrowButtonSelected_Keyboard: {fileID: 21300000, guid: 7d2a322ac44f5ab4b92f8f236768f104,
+    type: 3}
+  leftArrowButtonUnselected_Keyboard: {fileID: 21300000, guid: 4b0064e1d9127cf4a976299e260e959e,
+    type: 3}
+  leftArrowButtonFailed_Keyboard: {fileID: 21300000, guid: 30500f0b56ddd4c43997176216f52a5f,
+    type: 3}
+  leftArrowButtonSelected_Controller: {fileID: 21300000, guid: a24e1ce027b438946899ad00f3dd504d,
+    type: 3}
+  leftArrowButtonUnselected_Controller: {fileID: 21300000, guid: 350608ae89f58b4488d6880a3a69ceef,
+    type: 3}
+  leftArrowButtonFailed_Controller: {fileID: 21300000, guid: f051ddef3ae5d494b8a46a029b4901a5,
+    type: 3}
+  rightArrowButtonSelected_Keyboard: {fileID: 21300000, guid: 553c6cfc796eb0b4ea4141e38bf1dda2,
+    type: 3}
+  rightArrowButtonUnselected_Keyboard: {fileID: 21300000, guid: efc59a2e5d8ba9c47aa37a85e5360827,
+    type: 3}
+  rightArrowButtonFailed_Keyboard: {fileID: 21300000, guid: 81ab6c8d03ed1024fb0b9e3d3bd2fb09,
+    type: 3}
+  rightArrowButtonSelected_Controller: {fileID: 21300000, guid: a5d4759096beb59408594b321655f316,
+    type: 3}
+  rightArrowButtonUnselected_Controller: {fileID: 21300000, guid: 5972ea037d6ae0f429245e9e05563f2b,
+    type: 3}
+  rightArrowButtonFailed_Controller: {fileID: 21300000, guid: a6b93e296e982ca42af0c86aa71cb566,
+    type: 3}
   damagePlayerSO: {fileID: 11400000, guid: 28719e99e4bb5ee41aea4fb105678875, type: 2}
   fishingRodStartDriftSO: {fileID: 11400000, guid: 61fed9c8d4101794abfd5cb4680c6018,
     type: 2}
@@ -9219,7 +9249,7 @@ MonoBehaviour:
   _minSpawnTime: 3
   _maxSpawnTime: 6
   _laserCooldownTime: 0
-  _laserHoldTime: 0.6
+  _laserHoldTime: 0.5
   _objectHitTime: 3
   _leftSpline: {fileID: 1035943547}
   _rightSpline: {fileID: 1016366972}
@@ -9229,6 +9259,36 @@ MonoBehaviour:
   _rightButtonPromptSlider: {fileID: 647423192}
   _leftButtonPromptAnim: {fileID: 898636785}
   _rightButtonPromptAnim: {fileID: 647423193}
+  _leftButtonPromptBG: {fileID: 883567750}
+  _leftButtonPromptFG: {fileID: 10869955}
+  _leftButtonPromptFail: {fileID: 100780418}
+  _rightButtonPromptBG: {fileID: 1150694997}
+  _rightButtonPromptFG: {fileID: 985882252}
+  _rightButtonPromptFail: {fileID: 1491554497}
+  leftButtonPromptUnselected_Keyboard: {fileID: 21300000, guid: 9dd61dda5172f7642b5cfff4c8fd18df,
+    type: 3}
+  leftButtonPromptSelected_Keyboard: {fileID: 21300000, guid: fc97574a52a57e3408b011cf9b9b342c,
+    type: 3}
+  leftButtonPromptFailed_Keyboard: {fileID: 21300000, guid: 811f2a189d609664e81f39b49f9ee556,
+    type: 3}
+  leftButtonPromptUnselected_Controller: {fileID: 21300000, guid: 1e05d57481c75d64291246a671416a78,
+    type: 3}
+  leftButtonPromptSelected_Controller: {fileID: 21300000, guid: 20e1d3da69b7a684388c675adb12df69,
+    type: 3}
+  leftButtonPromptFailed_Controller: {fileID: 21300000, guid: 3f2555c655778394aaf81550a1ddd438,
+    type: 3}
+  rightButtonPromptUnselected_Keyboard: {fileID: 21300000, guid: 2b4b65eb06d087d4fb2d2ffdea41a497,
+    type: 3}
+  rightButtonPromptSelected_Keyboard: {fileID: 21300000, guid: 5fc200117c9fbcc479fb4734a0f9cb93,
+    type: 3}
+  rightButtonPromptFailed_Keyboard: {fileID: 21300000, guid: e70db1ef46d7aab478a51ed35dd37f6e,
+    type: 3}
+  rightButtonPromptUnselected_Controller: {fileID: 21300000, guid: f1d95e423684daf41be2d4766fdbbc59,
+    type: 3}
+  rightButtonPromptSelected_Controller: {fileID: 21300000, guid: 8b83487e033b3de40b82b33d3c5c15db,
+    type: 3}
+  rightButtonPromptFailed_Controller: {fileID: 21300000, guid: 4133d115d770e3f4fb29efd93bfdfcc7,
+    type: 3}
   _testPrefab: {fileID: -474052877256103520, guid: 02ac9a1e033521a4fa2d05281ba26554,
     type: 3}
   _laserPrefab: {fileID: 3342081132567688682, guid: 321aaffb64762a04face764d746e80ad,
@@ -15114,18 +15174,30 @@ MonoBehaviour:
   imagePrefab: {fileID: 8093280376956398074, guid: 62c36f8c80191684ea44a219e1067ae4,
     type: 3}
   timeBar: {fileID: 859591505}
-  upButtonSelected: {fileID: 21300000, guid: d72ac66f942b3524b871e7e1165ecf39, type: 3}
-  downButtonSelected: {fileID: 21300000, guid: c78a0b6b23c2fb04791b96b8299b3497, type: 3}
-  leftButtonSelected: {fileID: 21300000, guid: 4e98779bb8925c24bb0f0c9d6b51a9ae, type: 3}
-  rightButtonSelected: {fileID: 21300000, guid: 95643ea0d1742e845b56215ca73a153a,
-    type: 3}
-  upButtonUnselected: {fileID: 21300000, guid: 1f2a449babd2ec042b4293a19e8d67c7, type: 3}
-  downButtonUnselected: {fileID: 21300000, guid: 1a7620d505930f14d8818ba400ad414c,
-    type: 3}
-  leftButtonUnselected: {fileID: 21300000, guid: ef019cb0c2b608b4888e27b9c2c58413,
-    type: 3}
-  rightButtonUnselected: {fileID: 21300000, guid: b60262afad7382745a44861af2fdb05f,
-    type: 3}
+  upButtonSelected_Keyboard: {fileID: 0}
+  downButtonSelected_Keyboard: {fileID: 0}
+  leftButtonSelected_Keyboard: {fileID: 0}
+  rightButtonSelected_Keyboard: {fileID: 0}
+  upButtonUnselected_Keyboard: {fileID: 0}
+  downButtonUnselected_Keyboard: {fileID: 0}
+  leftButtonUnselected_Keyboard: {fileID: 0}
+  rightButtonUnselected_Keyboard: {fileID: 0}
+  upButtonFailed_Keyboard: {fileID: 0}
+  downButtonFailed_Keyboard: {fileID: 0}
+  leftButtonFailed_Keyboard: {fileID: 0}
+  rightButtonFailed_Keyboard: {fileID: 0}
+  upButtonSelected_Controller: {fileID: 0}
+  downButtonSelected_Controller: {fileID: 0}
+  leftButtonSelected_Controller: {fileID: 0}
+  rightButtonSelected_Controller: {fileID: 0}
+  upButtonUnselected_Controller: {fileID: 0}
+  downButtonUnselected_Controller: {fileID: 0}
+  leftButtonUnselected_Controller: {fileID: 0}
+  rightButtonUnselected_Controller: {fileID: 0}
+  upButtonFailed_Controller: {fileID: 0}
+  downButtonFailed_Controller: {fileID: 0}
+  leftButtonFailed_Controller: {fileID: 0}
+  rightButtonFailed_Controller: {fileID: 0}
   damageFishSO: {fileID: 11400000, guid: 4f1284e2669db7348bc65b863de93e2d, type: 2}
 --- !u!1 &2121842837
 GameObject:

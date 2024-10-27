@@ -11,7 +11,6 @@ public class LaserMinigame : MinigameBase
     [SerializeField] private float _activeTime = 20f;
     [SerializeField] private float _minSpawnTime = 5f;
     [SerializeField] private float _maxSpawnTime = 15f;
-    [SerializeField] private float _laserCooldownTime = 2f;
     [SerializeField] private float _laserHoldTime = 0.6f;
     [SerializeField] private float _objectHitTime = 3f;
 
@@ -22,10 +21,33 @@ public class LaserMinigame : MinigameBase
     [Header("Laser Fields")]
     [SerializeField] private Transform _leftLaser;
     [SerializeField] private Transform _rightLaser;
+
+    [Header("Button Prompts")]
     [SerializeField] private Slider _leftButtonPromptSlider;
     [SerializeField] private Slider _rightButtonPromptSlider;
     [SerializeField] private Animator _leftButtonPromptAnim;
     [SerializeField] private Animator _rightButtonPromptAnim;
+    [SerializeField] private Image _leftButtonPromptBG;
+    [SerializeField] private Image _leftButtonPromptFG;
+    [SerializeField] private Image _leftButtonPromptFail;
+    [SerializeField] private Image _rightButtonPromptBG;
+    [SerializeField] private Image _rightButtonPromptFG;
+    [SerializeField] private Image _rightButtonPromptFail;
+
+    [Header("Keyboard Sprites")]
+    [SerializeField] private Sprite leftButtonPromptUnselected_Keyboard;
+    [SerializeField] private Sprite leftButtonPromptSelected_Keyboard;
+    [SerializeField] private Sprite leftButtonPromptFailed_Keyboard;
+    [SerializeField] private Sprite rightButtonPromptUnselected_Keyboard;
+    [SerializeField] private Sprite rightButtonPromptSelected_Keyboard;
+    [SerializeField] private Sprite rightButtonPromptFailed_Keyboard;
+    [Header("Controller Sprites")]
+    [SerializeField] private Sprite leftButtonPromptUnselected_Controller;
+    [SerializeField] private Sprite leftButtonPromptSelected_Controller;
+    [SerializeField] private Sprite leftButtonPromptFailed_Controller;
+    [SerializeField] private Sprite rightButtonPromptUnselected_Controller;
+    [SerializeField] private Sprite rightButtonPromptSelected_Controller;
+    [SerializeField] private Sprite rightButtonPromptFailed_Controller;
 
     [Header("Prefabs")]
     [SerializeField] private Trash _testPrefab;
@@ -70,12 +92,12 @@ public class LaserMinigame : MinigameBase
             else return _maxSpawnTime;
         }
     }
-    private float LaserCooldownTime
+    private float LaserHoldTime
     {
         get
         {
-            if (_useOptionValues) return Options.LaserMinigameOptions.laserCooldownTime;
-            else return _laserCooldownTime;
+            if (_useOptionValues) return Options.LaserMinigameOptions.laserHoldTime;
+            else return _laserHoldTime;
         }
     }
     private float ObjectHitTime
@@ -89,10 +111,43 @@ public class LaserMinigame : MinigameBase
     private bool LeftLaserCanShoot => _leftCooldownTimer <= 0;
     private bool RightLaserCanShoot => _rightCooldownTimer <= 0;
 
+    private Sprite LeftButtonPromptUnselected
+    {
+        get => ControllerConnected ? leftButtonPromptUnselected_Controller : leftButtonPromptUnselected_Keyboard;
+    }
+    private Sprite LeftButtonPromptSelected
+    {
+        get => ControllerConnected ? leftButtonPromptSelected_Controller : leftButtonPromptSelected_Keyboard;
+    }
+    private Sprite LeftButtonPromptFailed
+    {
+        get => ControllerConnected ? leftButtonPromptFailed_Controller : leftButtonPromptFailed_Keyboard;
+    }
+    private Sprite RightButtonPromptUnselected
+    {
+        get => ControllerConnected ? rightButtonPromptUnselected_Controller : rightButtonPromptUnselected_Keyboard;
+    }
+    private Sprite RightButtonPromptSelected
+    {
+        get => ControllerConnected ? rightButtonPromptSelected_Controller : rightButtonPromptSelected_Keyboard;
+    }
+    private Sprite RightButtonPromptFailed
+    {
+        get => ControllerConnected ? rightButtonPromptFailed_Controller : rightButtonPromptFailed_Keyboard;
+    }
+
     private void Start()
     {
-        _leftButtonPromptSlider.maxValue = _laserHoldTime;
+        _leftButtonPromptSlider.maxValue = LaserHoldTime;
         _leftButtonPromptSlider.value = 0;
+
+        _leftButtonPromptBG.sprite = LeftButtonPromptUnselected;
+        _leftButtonPromptFG.sprite = LeftButtonPromptSelected;
+        _leftButtonPromptFail.sprite = LeftButtonPromptFailed;
+
+        _rightButtonPromptBG.sprite = RightButtonPromptUnselected;
+        _rightButtonPromptFG.sprite = RightButtonPromptSelected;
+        _rightButtonPromptFail.sprite = RightButtonPromptFailed;
 
         //Controls.LaserShootLeft.started += ChargeLeft;
         //Controls.LaserShootLeft.performed += ShootLeft;
@@ -276,7 +331,6 @@ public class LaserMinigame : MinigameBase
         if (!_leftLaserCharging) return;
         if (!LeftLaserCanShoot) return;
 
-        _leftCooldownTimer = LaserCooldownTime;
         _leftLaserCharging = false;
         _leftLaserFired = true;
 
@@ -298,7 +352,6 @@ public class LaserMinigame : MinigameBase
         if (!_rightLaserCharging) return;
         if (!RightLaserCanShoot) return;
 
-        _rightCooldownTimer = LaserCooldownTime;
         _rightLaserCharging = false;
         _rightLaserFired = true;
 

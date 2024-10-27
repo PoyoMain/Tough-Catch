@@ -24,6 +24,8 @@ public abstract class MinigameBase : MonoBehaviour
 
     protected bool isPaused;
 
+    protected bool ControllerConnected => Options.ControllerConnected;
+
     protected virtual void OnEnable()
     {
         Finished = MinigameState.Unfinished;

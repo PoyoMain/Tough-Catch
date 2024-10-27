@@ -22,6 +22,27 @@ public class FishingRodMinigame : MinigameBase
     [SerializeField] private Slider rightArrowPromptSlider;
     [SerializeField] private Animator leftArrowPromptAnim;
     [SerializeField] private Animator rightArrowPromptAnim;
+    [SerializeField] private Image _leftArrowButtonBG;
+    [SerializeField] private Image _leftArrowButtonFG;
+    [SerializeField] private Image _leftArrowButtonFail;
+    [SerializeField] private Image _rightArrowButtonBG;
+    [SerializeField] private Image _rightArrowButtonFG;
+    [SerializeField] private Image _rightArrowButtonFail;
+
+    [Header("Keyboard Sprites")]
+    [SerializeField] private Sprite leftArrowButtonSelected_Keyboard;
+    [SerializeField] private Sprite leftArrowButtonUnselected_Keyboard;
+    [SerializeField] private Sprite leftArrowButtonFailed_Keyboard;
+    [SerializeField] private Sprite rightArrowButtonSelected_Keyboard;
+    [SerializeField] private Sprite rightArrowButtonUnselected_Keyboard;
+    [SerializeField] private Sprite rightArrowButtonFailed_Keyboard;
+    [Header("Controller Sprites")]
+    [SerializeField] private Sprite leftArrowButtonSelected_Controller;
+    [SerializeField] private Sprite leftArrowButtonUnselected_Controller;
+    [SerializeField] private Sprite leftArrowButtonFailed_Controller;
+    [SerializeField] private Sprite rightArrowButtonSelected_Controller;
+    [SerializeField] private Sprite rightArrowButtonUnselected_Controller;
+    [SerializeField] private Sprite rightArrowButtonFailed_Controller;
 
     [Header("Broadcast Events")]
     [SerializeField] private VoidEventChannelSO damagePlayerSO;
@@ -54,6 +75,14 @@ public class FishingRodMinigame : MinigameBase
             else return maxDriftTime;
         }
     }
+    private float MinigameHoldTime
+    {
+        get
+        {
+            if (_useOptionValues) return Options.FishingRodMinigameOptions.minigameHoldTime;
+            else return minigameHoldTime;
+        }
+    }
     private float MinigameFailTime
     {
         get
@@ -63,7 +92,41 @@ public class FishingRodMinigame : MinigameBase
         }
     }
 
+    private Sprite LeftArrowButtonUnselected
+    {
+        get => ControllerConnected ? leftArrowButtonUnselected_Controller : leftArrowButtonUnselected_Keyboard;
+    }
+    private Sprite LeftArrowButtonSelected
+    {
+        get => ControllerConnected ? leftArrowButtonSelected_Controller : leftArrowButtonSelected_Keyboard;
+    }
+    private Sprite LeftArrowButtonFailed
+    {
+        get => ControllerConnected ? leftArrowButtonFailed_Controller : leftArrowButtonFailed_Keyboard;
+    }
+    private Sprite RightArrowButtonUnselected
+    {
+        get => ControllerConnected ? leftArrowButtonUnselected_Controller : leftArrowButtonUnselected_Keyboard;
+    }
+    private Sprite RightArrowButtonSelected
+    {
+        get => ControllerConnected ? rightArrowButtonSelected_Controller : rightArrowButtonSelected_Keyboard;
+    }
+    private Sprite RightArrowButtonFailed
+    {
+        get => ControllerConnected ? rightArrowButtonFailed_Controller : rightArrowButtonFailed_Keyboard;
+    }
 
+    private void Start()
+    {
+        _leftArrowButtonBG.sprite = LeftArrowButtonUnselected;
+        _leftArrowButtonFG.sprite = LeftArrowButtonSelected;
+        _leftArrowButtonFail.sprite = LeftArrowButtonFailed;
+
+        _rightArrowButtonBG.sprite = RightArrowButtonUnselected;
+        _rightArrowButtonFG.sprite = RightArrowButtonSelected;
+        _rightArrowButtonFail.sprite = RightArrowButtonFailed;
+    }
 
     protected override void OnEnable()
     {
@@ -88,7 +151,7 @@ public class FishingRodMinigame : MinigameBase
     private void FishingRodControl_started()
     {
         holdingButton = true;
-        minigameHoldTimer = minigameHoldTime;
+        minigameHoldTimer = MinigameHoldTime;
 
         float playerDirection = Controls.FishingRodControl.ReadValue<float>();
 
