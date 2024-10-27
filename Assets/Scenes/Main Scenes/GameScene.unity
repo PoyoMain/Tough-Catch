@@ -2699,7 +2699,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6845938, g: 0, b: 0.9056604, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -15166,13 +15166,19 @@ MonoBehaviour:
   _inputReader: {fileID: 11400000, guid: 063a760d2203fda4e80723a04b0388de, type: 2}
   _minigameSuccess: {fileID: 11400000, guid: 8e73e75772e53044d85e59f9eb0f9d47, type: 2}
   gamePaused: {fileID: 11400000, guid: fbdc0a7fde734154ebfa725d3c9d1719, type: 2}
-  numberOfButtonsForCombo: 0
+  numberOfButtonsForCombo: 5
   minigameCompleteTime: 10
   stunPanel: {fileID: 357695891}
-  imageParent: {fileID: 1880494461}
-  imagePrefab: {fileID: 8093280376956398074, guid: 62c36f8c80191684ea44a219e1067ae4,
+  stunPanelImage: {fileID: 357695893}
+  buttonImageParent: {fileID: 1880494461}
+  buttonImagePrefab: {fileID: 8093280376956398074, guid: 62c36f8c80191684ea44a219e1067ae4,
     type: 3}
   timeBar: {fileID: 859591505}
+  stunPanelSprite: {fileID: 21300000, guid: 1a1f42776e6fefe4fabd1bda15e50299, type: 3}
+  stunPanelSuccessSprite: {fileID: 21300000, guid: e72e4f338ef44ed49965d58b11f66765,
+    type: 3}
+  stunPanelFailSprite: {fileID: 21300000, guid: 381ee3b605d3e0041bfb29d87cdb45c4,
+    type: 3}
   upButtonSelected_Keyboard: {fileID: 21300000, guid: d72ac66f942b3524b871e7e1165ecf39,
     type: 3}
   downButtonSelected_Keyboard: {fileID: 21300000, guid: c78a0b6b23c2fb04791b96b8299b3497,

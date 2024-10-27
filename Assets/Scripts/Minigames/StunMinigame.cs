@@ -9,12 +9,20 @@ public class StunMinigame : MinigameBase
     [Header("Settings")]
     [SerializeField] private int numberOfButtonsForCombo;
     [SerializeField] private float minigameCompleteTime;
+
+    [Header("Inspector Objects")]
     [SerializeField] private GameObject stunPanel;
-    [SerializeField] private Transform imageParent;
-    [SerializeField] private Image imagePrefab;
+    [SerializeField] private Image stunPanelImage;
+    [SerializeField] private Transform buttonImageParent;
+    [SerializeField] private Image buttonImagePrefab;
     [SerializeField] private Slider timeBar;
 
-    [Header("Keyboard Images")]
+    [Header("StunPanel Sprites")]
+    [SerializeField] private Sprite stunPanelSprite;
+    [SerializeField] private Sprite stunPanelSuccessSprite;
+    [SerializeField] private Sprite stunPanelFailSprite;
+
+    [Header("Keyboard Sprites")]
     [SerializeField] private Sprite upButtonSelected_Keyboard;
     [SerializeField] private Sprite downButtonSelected_Keyboard;
     [SerializeField] private Sprite leftButtonSelected_Keyboard;
@@ -30,7 +38,7 @@ public class StunMinigame : MinigameBase
     [SerializeField] private Sprite leftButtonFailed_Keyboard;
     [SerializeField] private Sprite rightButtonFailed_Keyboard;
 
-    [Header("Controller Images")]
+    [Header("Controller Sprites")]
     [SerializeField] private Sprite upButtonSelected_Controller;
     [SerializeField] private Sprite downButtonSelected_Controller;
     [SerializeField] private Sprite leftButtonSelected_Controller;
@@ -117,6 +125,7 @@ public class StunMinigame : MinigameBase
     {
         base.OnEnable();
 
+        stunPanelImage.sprite = stunPanelSprite;
         minigameCompleteTimer = timeBar.value = timeBar.maxValue = MinigameCompleteTime;
 
         SetCombo();
@@ -144,8 +153,8 @@ public class StunMinigame : MinigameBase
 
             if (minigameCompleteTimer <= 0)
             {
-                _minigameSuccess.RaiseEvent();
-                this.enabled = false;
+                stunPanelImage.sprite = stunPanelFailSprite;
+                Invoke(nameof(Success), 1f);
             }
         }
     }
@@ -156,7 +165,7 @@ public class StunMinigame : MinigameBase
 
         for (int i = 0; i < NumberOfButtonsForCombo; i++)
         {
-            Image img = Instantiate(imagePrefab, imageParent);
+            Image img = Instantiate(buttonImagePrefab, buttonImageParent);
             int choice = Random.Range(0, 4);
 
             FaceButton button = choice switch
@@ -198,8 +207,19 @@ public class StunMinigame : MinigameBase
             }
 
             damageFishSO.RaiseEvent();
+            stunPanelImage.sprite = stunPanelSuccessSprite;
+        }
+        else
+        {
+            ActiveButton.Fail();
+            stunPanelImage.sprite = stunPanelFailSprite;
         }
 
+        Invoke(nameof(Success), 1f);
+    }
+
+    private void Success()
+    {
         _minigameSuccess.RaiseEvent();
         this.enabled = false;
     }
