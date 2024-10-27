@@ -51,6 +51,7 @@ public class LaserMinigame : MinigameBase
 
     [Header("Prefabs")]
     [SerializeField] private Trash _testPrefab;
+    [SerializeField] private List<Trash> trashPrefabs = new();
     [SerializeField] private LaserBeam _laserPrefab;
 
     [Header("Broadcast Events")]
@@ -294,15 +295,16 @@ public class LaserMinigame : MinigameBase
 
     private void SpawnTrash(Direction dir)
     {
+        Trash trashToSpawn = trashPrefabs[Random.Range(0, trashPrefabs.Count)];
         if (dir == Direction.Left)
         {
-            _leftObject = Instantiate(_testPrefab);
+            _leftObject = Instantiate(trashToSpawn);
             _leftObject.Spline = _leftSpline;
             _leftObject.SetTime(ObjectHitTime);
         }
         else
         {
-            _rightObject = Instantiate(_testPrefab);
+            _rightObject = Instantiate(trashToSpawn);
             _rightObject.Spline = _rightSpline;
             _rightObject.SetTime(ObjectHitTime);
         }
