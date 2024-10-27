@@ -54,6 +54,7 @@ public class TuggleMinigameManager : MonoBehaviour
             minigame.Enabled = false;
             minigame.minigame.MinigameSuccessEvent.OnEventRaised -= MinigameFinished;
         }
+        tuggleSucceedSO.RaiseEvent();
         this.enabled = false;
 
         yield break;
