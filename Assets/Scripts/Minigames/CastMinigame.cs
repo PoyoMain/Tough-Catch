@@ -32,6 +32,8 @@ public class CastMinigame : MinigameBase
 
     [Header("Set in Inspector Objects")]
     [SerializeField] private Image buttonPromptImage;
+    [SerializeField] private Animator castStartLettering;
+    [SerializeField] private Animator castSucceedLettering;
 
     [Header("Keyboard Button Sprites")]
     [SerializeField] private Sprite confirmButton_Keyboard;
@@ -44,6 +46,8 @@ public class CastMinigame : MinigameBase
         get => Options.ControllerConnected ? confirmButton_Controller : confirmButton_Keyboard;
     }
     private Vector3 TargetRingScale => targetRing.transform.localScale;
+
+    private bool active = false;
 
     protected override void OnEnable()
     {
@@ -60,8 +64,30 @@ public class CastMinigame : MinigameBase
 
     }
 
-        // Start is called before the first frame update
-        void Start()
+    private IEnumerator TextDisplayCoroutine()
+    {
+
+            while (castStartLettering.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f) yield return null;
+
+            castStartLettering.gameObject.SetActive(false);
+        active = true;
+
+            while (active == true) yield return null;
+
+            castSucceedLettering.gameObject.SetActive(true);
+
+            while (castSucceedLettering.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f) yield return null;
+
+            castSucceedLettering.gameObject.SetActive(false);
+
+            MinigameSuccessEvent.RaiseEvent();
+            this.enabled = false;
+
+        yield break;
+    }
+
+    // Start is called before the first frame update
+    void Start()
     {
         if (targetRing != null)
         {
@@ -78,18 +104,23 @@ public class CastMinigame : MinigameBase
         if (ring4 != null)
         {
             targetRenderer2 = ring4.GetComponent<Image>();
-            
+
         }
         if (ring6 != null)
         {
             targetRenderer3 = ring6.GetComponent<Image>();
 
         }
+
+        castStartLettering.gameObject.SetActive(true);
+        StartCoroutine(nameof(TextDisplayCoroutine));
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!active) return;
+
         if (targetRing != null && targetRing.transform.localScale.x < maxScale && MinigameDone == false)
         {
             // Increase the scale over time at the specified rate
@@ -179,7 +210,7 @@ public class CastMinigame : MinigameBase
             targetRenderer3.color = Color.green;
             MinigameDone = true;
             Win = true;
-            _minigameSuccess.RaiseEvent();
+            active = false;
         }
 
         return;
