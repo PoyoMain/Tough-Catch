@@ -781,6 +781,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""cc4f0aa3-b3f5-4080-8fd5-e83d96ea45ee"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Confirm"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""341a7304-6350-45ab-8983-0682ea76dc43"",
                     ""path"": ""<DualShockGamepad>/start"",
                     ""interactions"": """",
