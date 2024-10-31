@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "NewOptions", menuName = "Options")]
 public class OptionsSO : ScriptableObject
@@ -29,11 +30,28 @@ public class OptionsSO : ScriptableObject
     [SerializeField] private StunMinigameSettings _mediumStunMinigameOptions;
     [SerializeField] private StunMinigameSettings _hardStunMinigameOptions;
 
-    public bool GuideImages => _guideImages;
-    public bool ControlRumble => _controlRumble;
+    public bool GuideImages 
+    {
+        get => _guideImages; 
+        set => _guideImages = value;
+    }
+    public bool ControlRumble
+    {
+        get => _controlRumble;
+        set => _controlRumble = value;
+    }
     public bool ControllerConnected => Gamepad.current != null;
-    public Difficulty Difficulty => _difficulty;
-    public FullScreenMode FullScreenMode => _fullscreenMode;
+    public AudioMixer MainAudioMixer => _mainAudioMixer;
+    public Difficulty Difficulty
+    {
+        get => _difficulty;
+        set => _difficulty = value;
+    } 
+    public FullScreenMode FullScreenMode
+    {
+        get => _fullscreenMode;
+        set => _fullscreenMode = value;
+    }
     public LaserMinigameSettings LaserMinigameOptions => Difficulty switch
     {
         Difficulty.Easy => _easyLaserMinigameOptions,
@@ -55,6 +73,55 @@ public class OptionsSO : ScriptableObject
         Difficulty.Hard => _hardStunMinigameOptions,
         _ => _mediumStunMinigameOptions
     };
+
+    private const string MIXER_MASTER = "MasterVolume";
+    private const string MIXER_MUSIC = "MusicVolume";
+    private const string MIXER_SFX = "SFXVolume";
+    private const string MIXER_AMBIENCE = "AmbienceVolume";
+
+    public void SetDifficulty(Toggle toggle)
+    {
+        _difficulty = toggle.name switch
+        {
+            "Toggle_Easy" => Difficulty.Easy,
+            "Toggle_Medium" => Difficulty.Medium,
+            "Toggle_Hard" => Difficulty.Hard,
+            _ => throw new NotImplementedException(),
+        };
+    }
+
+    public void SetGuideImages()
+    {
+        _guideImages = !_guideImages;
+    }
+
+    public void SetControllerRumble()
+    {
+        _controlRumble = !_controlRumble;
+    }
+
+    
+
+    public void SetMasterVolume(Slider slider)
+    {
+        _mainAudioMixer.SetFloat(MIXER_MASTER, slider.value);
+    }
+
+    public void SetMusicVolume(Slider slider)
+    {
+        _mainAudioMixer.SetFloat(MIXER_MUSIC, slider.value);
+    }
+
+    public void SetSFXVolume(Slider slider)
+    {
+        _mainAudioMixer.SetFloat(MIXER_SFX, slider.value);
+    }
+
+    public void SetAmbienceVolume(Slider slider)
+    {
+        _mainAudioMixer.SetFloat(MIXER_AMBIENCE, slider.value);
+    }
+
 
     [Serializable]
     public struct LaserMinigameSettings
@@ -83,6 +150,7 @@ public class OptionsSO : ScriptableObject
 
 }
 
+[Serializable]
 public enum Difficulty
 {
     Easy,
