@@ -76,11 +76,11 @@ MonoBehaviour:
     numberOfButtonsForCombo: 6
     minigameCompleteTime: 8
   _easyReelMinigameOptions:
-    meterDecay: 0.02
-    reelStrength: 0.004
+    meterDecay: 0.0002
+    reelStrength: 0.04
   _mediumReelMinigameOptions:
-    meterDecay: 0.03
-    reelStrength: 0.003
+    meterDecay: 0.0003
+    reelStrength: 0.03
   _hardReelMinigameOptions:
-    meterDecay: 0.04
-    reelStrength: 0.002
+    meterDecay: 0.0004
+    reelStrength: 0.02
