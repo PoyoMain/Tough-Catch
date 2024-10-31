@@ -3683,7 +3683,7 @@ MonoBehaviour:
   mainMenuSceneName: MainMenu
   _menu: {fileID: 2016822132}
   _firstSelectButton: {fileID: 2012672851}
-  _gameUnpaused: {fileID: 0}
+  _gameUnpaused: {fileID: 11400000, guid: 9e5f374c15c0c8f46b5b9f0d3b684049, type: 2}
   _gamePaused: {fileID: 11400000, guid: fbdc0a7fde734154ebfa725d3c9d1719, type: 2}
 --- !u!1 &464139680
 GameObject:
