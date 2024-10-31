@@ -53,6 +53,7 @@ public class LaserMinigame : MinigameBase
     [SerializeField] private Trash _testPrefab;
     [SerializeField] private List<Trash> trashPrefabs = new();
     [SerializeField] private LaserBeam _laserPrefab;
+    [SerializeField] private GameObject _laserChargeVFX;
 
     [Header("Broadcast Events")]
     [SerializeField] private VoidEventChannelSO _damagePlayer;
@@ -76,6 +77,8 @@ public class LaserMinigame : MinigameBase
     private bool _rightLaserFired;
     private bool _leftLaserCharging;
     private bool _rightLaserCharging;
+    private GameObject _leftLaserChargeVFX;
+    private GameObject _rightLaserChargeVFX;
 
     private float MinSpawnTime
     {
@@ -321,6 +324,8 @@ public class LaserMinigame : MinigameBase
 
         _leftLaserCharging = true;
         _laserLeftCharge.RaiseEvent();
+
+        _leftLaserChargeVFX = Instantiate(_laserChargeVFX, _leftLaser);
     }
 
     private void ChargeRight()
@@ -330,6 +335,8 @@ public class LaserMinigame : MinigameBase
 
         _rightLaserCharging = true;
         _laserRightCharge.RaiseEvent();
+
+        _rightLaserChargeVFX = Instantiate(_laserChargeVFX, _rightLaser);
     }
 
     private void ShootLeft()
@@ -339,6 +346,7 @@ public class LaserMinigame : MinigameBase
 
         _leftLaserCharging = false;
         _leftLaserFired = true;
+        if (_leftLaserChargeVFX != null) Destroy(_leftLaserChargeVFX);
 
         Vector3 target = _leftObject != null ? _leftObject.transform.position : _leftSpline.transform.position;
         Vector3 dir = target - _leftLaser.position;
@@ -357,6 +365,7 @@ public class LaserMinigame : MinigameBase
     {
         if (!_rightLaserCharging) return;
         if (!RightLaserCanShoot) return;
+        if (_rightLaserChargeVFX != null) Destroy(_rightLaserChargeVFX);
 
         _rightLaserCharging = false;
         _rightLaserFired = true;
@@ -401,6 +410,8 @@ public class LaserMinigame : MinigameBase
 
         if (!_leftLaserFired) _laserLeftDecharge.RaiseEvent();
         else _leftLaserFired = false;
+
+        if (_leftLaserChargeVFX != null) Destroy(_leftLaserChargeVFX);
     }
 
     private void DechargeRight()
@@ -410,6 +421,8 @@ public class LaserMinigame : MinigameBase
 
         if (!_rightLaserFired) _laserRightDecharge.RaiseEvent();
         else _rightLaserFired = false;
+
+        if (_rightLaserChargeVFX != null) Destroy(_rightLaserChargeVFX);
     }
 }
 

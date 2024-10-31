@@ -9746,6 +9746,8 @@ MonoBehaviour:
   - {fileID: -925739874807712904, guid: 8ccc6a3ec23bf2746bfb4ffb015c2d7c, type: 3}
   _laserPrefab: {fileID: 3342081132567688682, guid: 321aaffb64762a04face764d746e80ad,
     type: 3}
+  _laserChargeVFX: {fileID: 7743107583517487344, guid: 8d82dc848f20a6347b2f1053af47d62f,
+    type: 3}
   _damagePlayer: {fileID: 11400000, guid: 28719e99e4bb5ee41aea4fb105678875, type: 2}
   _laserLeftCharge: {fileID: 11400000, guid: 438ed97a6d6163249b2941a08cbb0a91, type: 2}
   _laserRightCharge: {fileID: 11400000, guid: b001bbe009d37c44cb5026bb89d5c05a, type: 2}
