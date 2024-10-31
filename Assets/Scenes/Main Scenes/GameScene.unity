@@ -13401,7 +13401,7 @@ MonoBehaviour:
         m_MethodName: set_clip
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 8300000, guid: 43769cb13b055bc43ac5d2ccced51773,
+          m_ObjectArgument: {fileID: 8300000, guid: a433c6522ed90454b80ee1e10c3ef1dd,
             type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
           m_IntArgument: 0
