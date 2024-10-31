@@ -32,6 +32,16 @@ public class ReelMinigame : MinigameBase
     //prevents animations from being called more than once at a time
     private bool animPlaying = false;
 
+    //Properties
+    private float ReelStrength
+    {
+        get => _useOptionValues ? Options.ReelMinigameOptions.reelStrength : reelStrength;
+    }
+    private float MeterDecay
+    {
+        get => _useOptionValues ? Options.ReelMinigameOptions.meterDecay : meterDecay;
+    }
+
     //enabling and disabling reeling controls
     protected override void OnEnable() 
     { 
@@ -81,7 +91,7 @@ public class ReelMinigame : MinigameBase
         }
         //meter constantly decreases until it becomes full
         if (reelMeter.value < 1) {
-            reelMeter.value -= meterDecay;
+            reelMeter.value -= MeterDecay;
         }
         
         buttonChange();
@@ -155,48 +165,48 @@ public class ReelMinigame : MinigameBase
         {
             if (buttonFrame.sprite == buttonSpriteList[0])
             {
-                reelMeter.value += reelStrength;
+                reelMeter.value += ReelStrength;
                 StartCoroutine(shakeDuration());
             }
             else
             {
-                reelMeter.value -= reelStrength;
+                reelMeter.value -= ReelStrength;
             }
         }
         if (buttonValue == Vector2.down)
         {
             if (buttonFrame.sprite == buttonSpriteList[1])
             {
-                reelMeter.value += reelStrength;
+                reelMeter.value += ReelStrength;
                 StartCoroutine(shakeDuration());
             }
             else
             {
-                reelMeter.value -= reelStrength;
+                reelMeter.value -= ReelStrength;
             }
         }
         if (buttonValue == Vector2.left)
         {
             if (buttonFrame.sprite == buttonSpriteList[2])
             {
-                reelMeter.value += reelStrength;
+                reelMeter.value += ReelStrength;
                 StartCoroutine(shakeDuration());
             }
             else
             {
-                reelMeter.value -= reelStrength;
+                reelMeter.value -= ReelStrength;
             }
         }
         if (buttonValue == Vector2.right)
         {
             if (buttonFrame.sprite == buttonSpriteList[3])
             {
-                reelMeter.value += reelStrength;
+                reelMeter.value += ReelStrength;
                 StartCoroutine(shakeDuration());
             }
             else
             {
-                reelMeter.value -= reelStrength;
+                reelMeter.value -= ReelStrength;
             }
         }
     }

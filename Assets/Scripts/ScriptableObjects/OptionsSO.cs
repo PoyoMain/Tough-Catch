@@ -17,7 +17,17 @@ public class OptionsSO : ScriptableObject
     [SerializeField] private FullScreenMode _fullscreenMode;
     [SerializeField] private AudioMixer _mainAudioMixer;
 
-    [Header("Minigame Settings")]
+    [Header("Scan Minigame Settings")]
+    [SerializeField] private ScanMinigameSettings _easyScanMinigameOptions;
+    [SerializeField] private ScanMinigameSettings _mediumScanMinigameOptions;
+    [SerializeField] private ScanMinigameSettings _hardScanMinigameOptions;
+
+    [Header("Cast Minigame Settings")]
+    [SerializeField] private CastMinigameSettings _easyCastMinigameOptions;
+    [SerializeField] private CastMinigameSettings _mediumCastMinigameOptions;
+    [SerializeField] private CastMinigameSettings _hardCastMinigameOptions;
+
+    [Header("Tuggle Minigame Settings")]
     [SerializeField] private LaserMinigameSettings _easyLaserMinigameOptions;
     [SerializeField] private LaserMinigameSettings _mediumLaserMinigameOptions;
     [SerializeField] private LaserMinigameSettings _hardLaserMinigameOptions;
@@ -29,6 +39,11 @@ public class OptionsSO : ScriptableObject
     [SerializeField] private StunMinigameSettings _easyStunMinigameOptions;
     [SerializeField] private StunMinigameSettings _mediumStunMinigameOptions;
     [SerializeField] private StunMinigameSettings _hardStunMinigameOptions;
+
+    [Header("Reel Minigame Settings")]
+    [SerializeField] private ReelMinigameSettings _easyReelMinigameOptions;
+    [SerializeField] private ReelMinigameSettings _mediumReelMinigameOptions;
+    [SerializeField] private ReelMinigameSettings _hardReelMinigameOptions;
 
     public bool GuideImages 
     {
@@ -52,6 +67,20 @@ public class OptionsSO : ScriptableObject
         get => _fullscreenMode;
         set => _fullscreenMode = value;
     }
+    public ScanMinigameSettings ScanMinigameOptions => Difficulty switch
+    {
+        Difficulty.Easy => _easyScanMinigameOptions,
+        Difficulty.Medium => _mediumScanMinigameOptions,
+        Difficulty.Hard => _hardScanMinigameOptions,
+        _ => _mediumScanMinigameOptions
+    };
+    public CastMinigameSettings CastMinigameOptions => Difficulty switch
+    {
+        Difficulty.Easy => _easyCastMinigameOptions,
+        Difficulty.Medium => _mediumCastMinigameOptions,
+        Difficulty.Hard => _hardCastMinigameOptions,
+        _ => _mediumCastMinigameOptions
+    };
     public LaserMinigameSettings LaserMinigameOptions => Difficulty switch
     {
         Difficulty.Easy => _easyLaserMinigameOptions,
@@ -72,6 +101,13 @@ public class OptionsSO : ScriptableObject
         Difficulty.Medium => _mediumStunMinigameOptions,
         Difficulty.Hard => _hardStunMinigameOptions,
         _ => _mediumStunMinigameOptions
+    };
+    public ReelMinigameSettings ReelMinigameOptions => Difficulty switch
+    {
+        Difficulty.Easy => _easyReelMinigameOptions,
+        Difficulty.Medium => _mediumReelMinigameOptions,
+        Difficulty.Hard => _hardReelMinigameOptions,
+        _ => _mediumReelMinigameOptions
     };
 
     private const string MIXER_MASTER = "MasterVolume";
@@ -122,6 +158,19 @@ public class OptionsSO : ScriptableObject
         _mainAudioMixer.SetFloat(MIXER_AMBIENCE, slider.value);
     }
 
+    [Serializable]
+    public struct ScanMinigameSettings
+    {
+        public float minTime;
+        public float maxTime;
+        public float maxConfirmTime;
+    }
+
+    [Serializable]
+    public struct CastMinigameSettings
+    {
+        public float scaleRate;
+    }
 
     [Serializable]
     public struct LaserMinigameSettings
@@ -148,6 +197,12 @@ public class OptionsSO : ScriptableObject
         public float minigameCompleteTime;
     }
 
+    [Serializable]
+    public struct ReelMinigameSettings
+    {
+        public float meterDecay;
+        public float reelStrength;
+    }
 }
 
 [Serializable]

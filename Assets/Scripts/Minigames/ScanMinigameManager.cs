@@ -43,9 +43,23 @@ public class ScanMinigameManager : MinigameBase
     [SerializeField] Image scanner;
     [SerializeField] Animator buttonAnim;
     
-    //Added by Chris
+    //Added by Chris; Lettering animators
     [SerializeField] Animator scanStartLettering;
     [SerializeField] Animator scanSucceedLettering;
+
+    //Added by Chris; Properties
+    float MinTime
+    {
+        get => _useOptionValues ? Options.ScanMinigameOptions.minTime : minTime;
+    }
+    float MaxTime
+    {
+        get => _useOptionValues ? Options.ScanMinigameOptions.maxTime : maxTime;
+    }
+    float MaxFishTime
+    {
+        get => _useOptionValues ? Options.ScanMinigameOptions.maxConfirmTime : maxFishTime;
+    }
 
     bool active; //Added by Chris
     bool moving;
@@ -178,14 +192,14 @@ public class ScanMinigameManager : MinigameBase
 
     void SetCatchTime()
     {
-        timeUntilCatch = Random.Range(minTime, maxTime);
+        timeUntilCatch = Random.Range(MinTime, MaxTime);
         Unpause();
     }
 
     void Find()
     {
         found = true;
-        fishTimer = maxFishTime;
+        fishTimer = MaxFishTime;
 
         //Selects random fish from the serialized list
         int index = Random.Range(0, fishList.Count);

@@ -46,6 +46,10 @@ public class CastMinigame : MinigameBase
         get => Options.ControllerConnected ? confirmButton_Controller : confirmButton_Keyboard;
     }
     private Vector3 TargetRingScale => targetRing.transform.localScale;
+    private float ScaleRate
+    {
+        get => _useOptionValues ? Options.CastMinigameOptions.scaleRate : scaleRate;
+    }
 
     private bool active = false;
 
@@ -124,7 +128,7 @@ public class CastMinigame : MinigameBase
         if (targetRing != null && targetRing.transform.localScale.x < maxScale && MinigameDone == false)
         {
             // Increase the scale over time at the specified rate
-            float newScale = targetRing.transform.localScale.x + scaleRate * Time.deltaTime;
+            float newScale = targetRing.transform.localScale.x + ScaleRate * Time.deltaTime;
             newScale = Mathf.Min(newScale, maxScale); // Limit the scale to the maxScale value
 
             // Apply the new scale uniformly in all directions
