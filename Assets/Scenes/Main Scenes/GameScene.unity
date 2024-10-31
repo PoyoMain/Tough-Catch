@@ -1723,7 +1723,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b156230f10c019b4c982dc4bdc522c6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _useOptionValues: 0
+  _useOptionValues: 1
   _options: {fileID: 11400000, guid: 2f50d8ebcbcf65f45994f1b2d449992d, type: 2}
   _inputReader: {fileID: 11400000, guid: 063a760d2203fda4e80723a04b0388de, type: 2}
   _minigameSuccess: {fileID: 11400000, guid: fd07c957b984e6b4dac6bb49b1d275e5, type: 2}
@@ -4050,14 +4050,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f55024046a9336d4883c1b1be8dd9ece, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _useOptionValues: 0
+  _useOptionValues: 1
   _options: {fileID: 11400000, guid: 2f50d8ebcbcf65f45994f1b2d449992d, type: 2}
   _inputReader: {fileID: 11400000, guid: 063a760d2203fda4e80723a04b0388de, type: 2}
   _minigameSuccess: {fileID: 11400000, guid: 6f493a508b7e8914d9efccf8bad46ada, type: 2}
   gamePaused: {fileID: 11400000, guid: fbdc0a7fde734154ebfa725d3c9d1719, type: 2}
-  minTime: 5
-  maxTime: 10
-  maxFishTime: 3
+  minTime: 0
+  maxTime: 0
+  maxFishTime: 0
   timeUntilCatch: 10
   fishTimer: 0
   found: 0
@@ -5772,7 +5772,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21f2130a7aa82584fba910e99d5f3286, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _useOptionValues: 0
+  _useOptionValues: 1
   _options: {fileID: 11400000, guid: 2f50d8ebcbcf65f45994f1b2d449992d, type: 2}
   _inputReader: {fileID: 11400000, guid: 063a760d2203fda4e80723a04b0388de, type: 2}
   _minigameSuccess: {fileID: 11400000, guid: d6157594f8982f2438d732894fa43162, type: 2}
@@ -8685,9 +8685,9 @@ MonoBehaviour:
   _inputReader: {fileID: 11400000, guid: 063a760d2203fda4e80723a04b0388de, type: 2}
   _minigameSuccess: {fileID: 11400000, guid: 6f493a508b7e8914d9efccf8bad46ada, type: 2}
   gamePaused: {fileID: 11400000, guid: fbdc0a7fde734154ebfa725d3c9d1719, type: 2}
-  minTime: 5
-  maxTime: 10
-  maxFishTime: 3
+  minTime: 0
+  maxTime: 0
+  maxFishTime: 0
   timeUntilCatch: 10
   fishTimer: 0
   found: 0
@@ -9689,7 +9689,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54966ced8f185194fa350ef3acd7fbad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _useOptionValues: 0
+  _useOptionValues: 1
   _options: {fileID: 11400000, guid: 2f50d8ebcbcf65f45994f1b2d449992d, type: 2}
   _inputReader: {fileID: 11400000, guid: 063a760d2203fda4e80723a04b0388de, type: 2}
   _minigameSuccess: {fileID: 11400000, guid: 7dc54b95d6dff84489b0c706f68fe7e1, type: 2}
@@ -10602,8 +10602,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1508741592}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -3, y: 15.999999, z: 2.2000008}
+  m_LocalRotation: {x: 0.08715578, y: -0, z: -0, w: 0.9961947}
+  m_LocalPosition: {x: 0, y: 3.5, z: -20.699997}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -12591,7 +12591,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89dfefcb64b12aa42b977a0122d5e105, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _useOptionValues: 0
+  _useOptionValues: 1
   _options: {fileID: 11400000, guid: 2f50d8ebcbcf65f45994f1b2d449992d, type: 2}
   _inputReader: {fileID: 11400000, guid: 063a760d2203fda4e80723a04b0388de, type: 2}
   _minigameSuccess: {fileID: 11400000, guid: 95b483d82355c1042b25da6dc6be2b7b, type: 2}
@@ -13582,6 +13582,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1156563471163028260, guid: 8e301960f8d4a824e9e108c5e3afe744,
+        type: 3}
+      propertyPath: maxTime
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1156563471163028260, guid: 8e301960f8d4a824e9e108c5e3afe744,
+        type: 3}
+      propertyPath: minTime
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1156563471163028260, guid: 8e301960f8d4a824e9e108c5e3afe744,
+        type: 3}
+      propertyPath: _useOptionValues
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1156563471163028260, guid: 8e301960f8d4a824e9e108c5e3afe744,
         type: 3}
@@ -16165,7 +16180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a987da7eb8048b4ca2c8ff258124e95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _useOptionValues: 0
+  _useOptionValues: 1
   _options: {fileID: 11400000, guid: 2f50d8ebcbcf65f45994f1b2d449992d, type: 2}
   _inputReader: {fileID: 11400000, guid: 063a760d2203fda4e80723a04b0388de, type: 2}
   _minigameSuccess: {fileID: 11400000, guid: 8e73e75772e53044d85e59f9eb0f9d47, type: 2}
