@@ -106,7 +106,7 @@ public class FishingRodMinigame : MinigameBase
     }
     private Sprite RightArrowButtonUnselected
     {
-        get => ControllerConnected ? leftArrowButtonUnselected_Controller : leftArrowButtonUnselected_Keyboard;
+        get => ControllerConnected ? rightArrowButtonUnselected_Controller : rightArrowButtonUnselected_Keyboard;
     }
     private Sprite RightArrowButtonSelected
     {
