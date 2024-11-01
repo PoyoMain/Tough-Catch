@@ -156,62 +156,41 @@ public class LaserMinigame : MinigameBase
         _rightButtonPromptBG.sprite = RightButtonPromptUnselected;
         _rightButtonPromptFG.sprite = RightButtonPromptSelected;
         _rightButtonPromptFail.sprite = RightButtonPromptFailed;
-
-        //Controls.LaserShootLeft.started += ChargeLeft;
-        //Controls.LaserShootLeft.performed += ShootLeft;
-        //Controls.LaserShootLeft.canceled += DechargeLeft;
-        //Controls.LaserShootLeft.performed += DechargeLeft;
-
-        //Controls.LaserShootRight.started += ChargeRight;
-        //Controls.LaserShootRight.performed += ShootRight;
-        //Controls.LaserShootRight.canceled += DechargeRight;
-        //Controls.LaserShootRight.performed += DechargeRight;
     }
 
     protected override void OnEnable()
     {
         base.OnEnable();
 
-        _activeTimer = _activeTime;
-
-        ResetSpawnTimer(Direction.Left);
-        ResetSpawnTimer(Direction.Right);
+        Activate();
     }
 
     private void OnDisable()
     {
-        //Controls.LaserShootLeft.started -= ChargeLeft;
-        //Controls.LaserShootLeft.performed -= ShootLeft;
-        //Controls.LaserShootLeft.canceled -= DechargeLeft;
-        //Controls.LaserShootRight.started -= ChargeRight;
-        //Controls.LaserShootRight.performed -= ShootRight;
-        //Controls.LaserShootRight.canceled -= DechargeRight;
+        activated = false;
 
         if (_leftObject != null) Destroy(_leftObject.gameObject);
         if (_rightObject != null) Destroy(_rightObject.gameObject);
     }
 
-    //private void OnDestroy()
-    //{
-    //    //Controls.LaserShootLeft.started -= ChargeLeft;
-    //    //Controls.LaserShootLeft.performed -= ShootLeft;
-    //    //Controls.LaserShootLeft.canceled -= DechargeLeft;
-    //    //Controls.LaserShootLeft.performed -= DechargeLeft;
+    public override void Activate()
+    {
+        _activeTimer = _activeTime;
+        activated = true;
 
-    //    //Controls.LaserShootRight.started -= ChargeRight;
-    //    //Controls.LaserShootRight.performed -= ShootRight;
-    //    //Controls.LaserShootRight.canceled -= DechargeRight;
-    //    //Controls.LaserShootRight.performed -= DechargeRight;
-    //}
+        ResetSpawnTimer(Direction.Left);
+        ResetSpawnTimer(Direction.Right);
+    }
 
     private void Update()
     {
         if (isPaused) return;
+        
 
-        if (_leftObject == null && _rightObject == null && _activeTimer <= 0)
+        if (_leftObject == null && _rightObject == null && _activeTimer <= 0 && activated == true)
         {
             _minigameSuccess.RaiseEvent();
-            this.enabled = false;
+            activated = false;
         }
 
         if (Controls.LaserShootLeft.WasPressedThisFrame()) ChargeLeft();
@@ -241,6 +220,8 @@ public class LaserMinigame : MinigameBase
             _rightButtonPromptAnim.SetTrigger("Fail");
             Destroy(_rightObject.gameObject);
         }
+
+        if (!activated) return;
 
         _leftSpawnTimer -= Time.deltaTime;
         if (_leftSpawnTimer <= 0 && _leftObject == null)

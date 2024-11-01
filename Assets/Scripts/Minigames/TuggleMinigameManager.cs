@@ -45,15 +45,17 @@ public class TuggleMinigameManager : MonoBehaviour
         while (deactivate == false) yield return null;
 
         successImage.gameObject.SetActive(true);
-
-        while(successImage.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f) yield return null;
-
-        successImage.gameObject.SetActive(false);
         foreach (SpawnableMinigame minigame in minigames)
         {
-            minigame.Enabled = false;
             minigame.minigame.MinigameSuccessEvent.OnEventRaised -= MinigameFinished;
+
+            if (minigame.destroyOnTuggleEnd) Destroy(minigame.minigame.gameObject);
+            else minigame.Enabled = false;
         }
+
+        while (successImage.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f) yield return null;
+
+        successImage.gameObject.SetActive(false);
         tuggleSucceedSO.RaiseEvent();
         this.enabled = false;
 
@@ -86,13 +88,13 @@ public class TuggleMinigameManager : MonoBehaviour
     {
         fishHealthDepleatedSO.OnEventRaised -= FinishPhase;
 
-        foreach (SpawnableMinigame minigame in minigames)
-        {
-            minigame.minigame.MinigameSuccessEvent.OnEventRaised -= MinigameFinished;
+        //foreach (SpawnableMinigame minigame in minigames)
+        //{
+        //    minigame.minigame.MinigameSuccessEvent.OnEventRaised -= MinigameFinished;
 
-            if (minigame.destroyOnTuggleEnd) Destroy(minigame.minigame.gameObject);
-            else minigame.Enabled = false;
-        }
+        //    if (minigame.destroyOnTuggleEnd) Destroy(minigame.minigame.gameObject);
+        //    else minigame.Enabled = false;
+        //}
     }
 
     private void StartNewMinigame()
@@ -103,14 +105,29 @@ public class TuggleMinigameManager : MonoBehaviour
 
         foreach (SpawnableMinigame minigame in minigames)
         {
-            if (!minigame.Enabled && minigame.spawnChance > 0)
+            if (minigame.dontDisableOnFinish)
             {
-                inactiveMinigames.Add(minigame);
-                totalPercent += minigame.spawnChance;
+                if (!minigame.minigame.Active && minigame.spawnChance > 0)
+                {
+                    inactiveMinigames.Add(minigame);
+                    totalPercent += minigame.spawnChance;
+                }
+                else if (minigame.minigame.Active)
+                {
+                    activeMinigames.Add(minigame);
+                }
             }
-            else if (minigame.Enabled)
+            else
             {
-                activeMinigames.Add(minigame);
+                if (!minigame.Enabled && minigame.spawnChance > 0)
+                {
+                    inactiveMinigames.Add(minigame);
+                    totalPercent += minigame.spawnChance;
+                }
+                else if (minigame.Enabled)
+                {
+                    activeMinigames.Add(minigame);
+                }
             }
         }
 
@@ -123,7 +140,12 @@ public class TuggleMinigameManager : MonoBehaviour
         {
             if (chosenPercent <= minigame.spawnChance)
             {
-                minigame.Enabled = true;
+                if (minigame.dontDisableOnFinish)
+                {
+                    minigame.minigame.Activate();
+                }
+                else minigame.Enabled = true;
+
                 return;
             }
             else chosenPercent -= minigame.spawnChance;
@@ -153,5 +175,6 @@ public class TuggleMinigameManager : MonoBehaviour
         }
 
         public bool destroyOnTuggleEnd;
+        public bool dontDisableOnFinish;
     }
 }

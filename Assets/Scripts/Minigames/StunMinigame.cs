@@ -140,7 +140,7 @@ public class StunMinigame : MinigameBase
 
         foreach (FaceButton button in directionCombo)
         {
-            Destroy(button.image.gameObject);
+            if (button.image != null) Destroy(button.image.gameObject);
         }
         Controls.StunPanelButtons.performed -= HitButtonInCombo;
     }

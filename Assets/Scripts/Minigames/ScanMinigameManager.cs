@@ -74,7 +74,7 @@ public class ScanMinigameManager : MinigameBase
     }
 
     //Added by Chris; Moved start into Activate
-    private void Activate()
+    public override void Activate()
     {
         Pause();
 

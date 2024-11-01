@@ -23,8 +23,10 @@ public abstract class MinigameBase : MonoBehaviour
     protected PlayerControls.GameplayControlsActions Controls => _inputReader.Controls;
 
     protected bool isPaused;
+    protected bool activated;
 
     protected bool ControllerConnected => Options.ControllerConnected;
+    public bool Active => activated;
 
     protected virtual void OnEnable()
     {
@@ -34,6 +36,11 @@ public abstract class MinigameBase : MonoBehaviour
     protected void Finish(bool success = true)
     {
         Finished = success ? MinigameState.Suceeded : MinigameState.Failed;
+    }
+
+    public virtual void Activate()
+    {
+
     }
 }
 

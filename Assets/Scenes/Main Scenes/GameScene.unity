@@ -9604,12 +9604,15 @@ MonoBehaviour:
   - minigame: {fileID: 1461839134}
     spawnChance: 1
     destroyOnTuggleEnd: 1
+    dontDisableOnFinish: 1
   - minigame: {fileID: 253810602}
     spawnChance: 1
     destroyOnTuggleEnd: 0
+    dontDisableOnFinish: 0
   - minigame: {fileID: 2098696214}
     spawnChance: 0.25
     destroyOnTuggleEnd: 0
+    dontDisableOnFinish: 0
   startImage: {fileID: 637059665}
   successImage: {fileID: 791927620}
   tuggleStartSO: {fileID: 11400000, guid: 72a51ffdc4546b94f811a24ba2d9d591, type: 2}
