@@ -171,6 +171,8 @@ public class LaserMinigame : MinigameBase
 
         if (_leftObject != null) Destroy(_leftObject.gameObject);
         if (_rightObject != null) Destroy(_rightObject.gameObject);
+        if (_leftLaserChargeVFX != null) Destroy(_leftLaserChargeVFX);
+        if (_rightLaserChargeVFX != null) Destroy(_rightLaserChargeVFX);
     }
 
     public override void Activate()
