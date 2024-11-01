@@ -1856,7 +1856,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d41fab54f18482749a2be178cc5ea5eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testing: 0
+  testing: 1
   testHealth: 10
   stunGunDamageAmount: 30
   tugglePhaseSuccessSO: {fileID: 11400000, guid: 72439250eafd27042bfab00036d76804,
@@ -15127,13 +15127,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1956792032}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.175367, y: -0.80683106, z: 0.362404, w: 0.43235806}
+  m_LocalRotation: {x: 0.4000427, y: 0.1405128, z: -0.045343686, w: 0.9045252}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 47.429, y: -122.498, z: 2.575}
+  m_LocalEulerAnglesHint: {x: 47.429, y: 18.791, z: 2.575}
 --- !u!114 &1956792035
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16098,6 +16098,10 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 0}
     - targetCorrespondingSourceObject: {fileID: 4760206074288543894, guid: f68ffa9e44a4dbf46a123b963b7fcc28,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 2282883879979108629, guid: f68ffa9e44a4dbf46a123b963b7fcc28,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
