@@ -15,7 +15,9 @@ public class ReelMinigame : MinigameBase
 
     //holds image sprites for which button to mash
     //***SET ORDER OF SPRITES IN UP, DOWN, LEFT, RIGHT IN EDITOR FOR PROPER FUNCTION***
-    public Sprite[] buttonSpriteList = new Sprite[4];
+    public Sprite[] keyboardSpriteList = new Sprite[4];
+    public Sprite[] controllerSpriteList = new Sprite[4];
+    private Sprite[] buttonSpriteList = new Sprite[4];
     private Sprite buttonSprite;
 
     //quantity of how much meter changes from button press, or from decreasing overtime
@@ -60,6 +62,7 @@ public class ReelMinigame : MinigameBase
         //Keep player control disabled temporarily at start
         Controls.Reeling.Disable();
         //sets random sprite for button ui
+        buttonSpriteList = Options.ControllerConnected ? controllerSpriteList : keyboardSpriteList;
         buttonSprite = buttonSpriteList[Random.Range(0, buttonSpriteList.Length)];
         buttonFrame.sprite = buttonSprite;
         buttonPosition = buttonFrame.transform.position;
