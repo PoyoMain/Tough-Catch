@@ -14,6 +14,9 @@ public class FishHealthBar : MonoBehaviour
     [Header("Settings")]
     [SerializeField] private float stunGunDamageAmount = 30f;
 
+    [Header("Inspector Objects")]
+    [SerializeField] private Image profileImage;
+
     [Header("Broadcast Events")]
     [SerializeField] private VoidEventChannelSO tugglePhaseSuccessSO;
 
@@ -59,6 +62,7 @@ public class FishHealthBar : MonoBehaviour
         }
 
         _fishCurrentHealth = _healthSlider.value = _healthSlider.maxValue = _currentFish.Health;
+        profileImage.sprite = _currentFish.Image;
     }
 
     private void Update()
