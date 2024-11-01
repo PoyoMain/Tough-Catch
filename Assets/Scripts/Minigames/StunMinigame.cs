@@ -21,7 +21,7 @@ public class StunMinigame : MinigameBase
     [SerializeField] private Sprite stunPanelSprite;
     [SerializeField] private Sprite stunPanelSuccessSprite;
     [SerializeField] private Sprite stunPanelFailSprite;
-
+    
     [Header("Keyboard Sprites")]
     [SerializeField] private Sprite upButtonSelected_Keyboard;
     [SerializeField] private Sprite downButtonSelected_Keyboard;
@@ -154,6 +154,8 @@ public class StunMinigame : MinigameBase
             if (minigameCompleteTimer <= 0)
             {
                 stunPanelImage.sprite = stunPanelFailSprite;
+                timeBar.gameObject.GetComponent<Animator>().SetTrigger("Fail");
+                minigameCompleteTimer = -1;
                 Invoke(nameof(Success), 1f);
             }
         }
@@ -208,11 +210,15 @@ public class StunMinigame : MinigameBase
 
             damageFishSO.RaiseEvent();
             stunPanelImage.sprite = stunPanelSuccessSprite;
+            timeBar.gameObject.GetComponent<Animator>().SetTrigger("Success");
+            minigameCompleteTimer = -1;
         }
         else
         {
             ActiveButton.Fail();
             stunPanelImage.sprite = stunPanelFailSprite;
+            timeBar.gameObject.GetComponent<Animator>().SetTrigger("Fail");
+            minigameCompleteTimer = -1;
         }
 
         Invoke(nameof(Success), 1f);
