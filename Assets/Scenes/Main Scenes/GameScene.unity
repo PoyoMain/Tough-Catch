@@ -14001,7 +14001,7 @@ MonoBehaviour:
   buttonPromptImage: {fileID: 1597312316}
   castStartLettering: {fileID: 2139522490}
   castSucceedLettering: {fileID: 1005416537}
-  confirmButton_Keyboard: {fileID: 21300000, guid: 6ed9d5f33b0f44d4fa1c103e56998f61,
+  confirmButton_Keyboard: {fileID: 21300000, guid: 288699c9a91d49d4b86d50c5446d6f3d,
     type: 3}
   confirmButton_Controller: {fileID: 21300000, guid: 6ed9d5f33b0f44d4fa1c103e56998f61,
     type: 3}
