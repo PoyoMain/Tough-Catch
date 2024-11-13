@@ -6599,10 +6599,10 @@ MonoBehaviour:
   reelAnim: {fileID: 1506075979}
   successAnim: {fileID: 369804573}
   keyboardSpriteList:
-  - {fileID: 21300000, guid: 1117c8ff79d2d034082b652fa7586695, type: 3}
-  - {fileID: 21300000, guid: e86a2b5aa926ff14a94b66405c8e03ec, type: 3}
-  - {fileID: 21300000, guid: 1afb180e3ffb42742ba0a6065f9ab757, type: 3}
-  - {fileID: 21300000, guid: a59c912af494ee1499f9eaa9250c21ac, type: 3}
+  - {fileID: 21300000, guid: ad176a2af2cac144e964ab24b497363e, type: 3}
+  - {fileID: 21300000, guid: 4f0c380ffc74c9741bc6269a83f30f24, type: 3}
+  - {fileID: 21300000, guid: 59da1d4f6ddf2bb468efceff3f06b888, type: 3}
+  - {fileID: 21300000, guid: fd73c688dbc6bae4185006403af2d692, type: 3}
   controllerSpriteList:
   - {fileID: 21300000, guid: 8642e9a04865a654fa47fb8be4b62489, type: 3}
   - {fileID: 21300000, guid: 7a24181d7efd1544fa76e37b221ef0a4, type: 3}
