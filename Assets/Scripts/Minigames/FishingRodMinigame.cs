@@ -17,6 +17,10 @@ public class FishingRodMinigame : MinigameBase
     [Header("Fishing Rod")]
     [SerializeField] private Animator fishingRodAnim;
 
+    [Header("Flames")]
+    [SerializeField] private GameObject leftFlames;
+    [SerializeField] private GameObject rightFlames;
+
     [Header("UI")]
     [SerializeField] private Slider leftArrowPromptSlider;
     [SerializeField] private Slider rightArrowPromptSlider;
@@ -144,6 +148,8 @@ public class FishingRodMinigame : MinigameBase
 
     private void FishingRodControl_canceled()
     {
+        leftFlames.SetActive(false);
+        rightFlames.SetActive(false);
         holdingButton = false;
         minigameHoldTimer = -1;
         minigameFailTimer = -1;
@@ -152,6 +158,8 @@ public class FishingRodMinigame : MinigameBase
     private void FishingRodControl_started()
     {
         Direction playerDirection = Controls.FishingRodControl.ReadValue<float>() < 0 ? Direction.Left : Direction.Right;
+        GameObject activeFlames = playerDirection == Direction.Left ? leftFlames : rightFlames;
+        activeFlames.SetActive(true);
 
         if (driftDirection != playerDirection)
         {
@@ -235,6 +243,8 @@ public class FishingRodMinigame : MinigameBase
 
                 fishingRodAnim.SetTrigger("DriftStop");
                 activePromptAnim.SetTrigger("Fail");
+                leftFlames.SetActive(false);
+                rightFlames.SetActive(false);
             }
         }
     }
@@ -308,5 +318,8 @@ public class FishingRodMinigame : MinigameBase
         fishingRodStopDriftSO.RaiseEvent();
 
         fishingRodAnim.SetTrigger("DriftStop");
+
+        leftFlames.SetActive(false);
+        rightFlames.SetActive(false);
     }
 }

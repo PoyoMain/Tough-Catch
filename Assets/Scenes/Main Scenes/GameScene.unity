@@ -2162,6 +2162,8 @@ MonoBehaviour:
   minigameHoldTime: 1
   damagePlayerWhenFail: 1
   fishingRodAnim: {fileID: 1553530195}
+  leftFlames: {fileID: 2074815733}
+  rightFlames: {fileID: 1404728011}
   leftArrowPromptSlider: {fileID: 1771248108}
   rightArrowPromptSlider: {fileID: 455069431}
   leftArrowPromptAnim: {fileID: 1771248107}
@@ -10581,6 +10583,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1395654033}
   m_CullTransparentMesh: 1
+--- !u!1 &1404728011 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6614486550594743214, guid: 03d444b68793acf40b04cd9ec3e99d8c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1612002863}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1408239613
 GameObject:
   m_ObjectHideFlags: 0
@@ -17232,6 +17240,12 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &2074815733 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6614486550594743214, guid: 03d444b68793acf40b04cd9ec3e99d8c,
+    type: 3}
+  m_PrefabInstance: {fileID: 234651996}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2075946626
 GameObject:
   m_ObjectHideFlags: 0
