@@ -2864,6 +2864,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FishTimelineObject
       objectReference: {fileID: 0}
+    - target: {fileID: 5410630063236356719, guid: 450ea9f15e61f864d9b9e1e5ef1eee43,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7207843827559138160, guid: 450ea9f15e61f864d9b9e1e5ef1eee43,
         type: 3}
       propertyPath: maxTime
@@ -4429,6 +4434,12 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &501598017 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5410630063236356719, guid: 450ea9f15e61f864d9b9e1e5ef1eee43,
+    type: 3}
+  m_PrefabInstance: {fileID: 317230039}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &511135830
 GameObject:
   m_ObjectHideFlags: 0
@@ -9270,6 +9281,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1156160667}
+  - component: {fileID: 1156160669}
+  - component: {fileID: 1156160668}
   m_Layer: 0
   m_Name: Environment
   m_TagString: Untagged
@@ -9299,6 +9312,62 @@ Transform:
   - {fileID: 317230040}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1156160668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1156160666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b37950ec679f647a9ab698ec0275e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _channel: {fileID: 11400000, guid: daefbfa40829d9643b109aa025597eb1, type: 2}
+  OnEventRaised:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 501598017}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1156160669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1156160666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b37950ec679f647a9ab698ec0275e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _channel: {fileID: 11400000, guid: 72a51ffdc4546b94f811a24ba2d9d591, type: 2}
+  OnEventRaised:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 501598017}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!1 &1171450363
 GameObject:
   m_ObjectHideFlags: 0
