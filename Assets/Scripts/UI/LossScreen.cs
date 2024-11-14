@@ -30,6 +30,11 @@ public class LossScreen : MonoBehaviour
         GameLostEventSO.OnEventRaised -= InitializeLossScreen;
     }
 
+    private void Start()
+    {
+        InitializeLossScreen();
+    }
+
     private void InitializeLossScreen()
     {
         
