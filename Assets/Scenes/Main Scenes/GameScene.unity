@@ -4827,10 +4827,10 @@ MonoBehaviour:
   speed: 500
   shakeIntensity: 0
   shakeFrequency: 0
-  xMax: 1820
+  xMax: 1840
   xMin: 80
-  yMax: 1000
-  yMin: 100
+  yMax: 930
+  yMin: 150
   animator: {fileID: 0}
   scanner: {fileID: 1974319864}
   buttonAnim: {fileID: 0}
