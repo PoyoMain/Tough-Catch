@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Bent Can
   m_EditorClassIdentifier: 
   _description: A slightly misshapen can filed with who knows what
-  _sprite: {fileID: 21300000, guid: 340a46214fa9dba4884750a9fc02284c, type: 3}
+  _profileSprite: {fileID: 21300000, guid: 340a46214fa9dba4884750a9fc02284c, type: 3}
+  _fullSprite: {fileID: 21300000, guid: 340a46214fa9dba4884750a9fc02284c, type: 3}
   _model: {fileID: 5769291914070810365, guid: d80e17aa83881fe4eb4885ae1ba91322, type: 3}
   _maxHealth: 50
   _minWeight: 3

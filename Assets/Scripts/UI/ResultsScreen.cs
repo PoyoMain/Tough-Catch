@@ -46,7 +46,7 @@ public class ResultsScreen : MonoBehaviour
     {
         fishName.text = fish.Name;
         fishDescription.text = fish.Description;
-        fishImage.sprite = fish.Image;
+        fishImage.sprite = fish.FullImage;
         fishLength.text = fish.Length.ToString() + "ft";
         fishWeight.text = fish.Weight.ToString() + "lbs";
 
