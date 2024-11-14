@@ -12257,9 +12257,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 155, y: 413}
-  m_SizeDelta: {x: 200, y: 200}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 54.99991, y: 376.05}
+  m_SizeDelta: {x: 789.8584, y: 327.9}
+  m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1597312316
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12282,7 +12282,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: 0}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -14001,6 +14001,11 @@ MonoBehaviour:
   buttonPromptImage: {fileID: 1597312316}
   castStartLettering: {fileID: 2139522490}
   castSucceedLettering: {fileID: 1005416537}
+  audioSource: {fileID: 1373887322}
+  ringSuccess1: {fileID: 8300000, guid: 9357a9a394f8c38488dc93bceaced759, type: 3}
+  ringSuccess2: {fileID: 8300000, guid: 811f0451c7c9fa245a64fab290237976, type: 3}
+  ringSuccess3: {fileID: 8300000, guid: 2d3fd97721ab7274c97acb11ca54fba9, type: 3}
+  ringFail: {fileID: 8300000, guid: 9ce055b44fd76bd4f869de46db8a2e89, type: 3}
   confirmButton_Keyboard: {fileID: 21300000, guid: 288699c9a91d49d4b86d50c5446d6f3d,
     type: 3}
   confirmButton_Controller: {fileID: 21300000, guid: 6ed9d5f33b0f44d4fa1c103e56998f61,
