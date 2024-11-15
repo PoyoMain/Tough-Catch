@@ -4351,6 +4351,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4444009191946003308, guid: 68c8b0b1d67dc794794bd5259931f200,
+        type: 3}
+      propertyPath: m_text
+      value: 'Domanique Gipson ------------ Concept Artist
+
+        Mara Spiro -------------------
+        Concept Aritst
+
+        Nathan Christie -------------- Concept Artist
+
+
+        Heidi
+        Juarez ------------------ UI Artist
+
+        Kayley Hung ------------------
+        UI Artist
+
+
+        Devon Whittier ---------------- Environment Modeler
+
+        Finnian
+        Aldredge-Byars ----- Environment Modeler
+
+        Hannah Leonard --------------
+        Character Modeler
+
+        Mara Spiro -------------------- Fish Modeler'
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
