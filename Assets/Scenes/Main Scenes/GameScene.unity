@@ -6705,6 +6705,10 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 6ed9d5f33b0f44d4fa1c103e56998f61, type: 3}
   reelStrength: 0.03
   meterDecay: 0.0003
+  audioSource: {fileID: 1373887322}
+  phase1Success: {fileID: 8300000, guid: 9357a9a394f8c38488dc93bceaced759, type: 3}
+  phase2Success: {fileID: 8300000, guid: 811f0451c7c9fa245a64fab290237976, type: 3}
+  phase3Success: {fileID: 8300000, guid: 2d3fd97721ab7274c97acb11ca54fba9, type: 3}
 --- !u!114 &787749682
 MonoBehaviour:
   m_ObjectHideFlags: 0

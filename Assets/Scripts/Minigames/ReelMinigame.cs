@@ -44,6 +44,14 @@ public class ReelMinigame : MinigameBase
         get => _useOptionValues ? Options.ReelMinigameOptions.meterDecay : meterDecay;
     }
 
+    //Audio; Added by Chris
+    [Header("Audio")]
+    [SerializeField] private AudioSource audioSource;
+    [Space(5)]
+    [SerializeField] private AudioClip phase1Success;
+    [SerializeField] private AudioClip phase2Success;
+    [SerializeField] private AudioClip phase3Success;
+
     //enabling and disabling reeling controls
     protected override void OnEnable() 
     { 
@@ -139,6 +147,7 @@ public class ReelMinigame : MinigameBase
                 buttonSprite = buttonSpriteList[Random.Range(0, buttonSpriteList.Length)];
             while (buttonFrame.sprite == buttonSprite);
             buttonFrame.sprite = buttonSprite;
+            audioSource.PlayOneShot(phase1Success); // Play first success audio
         }
 
         //button changes one last time once it reaches two-thirds the amount
@@ -149,12 +158,14 @@ public class ReelMinigame : MinigameBase
                 buttonSprite = buttonSpriteList[Random.Range(0, buttonSpriteList.Length)];
             while (buttonFrame.sprite == buttonSprite);
             buttonFrame.sprite = buttonSprite;
+            audioSource.PlayOneShot(phase2Success); // Play second success audio
         }
         //calls success event once the meter becomes full
         if (MeterPhase == 2 && reelMeter.value == reelMeter.maxValue)
         {
             MeterPhase++;
             Controls.Reeling.Disable();
+            audioSource.PlayOneShot(phase3Success); // Play third success audio
         }
     }
 

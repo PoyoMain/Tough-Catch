@@ -50,7 +50,7 @@ public class FishingRodMinigame : MinigameBase
 
     [Header("Broadcast Events")]
     [SerializeField] private VoidEventChannelSO damagePlayerSO;
-    [SerializeField] private VoidEventChannelSO fishingRodStartDriftSO;
+    [SerializeField] private VoidEventChannelSO fishingRodStartDriftLeftSO;
     [SerializeField] private VoidEventChannelSO fishingRodStopDriftSO;
 
     private float activeTimer;
@@ -270,7 +270,7 @@ public class FishingRodMinigame : MinigameBase
         activePromptSlider = direction != Direction.Left ? leftArrowPromptSlider : rightArrowPromptSlider;
         activePromptAnim = direction != Direction.Left ? leftArrowPromptAnim : rightArrowPromptAnim;
 
-        fishingRodStartDriftSO.RaiseEvent();
+        fishingRodStartDriftLeftSO.RaiseEvent();
     }
 
     private void JoltRod()
