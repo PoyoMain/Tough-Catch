@@ -260,7 +260,7 @@ public class GameManager : MonoBehaviour
 
     #region Controller Methods
 
-    public void ShakeController(float low = 0.5f, float high = 0.5f, float timeTillStop = 0.1f)
+    public void ShakeController(float low = 0.4f, float high = 0.4f, float timeTillStop = 0.05f)
     {
         if (_controllerShakeCoroutine != null) StopCoroutine(_controllerShakeCoroutine);
 
