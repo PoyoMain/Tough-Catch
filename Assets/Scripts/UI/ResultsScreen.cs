@@ -12,6 +12,7 @@ public class ResultsScreen : MonoBehaviour
     [SerializeField] private string gameSceneName;
 
     [Header("Text & Image Fields")]
+    [SerializeField] private TextMeshProUGUI timeToCatch;
     [SerializeField] private TextMeshProUGUI fishName;
     [SerializeField] private TextMeshProUGUI fishDescription;
     [SerializeField] private Image fishImage;
@@ -31,15 +32,18 @@ public class ResultsScreen : MonoBehaviour
 
     [Header("ListenEvent")]
     [SerializeField] private FishEventChannelSO fishFoundEventSO;
+    [SerializeField] private FloatEventChannelSO timerStoppedEventSO;
 
     private void OnEnable()
     {
         fishFoundEventSO.OnEventRaised += InitializeResultsScreen;
+        timerStoppedEventSO.OnEventRaised += SetTimeForFishCatch;
     }
 
     private void OnDisable()
     {
         fishFoundEventSO.OnEventRaised -= InitializeResultsScreen;
+        timerStoppedEventSO.OnEventRaised += SetTimeForFishCatch;
     }
 
     private void InitializeResultsScreen(Fish fish)
@@ -65,6 +69,14 @@ public class ResultsScreen : MonoBehaviour
         //    FishWeightClass.Gigantic => giganticWeightSprite,
         //    _ => throw new System.NotImplementedException(),
         //};
+    }
+
+    private void SetTimeForFishCatch(float time)
+    {
+        var minutes = (int)(time / 60);
+        var remainingSeconds = (int)(time - minutes * 60);
+        print(minutes.ToString() + ':' + remainingSeconds.ToString("00"));
+        timeToCatch.text = minutes.ToString() + ":" + remainingSeconds.ToString("00");
     }
 
     public void RestartGame()
