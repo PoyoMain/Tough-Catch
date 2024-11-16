@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 656245591d5d9e84a94117e0a307dc6b
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: 0
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Yu
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 09819d09e90fc0745a74f884c19e2250, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

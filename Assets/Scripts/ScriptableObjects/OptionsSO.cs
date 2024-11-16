@@ -126,9 +126,14 @@ public class OptionsSO : ScriptableObject
         };
     }
 
-    public void SetGuideImages()
+    public void SetGuideImages(Button button)
     {
-        _guideImages = !_guideImages;
+        _guideImages = button.name switch
+        {
+            "Btn_Yes" => true,
+            "Btn_No" => false,
+            _ => throw new NotImplementedException(),
+        };
     }
 
     public void SetControllerRumble()
