@@ -1517,6 +1517,8 @@ MonoBehaviour:
   GameLostEventSO: {fileID: 11400000, guid: 6505dfd0726963646a1ad579dd88079c, type: 2}
   loseSprites:
   - {fileID: 21300000, guid: ab467081ea15b1940b5cce3a4f30db6f, type: 3}
+  - {fileID: 21300000, guid: ade49f315d4dcba46a328a4bc621bf5d, type: 3}
+  - {fileID: 21300000, guid: 3363eb3b5b528f64d88be23b562feea8, type: 3}
 --- !u!1 &2298606569108062882
 GameObject:
   m_ObjectHideFlags: 0
