@@ -158,6 +158,8 @@ public class FishingRodMinigame : MinigameBase
 
     private void FishingRodControl_started()
     {
+        if (!isDrifting) return;
+
         Direction playerDirection = Controls.FishingRodControl.ReadValue<float>() < 0 ? Direction.Left : Direction.Right;
         GameObject activeFlames = playerDirection == Direction.Left ? leftFlames : rightFlames;
         activeFlames.SetActive(true);
