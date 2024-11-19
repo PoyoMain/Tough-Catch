@@ -14,22 +14,41 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private GameObject _menu;
     [SerializeField] private GameObject _firstSelectButton;
 
+    [Header("Broadcast Events")]
+    [SerializeField] private VoidEventChannelSO _gameUnpaused;
+
     [Header("Listen Events")]
     [SerializeField] private VoidEventChannelSO _gamePaused;
 
     public bool IsPaused { get; private set; }
+    public bool OnPauseCoolDown => pauseTimer > 0;
+
+    private float pauseTimer;
 
     private void OnEnable()
     {
         _gamePaused.OnEventRaised += Pause;
+        _gameUnpaused.OnEventRaised += Pause;
+    }
+
+    private void OnDisable()
+    {
+        _gamePaused.OnEventRaised -= Pause;
+        _gameUnpaused.OnEventRaised -= Pause;
     }
 
     public void Pause()
     {
+        if (OnPauseCoolDown) return;
+        pauseTimer = 1;
+
         IsPaused = !IsPaused;
         _menu.SetActive(IsPaused);
         Time.timeScale = IsPaused ? 0 : 1;
         if (IsPaused) EventSystem.current.SetSelectedGameObject(_firstSelectButton);
+        else _gameUnpaused.RaiseEvent();
+
+        
     }
 
     public void Pause(InputAction.CallbackContext _)
@@ -38,6 +57,7 @@ public class PauseMenu : MonoBehaviour
         _menu.SetActive(IsPaused);
         Time.timeScale = IsPaused ? 0 : 1;
         if (IsPaused) EventSystem.current.SetSelectedGameObject(_firstSelectButton);
+        else _gameUnpaused.RaiseEvent();
     }
 
     public void Quit()
@@ -46,5 +66,13 @@ public class PauseMenu : MonoBehaviour
         _menu.SetActive(IsPaused);
         Time.timeScale = 1;
         SceneManager.LoadScene(mainMenuSceneName);
+    }
+
+    private void Update()
+    {
+        if (OnPauseCoolDown)
+        {
+            pauseTimer -= Time.unscaledDeltaTime;
+        }
     }
 }

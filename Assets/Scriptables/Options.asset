@@ -18,30 +18,69 @@ MonoBehaviour:
   _controlRumble: 0
   _fullscreenMode: 0
   _mainAudioMixer: {fileID: 24100000, guid: 131f9b7c3e418bf4f8e5713434c21b39, type: 2}
+  _easyScanMinigameOptions:
+    minTime: 4
+    maxTime: 8
+    maxConfirmTime: 3
+  _mediumScanMinigameOptions:
+    minTime: 4
+    maxTime: 8
+    maxConfirmTime: 2
+  _hardScanMinigameOptions:
+    minTime: 4
+    maxTime: 8
+    maxConfirmTime: 1
+  _easyCastMinigameOptions:
+    scaleRate: 0.2
+  _mediumCastMinigameOptions:
+    scaleRate: 0.4
+  _hardCastMinigameOptions:
+    scaleRate: 0.7
   _easyLaserMinigameOptions:
-    minSpawnTime: 0
-    maxSpawnTime: 0
-    laserCooldownTime: 0
-    objectHitTime: 0
+    minSpawnTime: 4
+    maxSpawnTime: 8
+    laserHoldTime: 0.5
+    objectHitTime: 5
   _mediumLaserMinigameOptions:
-    minSpawnTime: 0
-    maxSpawnTime: 0
-    laserCooldownTime: 0
-    objectHitTime: 0
+    minSpawnTime: 4
+    maxSpawnTime: 7
+    laserHoldTime: 0.5
+    objectHitTime: 3
   _hardLaserMinigameOptions:
-    minSpawnTime: 0
-    maxSpawnTime: 0
-    laserCooldownTime: 0
-    objectHitTime: 0
+    minSpawnTime: 2
+    maxSpawnTime: 4
+    laserHoldTime: 0.4
+    objectHitTime: 2
   _easyFishingRodMinigameOptions:
     minDriftTime: 8
     maxDriftTime: 10
+    minigameHoldTime: 1
     minigameFailTime: 5
   _mediumFishingRodMinigameOptions:
     minDriftTime: 5
     maxDriftTime: 10
+    minigameHoldTime: 1
     minigameFailTime: 3
   _hardFishingRodMinigameOptions:
     minDriftTime: 4
     maxDriftTime: 7
+    minigameHoldTime: 1
     minigameFailTime: 2
+  _easyStunMinigameOptions:
+    numberOfButtonsForCombo: 4
+    minigameCompleteTime: 12
+  _mediumStunMinigameOptions:
+    numberOfButtonsForCombo: 5
+    minigameCompleteTime: 10
+  _hardStunMinigameOptions:
+    numberOfButtonsForCombo: 6
+    minigameCompleteTime: 8
+  _easyReelMinigameOptions:
+    meterDecay: 0.0002
+    reelStrength: 0.04
+  _mediumReelMinigameOptions:
+    meterDecay: 0.0003
+    reelStrength: 0.03
+  _hardReelMinigameOptions:
+    meterDecay: 0.0004
+    reelStrength: 0.02

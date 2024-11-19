@@ -16,12 +16,56 @@ public class TuggleMinigameManager : MonoBehaviour
     [Header("Minigames")]
     [SerializeField] private SpawnableMinigame[] minigames;
 
-    [Header("Listen Events")]
+    [Header("Inspector Objects")]
+    [SerializeField] private Animator startImage;
+    [SerializeField] private Animator successImage;
+
+    [Header("Broadcast Events")]
+    [SerializeField] private VoidEventChannelSO tuggleStartSO;
     [SerializeField] private VoidEventChannelSO tuggleSucceedSO;
 
+    [Header("Listen Events")]
+    [SerializeField] private VoidEventChannelSO fishHealthDepleatedSO;
+
+    private bool deactivate = false;
 
     private void Start()
     {
+        startImage.gameObject.SetActive(true);
+        StartCoroutine(nameof(TextDisplayCoroutine));
+    }
+    
+    private IEnumerator TextDisplayCoroutine()
+    {
+        while (startImage.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f) yield return null;
+
+        startImage.gameObject.SetActive(false);
+        Activate();
+
+        while (deactivate == false) yield return null;
+
+        successImage.gameObject.SetActive(true);
+        foreach (SpawnableMinigame minigame in minigames)
+        {
+            minigame.minigame.MinigameSuccessEvent.OnEventRaised -= MinigameFinished;
+
+            if (minigame.destroyOnTuggleEnd) Destroy(minigame.minigame.gameObject);
+            else minigame.Enabled = false;
+        }
+
+        while (successImage.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f) yield return null;
+
+        successImage.gameObject.SetActive(false);
+        tuggleSucceedSO.RaiseEvent();
+        this.enabled = false;
+
+        yield break;
+    }
+
+    private void Activate()
+    {
+        tuggleStartSO.RaiseEvent();
+
         Invoke(nameof(StartNewMinigame), firstMinigameSpawnTime);
 
         for (int i = 1; i < numberOfMinigamesAtOnce; i++)
@@ -32,7 +76,7 @@ public class TuggleMinigameManager : MonoBehaviour
 
     private void OnEnable()
     {
-        tuggleSucceedSO.OnEventRaised += FinishPhase;
+        fishHealthDepleatedSO.OnEventRaised += FinishPhase;
 
         foreach (SpawnableMinigame minigame in minigames)
         {
@@ -42,31 +86,52 @@ public class TuggleMinigameManager : MonoBehaviour
 
     private void OnDisable()
     {
-        tuggleSucceedSO.OnEventRaised -= FinishPhase;
+        fishHealthDepleatedSO.OnEventRaised -= FinishPhase;
 
-        foreach (SpawnableMinigame minigame in minigames)
-        {
-            minigame.minigame.MinigameSuccessEvent.OnEventRaised -= MinigameFinished;
+        //foreach (SpawnableMinigame minigame in minigames)
+        //{
+        //    minigame.minigame.MinigameSuccessEvent.OnEventRaised -= MinigameFinished;
 
-            if (minigame.destroyOnTuggleEnd) Destroy(minigame.minigame.gameObject);
-            else minigame.Enabled = false;
-        }
+        //    if (minigame.destroyOnTuggleEnd) Destroy(minigame.minigame.gameObject);
+        //    else minigame.Enabled = false;
+        //}
     }
 
     private void StartNewMinigame()
     {
+        List<SpawnableMinigame> activeMinigames = new();
         List<SpawnableMinigame> inactiveMinigames = new();
         float totalPercent = 0f;
 
         foreach (SpawnableMinigame minigame in minigames)
         {
-            if (!minigame.Enabled && minigame.spawnChance > 0)
+            if (minigame.dontDisableOnFinish)
             {
-                inactiveMinigames.Add(minigame);
-                totalPercent += minigame.spawnChance;
+                if (!minigame.minigame.Active && minigame.spawnChance > 0)
+                {
+                    inactiveMinigames.Add(minigame);
+                    totalPercent += minigame.spawnChance;
+                }
+                else if (minigame.minigame.Active)
+                {
+                    activeMinigames.Add(minigame);
+                }
+            }
+            else
+            {
+                if (!minigame.Enabled && minigame.spawnChance > 0)
+                {
+                    inactiveMinigames.Add(minigame);
+                    totalPercent += minigame.spawnChance;
+                }
+                else if (minigame.Enabled)
+                {
+                    activeMinigames.Add(minigame);
+                }
             }
         }
 
+        if (activeMinigames.Count >= numberOfMinigamesAtOnce) return;
         if (inactiveMinigames.Count <= 0) return;
 
         float chosenPercent = UnityEngine.Random.Range(0, totalPercent);
@@ -75,7 +140,12 @@ public class TuggleMinigameManager : MonoBehaviour
         {
             if (chosenPercent <= minigame.spawnChance)
             {
-                minigame.Enabled = true;
+                if (minigame.dontDisableOnFinish)
+                {
+                    minigame.minigame.Activate();
+                }
+                else minigame.Enabled = true;
+
                 return;
             }
             else chosenPercent -= minigame.spawnChance;
@@ -89,12 +159,7 @@ public class TuggleMinigameManager : MonoBehaviour
 
     private void FinishPhase()
     {
-        this.enabled = false;
-        foreach (SpawnableMinigame minigame in minigames)
-        {
-            minigame.Enabled = false;
-            minigame.minigame.MinigameSuccessEvent.OnEventRaised -= MinigameFinished;
-        }
+        deactivate = true;
     }
 
     [Serializable]
@@ -110,5 +175,6 @@ public class TuggleMinigameManager : MonoBehaviour
         }
 
         public bool destroyOnTuggleEnd;
+        public bool dontDisableOnFinish;
     }
 }

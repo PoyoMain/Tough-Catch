@@ -30,9 +30,43 @@ public class CastMinigame : MinigameBase
     public bool isFlashing3 = false;
     private bool MinigameDone = false;
 
+    [Header("Set in Inspector Objects")]
+    [SerializeField] private Image buttonPromptImage;
+    [SerializeField] private Animator castStartLettering;
+    [SerializeField] private Animator castSucceedLettering;
+
+    [Header("Audio")]
+    [SerializeField] private AudioSource audioSource;
+    [Space(5)]
+    [SerializeField] private AudioClip ringSuccess1;
+    [SerializeField] private AudioClip ringSuccess2;
+    [SerializeField] private AudioClip ringSuccess3;
+    [SerializeField] private AudioClip ringFail;
+
+    [Header("Keyboard Button Sprites")]
+    [SerializeField] private Sprite confirmButton_Keyboard;
+
+    [Header("Controller Button Sprites")]
+    [SerializeField] private Sprite confirmButton_Controller;
+
+    private Sprite ConfirmButtonSprite
+    {
+        get => Options.ControllerConnected ? confirmButton_Controller : confirmButton_Keyboard;
+    }
+    private Vector3 TargetRingScale => targetRing.transform.localScale;
+    private float ScaleRate
+    {
+        get => _useOptionValues ? Options.CastMinigameOptions.scaleRate : scaleRate;
+    }
+
+    private bool active = false;
+    private bool coroutinePlaying = false;
+
     protected override void OnEnable()
     {
         base.OnEnable();
+
+        buttonPromptImage.sprite = ConfirmButtonSprite;
 
         Controls.HookRingSelect.performed += SizeCheck;
 
@@ -43,8 +77,30 @@ public class CastMinigame : MinigameBase
 
     }
 
-        // Start is called before the first frame update
-        void Start()
+    private IEnumerator TextDisplayCoroutine()
+    {
+
+            while (castStartLettering.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f) yield return null;
+
+            castStartLettering.gameObject.SetActive(false);
+        active = true;
+
+            while (active == true) yield return null;
+
+            castSucceedLettering.gameObject.SetActive(true);
+
+            while (castSucceedLettering.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f) yield return null;
+
+            castSucceedLettering.gameObject.SetActive(false);
+
+            MinigameSuccessEvent.RaiseEvent();
+            this.enabled = false;
+
+        yield break;
+    }
+
+    // Start is called before the first frame update
+    void Start()
     {
         if (targetRing != null)
         {
@@ -61,61 +117,73 @@ public class CastMinigame : MinigameBase
         if (ring4 != null)
         {
             targetRenderer2 = ring4.GetComponent<Image>();
-            
+
         }
         if (ring6 != null)
         {
             targetRenderer3 = ring6.GetComponent<Image>();
 
         }
+
+        castStartLettering.gameObject.SetActive(true);
+        StartCoroutine(nameof(TextDisplayCoroutine));
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (targetRing != null && targetRing.transform.localScale.x < maxScale && MinigameDone == false)
+        if (!active) return;
+        if (coroutinePlaying) return;
+
+        if (targetRing != null && targetRing.transform.localScale.x < maxScale)
         {
             // Increase the scale over time at the specified rate
-            float newScale = targetRing.transform.localScale.x + scaleRate * Time.deltaTime;
+            float newScale = targetRing.transform.localScale.x + ScaleRate * Time.deltaTime;
             newScale = Mathf.Min(newScale, maxScale); // Limit the scale to the maxScale value
 
             // Apply the new scale uniformly in all directions
             targetRing.transform.localScale = new Vector3(newScale, newScale, newScale);
+
+            if (ring1.transform.localScale.x < TargetRingScale.x && TargetRingScale.x < ring2.transform.localScale.x && !CompRing1) buttonPromptImage.enabled = true;
+            else if (ring3.transform.localScale.x < TargetRingScale.x && TargetRingScale.x < ring4.transform.localScale.x && !CompRing2) buttonPromptImage.enabled = true;
+            else if (ring5.transform.localScale.x < TargetRingScale.x && TargetRingScale.x < ring6.transform.localScale.x && !CompRing3) buttonPromptImage.enabled = true;
+            else buttonPromptImage.enabled = false;
         }
 
-        if(isFlashing1)
-        {
-            StartCoroutine(FlashRedForOneSecond(targetRenderer1, isFlashing1));
-            isFlashing1 = false;
-            MinigameDone = true;
-        }
-        if (isFlashing2)
-        {
-            StartCoroutine(FlashRedForOneSecond(targetRenderer2, isFlashing2));
-            isFlashing2 = false;
-            MinigameDone = true;
-        }
-        if (isFlashing3)
-        {
-            StartCoroutine(FlashRedForOneSecond(targetRenderer3, isFlashing3));
-            isFlashing3 = false;
-            MinigameDone = true;
-        }
-
-        if ((ring2.transform.localScale.x < targetRing.transform.localScale.x && CompRing1 == false))
+        if ((ring2.transform.localScale.x < targetRing.transform.localScale.x && !CompRing1 && !isFlashing1))
         {
             isFlashing1 = true;
+            audioSource.PlayOneShot(ringFail);
         }
-
-        if ((ring4.transform.localScale.x < targetRing.transform.localScale.x && CompRing2 == false))
+        else if ((ring4.transform.localScale.x < targetRing.transform.localScale.x && !CompRing2 && !isFlashing2))
         {
             isFlashing2 = true;
+            audioSource.PlayOneShot(ringFail);
         }
-        if (ring6.transform.localScale.x < targetRing.transform.localScale.x && CompRing3 == false)
+        else if (ring6.transform.localScale.x < targetRing.transform.localScale.x && !CompRing3 && !isFlashing3)
         {
             isFlashing3 = true;
+            audioSource.PlayOneShot(ringFail);
         }
 
+        if (isFlashing1)
+        {
+            isFlashing1 = false;
+            StartCoroutine(FlashRedForOneSecond(targetRenderer1.GetComponent<Animator>()));
+            MinigameDone = true;
+        }
+        else if (isFlashing2)
+        {
+            isFlashing2 = false;
+            StartCoroutine(FlashRedForOneSecond(targetRenderer2.GetComponent<Animator>()));
+            MinigameDone = true;
+        }
+        else if (isFlashing3)
+        {
+            isFlashing3 = false;
+            StartCoroutine(FlashRedForOneSecond(targetRenderer3.GetComponent<Animator>()));
+            MinigameDone = true;
+        }
     }
 
     private void SizeCheck(InputAction.CallbackContext Context)
@@ -131,78 +199,69 @@ public class CastMinigame : MinigameBase
         if(ring1.transform.localScale.x < targetRing.transform.localScale.x && targetRing.transform.localScale.x < ring2.transform.localScale.x)
         {
             CompRing1 = true;
-            targetRenderer1.color = Color.green;
+            targetRenderer1.GetComponent<Animator>().SetTrigger("Correct");
+            audioSource.PlayOneShot(ringSuccess1);
         }
 
         if ((ring2.transform.localScale.x < targetRing.transform.localScale.x && targetRing.transform.localScale.x < ring3.transform.localScale.x))
         {
             isFlashing1 = true;
+            audioSource.PlayOneShot(ringFail);
         }
 
         if (ring3.transform.localScale.x < targetRing.transform.localScale.x && targetRing.transform.localScale.x < ring4.transform.localScale.x)
         {
             CompRing2 = true;
-            targetRenderer2.color = Color.green;
+            targetRenderer2.GetComponent<Animator>().SetTrigger("Correct");
+            audioSource.PlayOneShot(ringSuccess2);
         }
 
         if ((ring4.transform.localScale.x < targetRing.transform.localScale.x && targetRing.transform.localScale.x < ring5.transform.localScale.x))
         {
             isFlashing2 = true;
+            audioSource.PlayOneShot(ringFail);
         }
 
 
         if (ring5.transform.localScale.x < targetRing.transform.localScale.x && targetRing.transform.localScale.x < ring6.transform.localScale.x)
         {
             CompRing3 = true;
-            targetRenderer3.color = Color.green;
+            targetRenderer3.GetComponent<Animator>().SetTrigger("Correct");
             MinigameDone = true;
             Win = true;
-            _minigameSuccess.RaiseEvent();
+            active = false;
+            audioSource.PlayOneShot(ringSuccess3);
         }
 
         return;
     }
 
     // Coroutine to flash the color red for the specified duration
-    private IEnumerator FlashRedForOneSecond(Image target, bool isFlashing)
-    {
-        float elapsedTime = 0f;
+    private IEnumerator FlashRedForOneSecond(Animator target)
+     {
+        if (target == null) yield break;
+        if (target.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f) yield break;
 
-        while (elapsedTime < flashDuration && isFlashing)
-        {
-            if (target != null)
-            {
-                // Change color to red
-                target.color = Color.red;
+        coroutinePlaying = true;
+        target.SetTrigger("Flash");
 
-                // Wait for the flash interval
-                yield return new WaitForSeconds(flashInterval);
+        yield return 0;
+        while (target.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f) yield return null;
 
-                // Change back to original color
-                target.color = originalColor;
-
-                // Wait for the same interval before switching again
-                yield return new WaitForSeconds(flashInterval);
-
-                // Update the elapsed time (each flash cycle is 2 * flashInterval)
-                elapsedTime += 2 * flashInterval;
-            }
-        }
-        isFlashing = false;
-        target.color = originalColor;
         targetRing.transform.localScale = Vector3.zero;
         targetRenderer1.color = originalColor;
         targetRenderer2.color = originalColor;
         targetRenderer3.color = originalColor;
+        targetRenderer1.GetComponent<Animator>().SetTrigger("Reset");
+        targetRenderer2.GetComponent<Animator>().SetTrigger("Reset");
+        targetRenderer3.GetComponent<Animator>().SetTrigger("Reset");
         CompRing1 = false;
         CompRing2 = false;
         CompRing3 = false;
         MinigameDone = false;
 
-        yield return null;
+        coroutinePlaying = false;
 
-       
+        yield break;  
     }
-    
-
 }

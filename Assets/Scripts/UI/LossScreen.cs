@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -12,14 +11,14 @@ public class LossScreen : MonoBehaviour
     [SerializeField] private string mainMenuSceneName;
     [SerializeField] private string gameSceneName;
 
-    [Header("Images")]
+    [Header("Inspector Objects")]
     [SerializeField] private Image fishermanImage;
 
     [Header("ListenEvent")]
     [SerializeField] private VoidEventChannelSO GameLostEventSO;
 
-    [Header("Fisherman Image")]
-    [SerializeField] private Sprite fisherMan;
+    [Header("Lose Sprites")]
+    [SerializeField] private Sprite[] loseSprites;
 
     private void OnEnable()
     {
@@ -31,12 +30,17 @@ public class LossScreen : MonoBehaviour
         GameLostEventSO.OnEventRaised -= InitializeLossScreen;
     }
 
+    private void Start()
+    {
+        InitializeLossScreen();
+    }
+
     private void InitializeLossScreen()
     {
         
         if (fishermanImage != null)
         {
-            fishermanImage.sprite = fisherMan;
+            fishermanImage.sprite = loseSprites[Random.Range(0,loseSprites.Length - 1)];
         }
         else
         {
