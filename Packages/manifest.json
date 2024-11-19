@@ -9,6 +9,7 @@
     "com.unity.inputsystem": "1.7.0",
     "com.unity.postprocessing": "3.4.0",
     "com.unity.render-pipelines.universal": "14.0.10",
+    "com.unity.services.leaderboards": "2.1.0",
     "com.unity.splines": "2.5.2",
     "com.unity.test-framework": "1.1.33",
     "com.unity.textmeshpro": "3.0.9",

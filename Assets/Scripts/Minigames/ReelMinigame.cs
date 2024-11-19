@@ -8,20 +8,20 @@ public class ReelMinigame : MinigameBase
     
 {
     //grabs the image and slider UI elements for button to press, reel/success texts, and the reel meter
-    public UnityEngine.UI.Image buttonFrame;
-    public UnityEngine.UI.Slider reelMeter;
-    public Animator reelAnim, successAnim;
+    [SerializeField] public UnityEngine.UI.Image buttonFrame;
+    [SerializeField] public UnityEngine.UI.Slider reelMeter;
+    [SerializeField] public Animator reelAnim, successAnim;
     private Vector3 buttonPosition, shakePosition;
 
     //holds image sprites for which button to mash
     //***SET ORDER OF SPRITES IN UP, DOWN, LEFT, RIGHT IN EDITOR FOR PROPER FUNCTION***
     //public Sprite[] keyboardSpriteList = new Sprite[4];
     //public Sprite[] controllerSpriteList = new Sprite[4];
-    public Sprite[] buttonSpriteList = new Sprite[4];
+    [SerializeField] public Sprite[] buttonSpriteList = new Sprite[4];
     private Sprite buttonSprite;
 
     //quantity of how much meter changes from button press, or from decreasing overtime
-    public float reelStrength, meterDecay;
+    [SerializeField] public float reelStrength, meterDecay;
 
     //values for button shake intensity
     private float shakeValue = 20.0f;
