@@ -34,6 +34,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] private VoidEventChannelSO _reelStart;
     [SerializeField] private VoidEventChannelSO _resultsShow;
     [SerializeField] private FloatEventChannelSO _timerStopped;
+    [Space(10)]
+    [SerializeField] private VoidEventChannelSO _scanTutorialStartEvent;
+    [SerializeField] private VoidEventChannelSO _castTutorialStartEvent;
+    [SerializeField] private VoidEventChannelSO _laserTutorialStartEvent;
+    [SerializeField] private VoidEventChannelSO _fishingRodTutorialStartEvent;
+    [SerializeField] private VoidEventChannelSO _stunTutorialStartEvent;
+    [SerializeField] private VoidEventChannelSO _reelTutorialStartEvent;
 
     [Header("Listen Events")]
     [SerializeField] private VoidEventChannelSO _damageTaken;
@@ -42,9 +49,17 @@ public class GameManager : MonoBehaviour
     [SerializeField] private VoidEventChannelSO _tuggleSucceed;
     [SerializeField] private VoidEventChannelSO _reelSucceed;
     [SerializeField] private VoidEventChannelSO _gameLost;
+    [Space(5)]
+    [SerializeField] private VoidEventChannelSO _scanTutorialSucceedEvent;
+    [SerializeField] private VoidEventChannelSO _castTutorialSucceedEvent;
+    [SerializeField] private VoidEventChannelSO _laserTutorialSucceedEvent;
+    [SerializeField] private VoidEventChannelSO _fishingRodTutorialSucceedEvent;
+    [SerializeField] private VoidEventChannelSO _stunTutorialSucceedEvent;
+    [SerializeField] private VoidEventChannelSO _reelTutorialSucceedEvent;
 
     //private bool temp = false;
     private bool gameRunning = false;
+    private bool tutorialShowing = false;
     private float timer;
     private Coroutine _controllerShakeCoroutine;
     private Coroutine _controllerFlashCoroutine;
@@ -84,6 +99,13 @@ public class GameManager : MonoBehaviour
         _castSucceed.OnEventRaised += ActivateTugglePhase;
         _tuggleSucceed.OnEventRaised += ActivateReelPhase;
         _reelSucceed.OnEventRaised += ActivateResultsPhase;
+
+        _scanTutorialSucceedEvent.OnEventRaised += StopTutorial;
+        _castTutorialSucceedEvent.OnEventRaised += StopTutorial;
+        _laserTutorialSucceedEvent.OnEventRaised += StopTutorial;
+        _fishingRodTutorialSucceedEvent.OnEventRaised += StopTutorial;
+        _stunTutorialSucceedEvent.OnEventRaised += StopTutorial;
+        _reelTutorialSucceedEvent.OnEventRaised += StopTutorial;
     }
 
     private void OnDisable()
@@ -100,6 +122,13 @@ public class GameManager : MonoBehaviour
         _castSucceed.OnEventRaised -= ActivateTugglePhase;
         _tuggleSucceed.OnEventRaised -= ActivateReelPhase;
         _reelSucceed.OnEventRaised -= ActivateResultsPhase;
+
+        _scanTutorialSucceedEvent.OnEventRaised -= StopTutorial;
+        _castTutorialSucceedEvent.OnEventRaised -= StopTutorial;
+        _laserTutorialSucceedEvent.OnEventRaised -= StopTutorial;
+        _fishingRodTutorialSucceedEvent.OnEventRaised -= StopTutorial;
+        _stunTutorialSucceedEvent.OnEventRaised -= StopTutorial;
+        _reelTutorialSucceedEvent.OnEventRaised -= StopTutorial;
     }
 
 
@@ -177,6 +206,14 @@ public class GameManager : MonoBehaviour
         ActivateCamera(_lakeCam);
         while (IsBlendingBetweenCams) yield return null;
 
+        if (Options.GuideImages)
+        {
+            tutorialShowing = true;
+            _scanTutorialStartEvent.RaiseEvent();
+            while (tutorialShowing) yield return null;
+            yield return 0;
+        }
+        
         _scanStart.RaiseEvent();
         yield return 0;
 
@@ -192,6 +229,13 @@ public class GameManager : MonoBehaviour
     {
         ActivateCamera(_dockCam);
         while (IsBlendingBetweenCams) yield return null;
+
+        if (Options.GuideImages)
+        {
+            tutorialShowing = true;
+            _castTutorialStartEvent.RaiseEvent();
+            while (tutorialShowing) yield return null;
+        }
 
         _castStart.RaiseEvent();
         yield return 0;
@@ -209,7 +253,25 @@ public class GameManager : MonoBehaviour
         ActivateCamera(_povCam);
         while (IsBlendingBetweenCams) yield return null;
 
+        if (Options.GuideImages)
+        {
+            tutorialShowing = true;
+            _laserTutorialStartEvent.RaiseEvent();
+            while (tutorialShowing) yield return null;
+            yield return 0;
+
+            tutorialShowing = true;
+            _fishingRodTutorialStartEvent.RaiseEvent();
+            while (tutorialShowing) yield return null;
+            yield return 0;
+
+            tutorialShowing = true;
+            _stunTutorialStartEvent.RaiseEvent();
+            while (tutorialShowing) yield return null;
+        }
+
         _tuggleStart.RaiseEvent();
+        yield return 0;
 
         //while (!temp) yield return null;
 
@@ -224,7 +286,15 @@ public class GameManager : MonoBehaviour
         ActivateCamera(_dockCam);
         while (IsBlendingBetweenCams) yield return null;
 
+        if (Options.GuideImages)
+        {
+            tutorialShowing = true;
+            _reelTutorialStartEvent.RaiseEvent();
+            while (tutorialShowing) yield return null;
+        }
+
         _reelStart.RaiseEvent();
+        yield return 0;
 
         //while (!temp) yield return null;
 
@@ -273,6 +343,8 @@ public class GameManager : MonoBehaviour
 
     public void ShakeController(float low = 0.4f, float high = 0.4f, float timeTillStop = 0.05f)
     {
+        if (!Options.ControllerConnected) return; 
+
         if (_controllerShakeCoroutine != null) StopCoroutine(_controllerShakeCoroutine);
 
         _controllerShakeCoroutine = StartCoroutine(ShakingController(low, high, timeTillStop));
@@ -307,6 +379,8 @@ public class GameManager : MonoBehaviour
 
     public void FlashControllerColor(Color flashColor, float flashTime = 0.5f)
     {
+        if (!Options.ControllerConnected) return;
+
         if (_controllerFlashCoroutine != null) StopCoroutine(_controllerFlashCoroutine);
 
         _controllerFlashCoroutine = StartCoroutine(FlashingControllerColor(flashColor, flashTime));
@@ -340,6 +414,11 @@ public class GameManager : MonoBehaviour
     {
         if (_options.ControlRumble) ShakeController();
         FlashControllerColor(Color.red);
+    }
+
+    private void StopTutorial()
+    {
+        tutorialShowing = false;
     }
 
     private void PauseGame(InputAction.CallbackContext _)

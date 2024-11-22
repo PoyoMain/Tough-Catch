@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Options
   m_EditorClassIdentifier: 
   _difficulty: 1
-  _guideImages: 0
+  _guideImages: 1
   _tutorialPopUps: 0
   _controlRumble: 1
   _fullscreenMode: 0
@@ -79,8 +79,8 @@ MonoBehaviour:
     reelStrength: 0.05
     meterDecay: 0.004
   _mediumReelMinigameOptions:
-    reelStrength: 0.05
+    reelStrength: 0.06
     meterDecay: 0.007
   _hardReelMinigameOptions:
     reelStrength: 0.045
-    meterDecay: 0.001
+    meterDecay: 0.007
