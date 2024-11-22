@@ -54,18 +54,18 @@ MonoBehaviour:
   _easyFishingRodMinigameOptions:
     minDriftTime: 5
     maxDriftTime: 6
-    minigameHoldTime: 1
     minigameFailTime: 5
+    minigameHoldTime: 1
   _mediumFishingRodMinigameOptions:
     minDriftTime: 3
     maxDriftTime: 5
-    minigameHoldTime: 0.5
     minigameFailTime: 3
+    minigameHoldTime: 0.5
   _hardFishingRodMinigameOptions:
     minDriftTime: 2
     maxDriftTime: 3
-    minigameHoldTime: 0.5
     minigameFailTime: 2
+    minigameHoldTime: 0.5
   _easyStunMinigameOptions:
     numberOfButtonsForCombo: 4
     minigameCompleteTime: 6
@@ -76,11 +76,11 @@ MonoBehaviour:
     numberOfButtonsForCombo: 6
     minigameCompleteTime: 4
   _easyReelMinigameOptions:
+    reelStrength: 0.05
     meterDecay: 0.004
-    reelStrength: 0.05
   _mediumReelMinigameOptions:
-    meterDecay: 0.007
     reelStrength: 0.05
+    meterDecay: 0.007
   _hardReelMinigameOptions:
-    meterDecay: 0.001
     reelStrength: 0.045
+    meterDecay: 0.001
