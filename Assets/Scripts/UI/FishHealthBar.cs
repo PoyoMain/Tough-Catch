@@ -62,7 +62,7 @@ public class FishHealthBar : MonoBehaviour
         }
 
         _fishCurrentHealth = _healthSlider.value = _healthSlider.maxValue = _currentFish.Health;
-        profileImage.sprite = _currentFish.Image;
+        profileImage.sprite = _currentFish.Profile;
     }
 
     private void Update()

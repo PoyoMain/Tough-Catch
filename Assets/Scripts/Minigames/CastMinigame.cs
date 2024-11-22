@@ -35,6 +35,14 @@ public class CastMinigame : MinigameBase
     [SerializeField] private Animator castStartLettering;
     [SerializeField] private Animator castSucceedLettering;
 
+    [Header("Audio")]
+    [SerializeField] private AudioSource audioSource;
+    [Space(5)]
+    [SerializeField] private AudioClip ringSuccess1;
+    [SerializeField] private AudioClip ringSuccess2;
+    [SerializeField] private AudioClip ringSuccess3;
+    [SerializeField] private AudioClip ringFail;
+
     [Header("Keyboard Button Sprites")]
     [SerializeField] private Sprite confirmButton_Keyboard;
 
@@ -145,14 +153,17 @@ public class CastMinigame : MinigameBase
         if ((ring2.transform.localScale.x < targetRing.transform.localScale.x && !CompRing1 && !isFlashing1))
         {
             isFlashing1 = true;
+            audioSource.PlayOneShot(ringFail);
         }
         else if ((ring4.transform.localScale.x < targetRing.transform.localScale.x && !CompRing2 && !isFlashing2))
         {
             isFlashing2 = true;
+            audioSource.PlayOneShot(ringFail);
         }
         else if (ring6.transform.localScale.x < targetRing.transform.localScale.x && !CompRing3 && !isFlashing3)
         {
             isFlashing3 = true;
+            audioSource.PlayOneShot(ringFail);
         }
 
         if (isFlashing1)
@@ -189,22 +200,26 @@ public class CastMinigame : MinigameBase
         {
             CompRing1 = true;
             targetRenderer1.GetComponent<Animator>().SetTrigger("Correct");
+            audioSource.PlayOneShot(ringSuccess1);
         }
 
         if ((ring2.transform.localScale.x < targetRing.transform.localScale.x && targetRing.transform.localScale.x < ring3.transform.localScale.x))
         {
             isFlashing1 = true;
+            audioSource.PlayOneShot(ringFail);
         }
 
         if (ring3.transform.localScale.x < targetRing.transform.localScale.x && targetRing.transform.localScale.x < ring4.transform.localScale.x)
         {
             CompRing2 = true;
             targetRenderer2.GetComponent<Animator>().SetTrigger("Correct");
+            audioSource.PlayOneShot(ringSuccess2);
         }
 
         if ((ring4.transform.localScale.x < targetRing.transform.localScale.x && targetRing.transform.localScale.x < ring5.transform.localScale.x))
         {
             isFlashing2 = true;
+            audioSource.PlayOneShot(ringFail);
         }
 
 
@@ -215,6 +230,7 @@ public class CastMinigame : MinigameBase
             MinigameDone = true;
             Win = true;
             active = false;
+            audioSource.PlayOneShot(ringSuccess3);
         }
 
         return;
@@ -246,10 +262,6 @@ public class CastMinigame : MinigameBase
 
         coroutinePlaying = false;
 
-        yield break;
-
-       
+        yield break;  
     }
-    
-
 }

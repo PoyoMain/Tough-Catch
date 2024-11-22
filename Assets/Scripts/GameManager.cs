@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private VoidEventChannelSO _tuggleStart;
     [SerializeField] private VoidEventChannelSO _reelStart;
     [SerializeField] private VoidEventChannelSO _resultsShow;
+    [SerializeField] private FloatEventChannelSO _timerStopped;
 
     [Header("Listen Events")]
     [SerializeField] private VoidEventChannelSO _damageTaken;
@@ -43,6 +44,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private VoidEventChannelSO _gameLost;
 
     //private bool temp = false;
+    private bool gameRunning = false;
+    private float timer;
     private Coroutine _controllerShakeCoroutine;
     private Coroutine _controllerFlashCoroutine;
 
@@ -103,9 +106,15 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         _gameStart.RaiseEvent();
+        gameRunning = true;
 
         ChangeState(GameState.Scan);
         InvokeRepeating(nameof(Test), 0, 2f);
+    }
+
+    private void Update()
+    {
+        if (gameRunning) timer += Time.deltaTime;
     }
 
     void Test()
@@ -233,7 +242,9 @@ public class GameManager : MonoBehaviour
 
         //yield return new WaitForSeconds(2);
 
+        gameRunning = false;
         _resultsShow.RaiseEvent();
+        _timerStopped.RaiseEvent(timer);
 
         yield break;
     }
@@ -260,7 +271,7 @@ public class GameManager : MonoBehaviour
 
     #region Controller Methods
 
-    public void ShakeController(float low = 0.5f, float high = 0.5f, float timeTillStop = 0.1f)
+    public void ShakeController(float low = 0.4f, float high = 0.4f, float timeTillStop = 0.05f)
     {
         if (_controllerShakeCoroutine != null) StopCoroutine(_controllerShakeCoroutine);
 
@@ -338,6 +349,7 @@ public class GameManager : MonoBehaviour
 
     private void DestroyGameManager()
     {
+        gameRunning = false;
         Destroy(this.gameObject);
     }
 

@@ -97,11 +97,11 @@ public class StunMinigame : MinigameBase
     }
     private Sprite LeftButtonUnselected 
     {
-        get => ControllerConnected ? leftButtonUnselected_Controller : leftButtonUnselected_Controller;
+        get => ControllerConnected ? leftButtonUnselected_Controller : leftButtonUnselected_Keyboard;
     }
     private Sprite RightButtonUnselected 
     {
-        get => ControllerConnected ? rightButtonUnselected_Controller: rightButtonUnselected_Controller;
+        get => ControllerConnected ? rightButtonUnselected_Controller: rightButtonUnselected_Keyboard;
     }
     private Sprite UpButtonFailed 
     {

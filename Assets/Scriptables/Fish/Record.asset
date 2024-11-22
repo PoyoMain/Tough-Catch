@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Record
   m_EditorClassIdentifier: 
   _description: A record. Not what you we're trying to catch, but it might be a banger
-  _sprite: {fileID: 21300000, guid: dd6be508ee1f6bb46a5d72eaa4595729, type: 3}
+  _profileSprite: {fileID: 21300000, guid: dd6be508ee1f6bb46a5d72eaa4595729, type: 3}
+  _fullSprite: {fileID: 21300000, guid: dd6be508ee1f6bb46a5d72eaa4595729, type: 3}
   _model: {fileID: 3710808212069928395, guid: 8ccc6a3ec23bf2746bfb4ffb015c2d7c, type: 3}
   _maxHealth: 50
   _minWeight: 3

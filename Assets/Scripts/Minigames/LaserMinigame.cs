@@ -22,6 +22,10 @@ public class LaserMinigame : MinigameBase
     [SerializeField] private Transform _leftLaser;
     [SerializeField] private Transform _rightLaser;
 
+    [Header("Mirrors")]
+    [SerializeField] private Animator _leftMirror;
+    [SerializeField] private Animator _rightMirror;
+
     [Header("Button Prompts")]
     [SerializeField] private Slider _leftButtonPromptSlider;
     [SerializeField] private Slider _rightButtonPromptSlider;
@@ -331,6 +335,13 @@ public class LaserMinigame : MinigameBase
         _leftLaserFired = true;
         if (_leftLaserChargeVFX != null) Destroy(_leftLaserChargeVFX);
 
+        if (_leftObject == null)
+        {
+            _leftMirror.SetTrigger("Reflect");
+            _laserLeftFire.RaiseEvent();
+            return;
+        }
+
         Vector3 target = _leftObject != null ? _leftObject.transform.position : _leftSpline.transform.position;
         Vector3 dir = target - _leftLaser.position;
         Quaternion lookDir = Quaternion.LookRotation(dir);
@@ -348,11 +359,17 @@ public class LaserMinigame : MinigameBase
     {
         if (!_rightLaserCharging) return;
         if (!RightLaserCanShoot) return;
-        if (_rightLaserChargeVFX != null) Destroy(_rightLaserChargeVFX);
-
+        
         _rightLaserCharging = false;
         _rightLaserFired = true;
+        if (_rightLaserChargeVFX != null) Destroy(_rightLaserChargeVFX);
 
+        if (_rightObject == null)
+        {
+            _rightMirror.SetTrigger("Reflect");
+            _laserRightFire.RaiseEvent();
+            return;
+        }
 
         Vector3 target = _rightObject != null ? _rightObject.transform.position : _rightSpline.transform.position;
         Vector3 dir = target - _rightLaser.position;
