@@ -15,7 +15,7 @@ MonoBehaviour:
   _difficulty: 1
   _guideImages: 0
   _tutorialPopUps: 0
-  _controlRumble: 0
+  _controlRumble: 1
   _fullscreenMode: 0
   _mainAudioMixer: {fileID: 24100000, guid: 131f9b7c3e418bf4f8e5713434c21b39, type: 2}
   _easyScanMinigameOptions:

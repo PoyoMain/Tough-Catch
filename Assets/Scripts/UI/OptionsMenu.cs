@@ -28,7 +28,7 @@ public class OptionsMenu : MonoBehaviour
     private const float VOLUME_MAX = 20;
     private const float VOLUME_MIN = -80f;
 
-    private void Start()
+    private void Awake()
     {
         audioSlider_Master.maxValue = audioSlider_Music.maxValue = audioSlider_SFX.maxValue = audioSlider_Ambience.maxValue = VOLUME_MAX;
         audioSlider_Master.minValue = audioSlider_Music.minValue = audioSlider_SFX.minValue = audioSlider_Ambience.minValue = VOLUME_MIN;
@@ -48,8 +48,17 @@ public class OptionsMenu : MonoBehaviour
         checkbox_ControllerRumble.isOn = options.ControlRumble;
         //checkbox_GuideImages.isOn = options.GuideImages;
 
-        toggle_EasyDifficulty.isOn = options.Difficulty == Difficulty.Easy;
-        toggle_MediumDifficulty.isOn = options.Difficulty == Difficulty.Medium;
-        toggle_HardDifficulty.isOn = options.Difficulty == Difficulty.Hard;
+        switch (options.Difficulty)
+        {
+            case Difficulty.Easy:
+                toggle_EasyDifficulty.isOn = true;
+                break;
+            case Difficulty.Medium:
+                toggle_MediumDifficulty.isOn = true;
+                break;
+            case Difficulty.Hard:
+                toggle_HardDifficulty.isOn = true;
+                break;
+        }
     }
 }
