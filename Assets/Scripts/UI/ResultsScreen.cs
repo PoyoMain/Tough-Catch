@@ -19,9 +19,9 @@ public class ResultsScreen : MonoBehaviour
     [SerializeField] private TextMeshProUGUI fishLength;
     [SerializeField] private TextMeshProUGUI fishWeight;
     [SerializeField] private TextMeshProUGUI fishWeightClass;
+    [SerializeField] private Image weightClassImage;
 
     [Header("Weight Class Sprites")]
-    [SerializeField] private Image weightClassImage;
     [SerializeField] private Sprite smallWeightSprite;
     [SerializeField] private Sprite mediumWeightSprite;
     [SerializeField] private Sprite largeWeightSprite;
@@ -61,14 +61,14 @@ public class ResultsScreen : MonoBehaviour
     {
         fishWeightClass.text = weightClass.ToString();
 
-        //weightClassImage.sprite = weightClass switch
-        //{
-        //    FishWeightClass.Small => smallWeightSprite,
-        //    FishWeightClass.Medium => mediumWeightSprite,
-        //    FishWeightClass.Large => largeWeightSprite,
-        //    FishWeightClass.Gigantic => giganticWeightSprite,
-        //    _ => throw new System.NotImplementedException(),
-        //};
+        weightClassImage.sprite = weightClass switch
+        {
+            FishWeightClass.Small => smallWeightSprite,
+            FishWeightClass.Medium => mediumWeightSprite,
+            FishWeightClass.Large => largeWeightSprite,
+            FishWeightClass.Gigantic => giganticWeightSprite,
+            _ => throw new System.NotImplementedException(),
+        };
     }
 
     private void SetTimeForFishCatch(float time)
