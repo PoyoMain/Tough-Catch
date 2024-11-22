@@ -17780,6 +17780,10 @@ MonoBehaviour:
     type: 3}
   rightButtonFailed_Keyboard: {fileID: 21300000, guid: 3a48aa1d782b63840b69c826095bdf0e,
     type: 3}
+  audioSource: {fileID: 1373887322}
+  buttonSFX: {fileID: 8300000, guid: be705c01b9ade9545a4c0097b3b633fc, type: 3}
+  successSFX: {fileID: 8300000, guid: 8a6f4dd275a5bc24397e723595dc122f, type: 3}
+  failSFX: {fileID: 8300000, guid: e9d2eaabdbd7f71419a9c8890cd67161, type: 3}
   upButtonSelected_Controller: {fileID: 21300000, guid: d72ac66f942b3524b871e7e1165ecf39,
     type: 3}
   downButtonSelected_Controller: {fileID: 21300000, guid: c78a0b6b23c2fb04791b96b8299b3497,
