@@ -10700,8 +10700,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numberOfMinigamesAtOnce: 2
-  firstMinigameSpawnTime: 5
-  minigameGapTime: 5
+  firstMinigameSpawnTime: 4
+  minigameGapTime: 1
   minigames:
   - minigame: {fileID: 1461839134}
     spawnChance: 1

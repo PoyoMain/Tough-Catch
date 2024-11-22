@@ -153,7 +153,6 @@ public class FishingRodMinigame : MinigameBase
         rightFlames.SetActive(false);
         holdingButton = false;
         minigameHoldTimer = -1;
-        minigameFailTimer = -1;
     }
 
     private void FishingRodControl_started()
@@ -240,6 +239,9 @@ public class FishingRodMinigame : MinigameBase
 
                 leftArrowPromptSlider.gameObject.SetActive(false);
                 rightArrowPromptSlider.gameObject.SetActive(false);
+
+                activePromptSlider.value = 0;
+                activePromptSlider = null;
 
                 damagePlayerSO.RaiseEvent();
                 fishingRodStopDriftSO.RaiseEvent();

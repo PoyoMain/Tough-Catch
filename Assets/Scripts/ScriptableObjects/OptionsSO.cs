@@ -191,8 +191,8 @@ public class OptionsSO : ScriptableObject
     {
         public float minDriftTime;
         public float maxDriftTime;
-        public float minigameHoldTime;
         public float minigameFailTime;
+        public float minigameHoldTime;
     }
 
     [Serializable]
@@ -205,8 +205,8 @@ public class OptionsSO : ScriptableObject
     [Serializable]
     public struct ReelMinigameSettings
     {
-        public float meterDecay;
         public float reelStrength;
+        public float meterDecay;
     }
 }
 
