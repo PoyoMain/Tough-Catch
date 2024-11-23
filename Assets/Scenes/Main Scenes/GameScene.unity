@@ -6901,8 +6901,8 @@ MonoBehaviour:
   shakeFrequency: 0
   xMax: 1840
   xMin: 80
-  yMax: 930
-  yMin: 150
+  yMax: 600
+  yMin: 200
   animator: {fileID: 0}
   scanner: {fileID: 1974319864}
   buttonAnim: {fileID: 0}
@@ -21117,7 +21117,40 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 8642388526770294883}
+    - targetCorrespondingSourceObject: {fileID: 4076174582753743223, guid: 8e301960f8d4a824e9e108c5e3afe744,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1951413017}
   m_SourcePrefab: {fileID: 100100000, guid: 8e301960f8d4a824e9e108c5e3afe744, type: 3}
+--- !u!1 &1951413016 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4076174582753743223, guid: 8e301960f8d4a824e9e108c5e3afe744,
+    type: 3}
+  m_PrefabInstance: {fileID: 1951413015}
+  m_PrefabAsset: {fileID: 0}
+--- !u!223 &1951413017
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1951413016}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 1
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 300
+  m_TargetDisplay: 0
 --- !u!1 &1956792032
 GameObject:
   m_ObjectHideFlags: 0
