@@ -24824,6 +24824,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rod
       objectReference: {fileID: 0}
+    - target: {fileID: 6187949994232195489, guid: 3ed95eea46f83f54ea8a88f61a437e7b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9164386586971518500, guid: 3ed95eea46f83f54ea8a88f61a437e7b,
         type: 3}
       propertyPath: m_LocalPosition.x
