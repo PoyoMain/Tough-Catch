@@ -34,6 +34,10 @@ public class ReelMinigame : MinigameBase
     //prevents animations from being called more than once at a time
     private bool animPlaying = false;
 
+    //grace period between phases timer variables
+    private float graceTime = 1.5f;
+    private float graceTimer;
+
     //Properties
     private float ReelStrength
     {
@@ -42,6 +46,10 @@ public class ReelMinigame : MinigameBase
     private float MeterDecay
     {
         get => _useOptionValues ? Options.ReelMinigameOptions.meterDecay : meterDecay;
+    }
+    private bool InGracePeriod
+    {
+        get => graceTimer > 0;
     }
 
     //Audio; Added by Chris
@@ -101,9 +109,12 @@ public class ReelMinigame : MinigameBase
             displayReelText();
         }
         //meter constantly decreases until it becomes full
-        if (reelMeter.value < 1) {
+        if (reelMeter.value < 1)
+        {
             reelMeter.value -= MeterDecay;
         }
+        
+        if (InGracePeriod) graceTimer -= Time.deltaTime; // Grace timer decrease
         
         buttonChange();
 
@@ -148,6 +159,7 @@ public class ReelMinigame : MinigameBase
             while (buttonFrame.sprite == buttonSprite);
             buttonFrame.sprite = buttonSprite;
             audioSource.PlayOneShot(phase1Success); // Play first success audio
+            graceTimer = graceTime; // Give a bit of grace time
         }
 
         //button changes one last time once it reaches two-thirds the amount
@@ -159,6 +171,7 @@ public class ReelMinigame : MinigameBase
             while (buttonFrame.sprite == buttonSprite);
             buttonFrame.sprite = buttonSprite;
             audioSource.PlayOneShot(phase2Success); // Play second success audio
+            graceTimer = graceTime; // Give a bit of grace time
         }
         //calls success event once the meter becomes full
         if (MeterPhase == 2 && reelMeter.value == reelMeter.maxValue)
@@ -166,6 +179,7 @@ public class ReelMinigame : MinigameBase
             MeterPhase++;
             Controls.Reeling.Disable();
             audioSource.PlayOneShot(phase3Success); // Play third success audio
+            graceTimer = graceTime; // Give a bit of grace time
         }
     }
 
@@ -184,7 +198,7 @@ public class ReelMinigame : MinigameBase
             }
             else
             {
-                reelMeter.value -= ReelStrength;
+                if (!InGracePeriod) reelMeter.value -= ReelStrength;
             }
         }
         if (buttonValue == Vector2.down)
@@ -196,7 +210,7 @@ public class ReelMinigame : MinigameBase
             }
             else
             {
-                reelMeter.value -= ReelStrength;
+                if (!InGracePeriod) reelMeter.value -= ReelStrength;
             }
         }
         if (buttonValue == Vector2.left)
@@ -208,7 +222,7 @@ public class ReelMinigame : MinigameBase
             }
             else
             {
-                reelMeter.value -= ReelStrength;
+                if (!InGracePeriod) reelMeter.value -= ReelStrength;
             }
         }
         if (buttonValue == Vector2.right)
@@ -220,7 +234,7 @@ public class ReelMinigame : MinigameBase
             }
             else
             {
-                reelMeter.value -= ReelStrength;
+                if (!InGracePeriod) reelMeter.value -= ReelStrength;
             }
         }
     }
