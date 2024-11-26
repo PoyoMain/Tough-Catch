@@ -15460,8 +15460,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Hold down the buttons on the left and right of the screen to fire lasers
-    at objects flying towards you (ZL/ZR or Q/E). Be careful though, if you fire
+  m_text: Hold down the buttons on the left and right of the screen (ZL/ZR or Q/E)
+    to fire lasers at objects flying towards you. Be careful though, if you fire
     when no object is there, the laser will be reflected back at you
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: bb12d94a1e6f4e847a4f93e7bf0e1d44, type: 2}
@@ -15490,7 +15490,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 70.85
+  m_fontSize: 69.8
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -16743,7 +16743,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1561169985
 RectTransform:
   m_ObjectHideFlags: 0
@@ -21587,7 +21587,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2004049132
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23175,10 +23175,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Hold down the buttons on the left and right of the screen to fire lasers
-    at objects flying towards you (<color=red>ZL/ZR or Q/E</color>). Be careful though,
-    if you fire when no object is there, the laser will be <color=red>reflected back
-    at you</color>
+  m_text: <color=red>Hold down</color> the buttons on the left and right of the screen
+    (<color=red>ZL/ZR or Q/E</color>) to <color=red>fire lasers</color> at objects
+    flying towards you. Be careful though, if you fire when no object is there, the
+    laser will be <color=red>reflected back at you</color>
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: bb12d94a1e6f4e847a4f93e7bf0e1d44, type: 2}
   m_sharedMaterial: {fileID: 6937950760923199817, guid: bb12d94a1e6f4e847a4f93e7bf0e1d44,
@@ -23206,7 +23206,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 70.85
+  m_fontSize: 69.8
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
