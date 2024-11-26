@@ -7433,8 +7433,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: Press <color=red>Space</color> or the <color=red>Right Face Button</color>
-    when the white ring is ovelapping with the purple rings. Do this <color=red>three
-    times</color> in succession to complete the minigame
+    when the white ring is ovelapping with the <color=#BC53FF>purple rings</color>.
+    Do this <color=red>three times</color> in succession to complete the minigame
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: bb12d94a1e6f4e847a4f93e7bf0e1d44, type: 2}
   m_sharedMaterial: {fileID: 6937950760923199817, guid: bb12d94a1e6f4e847a4f93e7bf0e1d44,
@@ -18842,7 +18842,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1768519631}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
