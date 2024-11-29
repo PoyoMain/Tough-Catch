@@ -372,6 +372,7 @@ public class GameManager : MonoBehaviour
         }
 
         Gamepad.current.SetMotorSpeeds(0, 0);
+        Gamepad.current.ResetHaptics();
 
 
         yield break;
