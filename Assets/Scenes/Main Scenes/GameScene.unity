@@ -7034,6 +7034,7 @@ MonoBehaviour:
   buttonAnim: {fileID: 0}
   scanStartLettering: {fileID: 0}
   scanSucceedLettering: {fileID: 0}
+  audioSouce: {fileID: 0}
 --- !u!1 &547830539
 GameObject:
   m_ObjectHideFlags: 0
@@ -14107,6 +14108,7 @@ MonoBehaviour:
   buttonAnim: {fileID: 0}
   scanStartLettering: {fileID: 0}
   scanSucceedLettering: {fileID: 0}
+  audioSouce: {fileID: 0}
 --- !u!114 &1189673719
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21594,6 +21596,11 @@ PrefabInstance:
       propertyPath: minTime
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 1156563471163028260, guid: 8e301960f8d4a824e9e108c5e3afe744,
+        type: 3}
+      propertyPath: audioSouce
+      value: 
+      objectReference: {fileID: 2079646968}
     - target: {fileID: 1156563471163028260, guid: 8e301960f8d4a824e9e108c5e3afe744,
         type: 3}
       propertyPath: shakeFrequency
