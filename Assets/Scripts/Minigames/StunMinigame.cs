@@ -195,6 +195,8 @@ public class StunMinigame : MinigameBase
 
     private void HitButtonInCombo(InputAction.CallbackContext context)
     {
+        if (minigameCompleteTimer == -1) return;
+
         Vector2 input = context.ReadValue<Vector2>();
         FaceButtonDirection inputDir = input switch
         {
