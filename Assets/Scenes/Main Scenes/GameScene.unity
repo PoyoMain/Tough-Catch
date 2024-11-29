@@ -21567,22 +21567,22 @@ PrefabInstance:
     - target: {fileID: 1156563471163028260, guid: 8e301960f8d4a824e9e108c5e3afe744,
         type: 3}
       propertyPath: xMax
-      value: 850
+      value: 1825
       objectReference: {fileID: 0}
     - target: {fileID: 1156563471163028260, guid: 8e301960f8d4a824e9e108c5e3afe744,
         type: 3}
       propertyPath: xMin
-      value: -850
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 1156563471163028260, guid: 8e301960f8d4a824e9e108c5e3afe744,
         type: 3}
       propertyPath: yMax
-      value: 340
+      value: 900
       objectReference: {fileID: 0}
     - target: {fileID: 1156563471163028260, guid: 8e301960f8d4a824e9e108c5e3afe744,
         type: 3}
       propertyPath: yMin
-      value: -380
+      value: 160
       objectReference: {fileID: 0}
     - target: {fileID: 1156563471163028260, guid: 8e301960f8d4a824e9e108c5e3afe744,
         type: 3}
