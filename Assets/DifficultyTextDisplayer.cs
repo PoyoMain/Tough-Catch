@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -21,7 +22,25 @@ public class DifficultyTextDisplayer : MonoBehaviour
     {
         foreach (TextMeshProUGUI tmp in textFields)
         {
-            string newText = tmp.text.Replace("{Difficulty}", options.Difficulty.ToString());
+            string substring = "";
+
+            if (tmp.text.Contains("{Difficulty}"))
+            {
+                substring = "{Difficulty}";
+            }
+            else
+            {
+                foreach (string difficulty in Enum.GetNames(typeof(Difficulty)))
+                {
+                    if (tmp.text.Contains (difficulty))
+                    {
+                        substring = difficulty;
+                        break;
+                    }
+                }
+            }
+
+            string newText = tmp.text.Replace(substring, options.Difficulty.ToString());
             tmp.text = newText;
         }
     }
