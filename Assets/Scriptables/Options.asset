@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8571f439a776364c86206901d8c6dd4, type: 3}
   m_Name: Options
   m_EditorClassIdentifier: 
-  _difficulty: 1
-  _guideImages: 1
+  _difficulty: 0
+  _guideImages: 0
   _tutorialPopUps: 0
   _controlRumble: 1
   _fullscreenMode: 0
