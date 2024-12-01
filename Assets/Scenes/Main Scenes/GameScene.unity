@@ -2632,9 +2632,9 @@ GameObject:
   m_Component:
   - component: {fileID: 202622577}
   - component: {fileID: 202622578}
+  - component: {fileID: 202622581}
   - component: {fileID: 202622580}
   - component: {fileID: 202622579}
-  - component: {fileID: 202622581}
   - component: {fileID: 202622584}
   - component: {fileID: 202622586}
   - component: {fileID: 202622583}
@@ -22130,7 +22130,7 @@ PrefabInstance:
     - target: {fileID: 1156563471163028260, guid: 8e301960f8d4a824e9e108c5e3afe744,
         type: 3}
       propertyPath: fishList.Array.size
-      value: 18
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 1156563471163028260, guid: 8e301960f8d4a824e9e108c5e3afe744,
         type: 3}
@@ -22218,37 +22218,49 @@ PrefabInstance:
         type: 3}
       propertyPath: fishList.Array.data[12]
       value: 
-      objectReference: {fileID: 11400000, guid: f20a771d1d49b4d4098a18282cc7ea05,
+      objectReference: {fileID: 11400000, guid: db804a424e86e1e4a98107e92d7cca33,
         type: 2}
     - target: {fileID: 1156563471163028260, guid: 8e301960f8d4a824e9e108c5e3afe744,
         type: 3}
       propertyPath: fishList.Array.data[13]
       value: 
-      objectReference: {fileID: 11400000, guid: f20a771d1d49b4d4098a18282cc7ea05,
+      objectReference: {fileID: 11400000, guid: e3c75ad58ed448948b9b8e2d06d15f86,
         type: 2}
     - target: {fileID: 1156563471163028260, guid: 8e301960f8d4a824e9e108c5e3afe744,
         type: 3}
       propertyPath: fishList.Array.data[14]
       value: 
-      objectReference: {fileID: 11400000, guid: f20a771d1d49b4d4098a18282cc7ea05,
+      objectReference: {fileID: 11400000, guid: f1d8ec63a54fa164799ef77708583b5a,
         type: 2}
     - target: {fileID: 1156563471163028260, guid: 8e301960f8d4a824e9e108c5e3afe744,
         type: 3}
       propertyPath: fishList.Array.data[15]
       value: 
-      objectReference: {fileID: 11400000, guid: f20a771d1d49b4d4098a18282cc7ea05,
+      objectReference: {fileID: 11400000, guid: 33a69940282b6444c8732d1a7a4385f2,
         type: 2}
     - target: {fileID: 1156563471163028260, guid: 8e301960f8d4a824e9e108c5e3afe744,
         type: 3}
       propertyPath: fishList.Array.data[16]
       value: 
-      objectReference: {fileID: 11400000, guid: db804a424e86e1e4a98107e92d7cca33,
+      objectReference: {fileID: 11400000, guid: 33a69940282b6444c8732d1a7a4385f2,
         type: 2}
     - target: {fileID: 1156563471163028260, guid: 8e301960f8d4a824e9e108c5e3afe744,
         type: 3}
       propertyPath: fishList.Array.data[17]
       value: 
-      objectReference: {fileID: 11400000, guid: e3c75ad58ed448948b9b8e2d06d15f86,
+      objectReference: {fileID: 11400000, guid: 33a69940282b6444c8732d1a7a4385f2,
+        type: 2}
+    - target: {fileID: 1156563471163028260, guid: 8e301960f8d4a824e9e108c5e3afe744,
+        type: 3}
+      propertyPath: fishList.Array.data[18]
+      value: 
+      objectReference: {fileID: 11400000, guid: 33a69940282b6444c8732d1a7a4385f2,
+        type: 2}
+    - target: {fileID: 1156563471163028260, guid: 8e301960f8d4a824e9e108c5e3afe744,
+        type: 3}
+      propertyPath: fishList.Array.data[19]
+      value: 
+      objectReference: {fileID: 11400000, guid: 33a69940282b6444c8732d1a7a4385f2,
         type: 2}
     - target: {fileID: 2133313748559236422, guid: 8e301960f8d4a824e9e108c5e3afe744,
         type: 3}
