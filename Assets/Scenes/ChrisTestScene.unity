@@ -4126,6 +4126,26 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 8509454166299286598, guid: 450ea9f15e61f864d9b9e1e5ef1eee43,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.95681334
+      objectReference: {fileID: 0}
+    - target: {fileID: 8509454166299286598, guid: 450ea9f15e61f864d9b9e1e5ef1eee43,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.29070318
+      objectReference: {fileID: 0}
+    - target: {fileID: 8509454166299286598, guid: 450ea9f15e61f864d9b9e1e5ef1eee43,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8509454166299286598, guid: 450ea9f15e61f864d9b9e1e5ef1eee43,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -33.8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -22685,7 +22705,7 @@ MonoBehaviour:
   _scanSucceed: {fileID: 11400000, guid: 6f493a508b7e8914d9efccf8bad46ada, type: 2}
   _castSucceed: {fileID: 11400000, guid: 95b483d82355c1042b25da6dc6be2b7b, type: 2}
   _tuggleSucceed: {fileID: 11400000, guid: daefbfa40829d9643b109aa025597eb1, type: 2}
-  _reelSucceed: {fileID: 11400000, guid: d6157594f8982f2438d732894fa43162, type: 2}
+  _endCutsceneFinished: {fileID: 0}
   _gameLost: {fileID: 11400000, guid: 6505dfd0726963646a1ad579dd88079c, type: 2}
   _scanTutorialSucceedEvent: {fileID: 11400000, guid: 654cc85a3b3d7274d82e5d052a903132,
     type: 2}
