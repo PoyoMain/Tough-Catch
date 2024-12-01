@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93bb26b2bb30d424b9f50f19d181fe37, type: 3}
   m_Name: Sign
   m_EditorClassIdentifier: 
-  _description: A bottle. But there's no message inside. Maybe next time.
+  _description: A sign? At the bottom of the lake? Something interesting is written
+    on it
   _profileSprite: {fileID: 21300000, guid: d2eef733c4e17534d82e911e9571b959, type: 3}
   _fullSprite: {fileID: 21300000, guid: d2eef733c4e17534d82e911e9571b959, type: 3}
   _model: {fileID: 1319826926192770083, guid: 0febecadc2f4e91408c3acc4fcf8ce95, type: 3}
