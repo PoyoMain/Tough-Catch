@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private VoidEventChannelSO _scanSucceed;
     [SerializeField] private VoidEventChannelSO _castSucceed;
     [SerializeField] private VoidEventChannelSO _tuggleSucceed;
-    [SerializeField] private VoidEventChannelSO _reelSucceed;
+    [SerializeField] private VoidEventChannelSO _endCutsceneFinished;
     [SerializeField] private VoidEventChannelSO _gameLost;
     [Space(5)]
     [SerializeField] private VoidEventChannelSO _scanTutorialSucceedEvent;
@@ -98,7 +98,7 @@ public class GameManager : MonoBehaviour
         _scanSucceed.OnEventRaised += ActivateCastPhase;
         _castSucceed.OnEventRaised += ActivateTugglePhase;
         _tuggleSucceed.OnEventRaised += ActivateReelPhase;
-        _reelSucceed.OnEventRaised += ActivateResultsPhase;
+        _endCutsceneFinished.OnEventRaised += ActivateResultsPhase;
 
         _scanTutorialSucceedEvent.OnEventRaised += StopTutorial;
         _castTutorialSucceedEvent.OnEventRaised += StopTutorial;
@@ -121,7 +121,7 @@ public class GameManager : MonoBehaviour
         _scanSucceed.OnEventRaised -= ActivateCastPhase;
         _castSucceed.OnEventRaised -= ActivateTugglePhase;
         _tuggleSucceed.OnEventRaised -= ActivateReelPhase;
-        _reelSucceed.OnEventRaised -= ActivateResultsPhase;
+        _endCutsceneFinished.OnEventRaised -= ActivateResultsPhase;
 
         _scanTutorialSucceedEvent.OnEventRaised -= StopTutorial;
         _castTutorialSucceedEvent.OnEventRaised -= StopTutorial;
@@ -305,6 +305,20 @@ public class GameManager : MonoBehaviour
         yield break;
     }
 
+    private IEnumerator EndCutsceneCoroutine()
+    {
+        //ActivateCamera(_dockCam);
+        //while (IsBlendingBetweenCams) yield return null;
+
+        //yield return new WaitForSeconds(2);
+
+        gameRunning = false;
+        _resultsShow.RaiseEvent();
+        _timerStopped.RaiseEvent(timer);
+
+        yield break;
+    }
+
     private IEnumerator ResultsCoroutine()
     {
         //ActivateCamera(_dockCam);
@@ -454,5 +468,6 @@ public enum GameState
     Cast,
     Tuggle,
     Reel,
+    EndCutscene,
     Results
 }
