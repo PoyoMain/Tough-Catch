@@ -43,6 +43,7 @@ public class TutorialPanel : MonoBehaviour
         active = true;
 
         Time.timeScale = 0;
+        ChangeVideo();
     }
 
     private void Deactivate(InputAction.CallbackContext _)
@@ -57,6 +58,14 @@ public class TutorialPanel : MonoBehaviour
     }
 
     private void ChangeVideo(InputDevice device, InputDeviceChange change)
+    {
+        if (options.ControllerConnected) vidPlayer.clip = controllerVideoClip;
+        else vidPlayer.clip = keyboardVideoClip;
+
+        vidPlayer.Play();
+    }
+
+    private void ChangeVideo()
     {
         if (options.ControllerConnected) vidPlayer.clip = controllerVideoClip;
         else vidPlayer.clip = keyboardVideoClip;
