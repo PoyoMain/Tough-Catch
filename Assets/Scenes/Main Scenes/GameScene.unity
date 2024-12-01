@@ -15096,6 +15096,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1318351480}
   m_CullTransparentMesh: 1
+--- !u!4 &1324812692 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2773421113393997084, guid: b0d551e2aa2cafc4a972baee06f10af1,
+    type: 3}
+  m_PrefabInstance: {fileID: 1530912818}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1349334285
 GameObject:
   m_ObjectHideFlags: 0
@@ -17328,13 +17334,22 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 4656956038961418943, guid: b0d551e2aa2cafc4a972baee06f10af1, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8892025447780830072, guid: b0d551e2aa2cafc4a972baee06f10af1,
         type: 3}
+      insertIndex: 3
+      addedObject: {fileID: 1530912824}
+    - targetCorrespondingSourceObject: {fileID: 8892025447780830072, guid: b0d551e2aa2cafc4a972baee06f10af1,
+        type: 3}
       insertIndex: -1
       addedObject: {fileID: 1530912823}
+    - targetCorrespondingSourceObject: {fileID: 8892025447780830072, guid: b0d551e2aa2cafc4a972baee06f10af1,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1530912825}
   m_SourcePrefab: {fileID: 100100000, guid: b0d551e2aa2cafc4a972baee06f10af1, type: 3}
 --- !u!4 &1530912819 stripped
 Transform:
@@ -17362,6 +17377,48 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1530912824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 324617005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fe20f0fd2f628645b54735be8ff3f62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnTransform: {fileID: 1324812692}
+  fishCaught: {fileID: 11400000, guid: 41fb3e6516e4863478cc7be26e805500, type: 2}
+--- !u!114 &1530912825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 324617005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b37950ec679f647a9ab698ec0275e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _channel: {fileID: 11400000, guid: d6157594f8982f2438d732894fa43162, type: 2}
+  OnEventRaised:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1530912824}
+        m_TargetAssemblyTypeName: EndCutscene, Assembly-CSharp
+        m_MethodName: SpawnFish
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
