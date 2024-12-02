@@ -41,6 +41,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private VoidEventChannelSO _fishingRodTutorialStartEvent;
     [SerializeField] private VoidEventChannelSO _stunTutorialStartEvent;
     [SerializeField] private VoidEventChannelSO _reelTutorialStartEvent;
+    [Space(10)]
+    [SerializeField] private VoidEventChannelSO _starGained;
 
     [Header("Listen Events")]
     [SerializeField] private VoidEventChannelSO _damageTaken;
@@ -136,6 +138,8 @@ public class GameManager : MonoBehaviour
     {
         _gameStart.RaiseEvent();
         gameRunning = true;
+
+        if (Options.Difficulty == Difficulty.Hard) _starGained.RaiseEvent();
 
         ChangeState(GameState.Scan);
         InvokeRepeating(nameof(Test), 0, 2f);

@@ -30,20 +30,35 @@ public class ResultsScreen : MonoBehaviour
     [Header("Fish Model Display")]
     [SerializeField] private GameObject fishModelDisplay;
 
+    [Header("Star Settings")]
+    [SerializeField] private Animation starPrefab;
+    [SerializeField] private Transform starParent;
+
     [Header("ListenEvent")]
+    [SerializeField] private VoidEventChannelSO resultsShowEvent;
     [SerializeField] private FishEventChannelSO fishFoundEventSO;
     [SerializeField] private FloatEventChannelSO timerStoppedEventSO;
+    [SerializeField] private VoidEventChannelSO starGainedEventSO;
+
+    [Range(0, 3)]
+    private int starsGained;
+
+    private Coroutine starCoroutine;
 
     private void OnEnable()
     {
+        resultsShowEvent.OnEventRaised += Activate;
         fishFoundEventSO.OnEventRaised += InitializeResultsScreen;
         timerStoppedEventSO.OnEventRaised += SetTimeForFishCatch;
+        starGainedEventSO.OnEventRaised += GainStar;
     }
 
     private void OnDisable()
     {
+        resultsShowEvent.OnEventRaised -= Activate;
         fishFoundEventSO.OnEventRaised -= InitializeResultsScreen;
-        timerStoppedEventSO.OnEventRaised += SetTimeForFishCatch;
+        timerStoppedEventSO.OnEventRaised -= SetTimeForFishCatch;
+        starGainedEventSO.OnEventRaised -= GainStar;
     }
 
     private void InitializeResultsScreen(Fish fish)
@@ -77,6 +92,40 @@ public class ResultsScreen : MonoBehaviour
         var remainingSeconds = (int)(time - minutes * 60);
         print(minutes.ToString() + ':' + remainingSeconds.ToString("00"));
         timeToCatch.text = minutes.ToString() + ":" + remainingSeconds.ToString("00");
+    }
+
+    private void GainStar()
+    {
+        starsGained++;
+    }
+
+    private void Activate()
+    {
+        if (starCoroutine != null) StopCoroutine(starCoroutine);
+
+        starCoroutine = StartCoroutine(nameof(StarCoroutine));
+    }
+
+    private IEnumerator StarCoroutine()
+    {
+        if (starsGained < 1) yield break;
+
+        float timer = 0;
+
+        for (int i = 1; i <= starsGained; i++)
+        {
+            Animation star = Instantiate(starPrefab, starParent);
+
+            while (timer < star.clip.averageDuration)
+            {
+                timer += Time.deltaTime;
+                yield return null;
+            }
+
+            timer = 0;
+        }
+
+        yield break;
     }
 
     public void RestartGame()

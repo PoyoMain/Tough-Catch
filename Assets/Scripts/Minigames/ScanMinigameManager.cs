@@ -50,6 +50,9 @@ public class ScanMinigameManager : MinigameBase
     //Added by Chris; Audio Source
     [SerializeField] AudioSource audioSouce;
 
+    //Added by Chris; Star Gained Event for gigantic catches
+    [SerializeField] VoidEventChannelSO starGainedEvent;
+
     //Added by Chris; Properties
     float MinTime
     {
@@ -344,6 +347,8 @@ public class ScanMinigameManager : MinigameBase
         //Succeeds at the minigame
         active = false;
         audioSouce.Stop();
+
+        if (caughtFish.WeightClass == FishWeightClass.Gigantic && caughtFish.Weight >= 100) starGainedEvent.RaiseEvent();
 
         fishFlee(); // Reset
     }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8571f439a776364c86206901d8c6dd4, type: 3}
   m_Name: Options
   m_EditorClassIdentifier: 
-  _difficulty: 0
+  _difficulty: 2
   _guideImages: 0
   _tutorialPopUps: 0
   _controlRumble: 1
@@ -25,11 +25,11 @@ MonoBehaviour:
   _mediumScanMinigameOptions:
     minTime: 4
     maxTime: 8
-    maxConfirmTime: 1
+    maxConfirmTime: 1.25
   _hardScanMinigameOptions:
     minTime: 4
-    maxTime: 8
-    maxConfirmTime: 0.5
+    maxTime: 7
+    maxConfirmTime: 0.75
   _easyCastMinigameOptions:
     scaleRate: 0.4
   _mediumCastMinigameOptions:
