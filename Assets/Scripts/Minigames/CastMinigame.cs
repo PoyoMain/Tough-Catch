@@ -43,6 +43,9 @@ public class CastMinigame : MinigameBase
     [SerializeField] private AudioClip ringSuccess3;
     [SerializeField] private AudioClip ringFail;
 
+    [Header("Krey")]
+    [SerializeField] private Animator kreyAnim;
+
     [Header("Keyboard Button Sprites")]
     [SerializeField] private Sprite confirmButton_Keyboard;
 
@@ -79,11 +82,12 @@ public class CastMinigame : MinigameBase
 
     private IEnumerator TextDisplayCoroutine()
     {
-
-            while (castStartLettering.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f) yield return null;
+        while (castStartLettering.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f) yield return null;
 
             castStartLettering.gameObject.SetActive(false);
-        active = true;
+            active = true;
+        kreyAnim.speed = 1;
+            
 
             while (active == true) yield return null;
 
@@ -127,6 +131,9 @@ public class CastMinigame : MinigameBase
 
         castStartLettering.gameObject.SetActive(true);
         StartCoroutine(nameof(TextDisplayCoroutine));
+
+        kreyAnim.SetTrigger("CastStart");
+        kreyAnim.speed = 0;
     }
 
     // Update is called once per frame
@@ -135,14 +142,17 @@ public class CastMinigame : MinigameBase
         if (!active) return;
         if (coroutinePlaying) return;
 
-        if (targetRing != null && targetRing.transform.localScale.x < maxScale)
+        if (targetRing != null && TargetRingScale.x < maxScale)
         {
             // Increase the scale over time at the specified rate
-            float newScale = targetRing.transform.localScale.x + ScaleRate * Time.deltaTime;
+            float newScale = TargetRingScale.x + ScaleRate * Time.deltaTime;
             newScale = Mathf.Min(newScale, maxScale); // Limit the scale to the maxScale value
 
             // Apply the new scale uniformly in all directions
             targetRing.transform.localScale = new Vector3(newScale, newScale, newScale);
+
+            //Set Krey's Animation
+            kreyAnim.Play("Krey_Cast", 0, (newScale/maxScale));
 
             if (ring1.transform.localScale.x < TargetRingScale.x && TargetRingScale.x < ring2.transform.localScale.x && !CompRing1) buttonPromptImage.enabled = true;
             else if (ring3.transform.localScale.x < TargetRingScale.x && TargetRingScale.x < ring4.transform.localScale.x && !CompRing2) buttonPromptImage.enabled = true;
@@ -154,16 +164,19 @@ public class CastMinigame : MinigameBase
         {
             isFlashing1 = true;
             audioSource.PlayOneShot(ringFail);
+            kreyAnim.speed = -1;
         }
         else if ((ring4.transform.localScale.x < targetRing.transform.localScale.x && !CompRing2 && !isFlashing2))
         {
             isFlashing2 = true;
             audioSource.PlayOneShot(ringFail);
+            kreyAnim.speed = -1;
         }
         else if (ring6.transform.localScale.x < targetRing.transform.localScale.x && !CompRing3 && !isFlashing3)
         {
             isFlashing3 = true;
             audioSource.PlayOneShot(ringFail);
+            kreyAnim.speed = -1;
         }
 
         if (isFlashing1)
@@ -245,8 +258,14 @@ public class CastMinigame : MinigameBase
         coroutinePlaying = true;
         target.SetTrigger("Flash");
 
+        float stoppedTime = kreyAnim.GetCurrentAnimatorStateInfo(0).normalizedTime;
+        kreyAnim.Play("Krey_CastReverse", 0, 1 - stoppedTime);
+        kreyAnim.speed = 1;
+
         yield return 0;
         while (target.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f) yield return null;
+
+        while (kreyAnim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1) yield return null;
 
         targetRing.transform.localScale = Vector3.zero;
         targetRenderer1.color = originalColor;
@@ -259,6 +278,9 @@ public class CastMinigame : MinigameBase
         CompRing2 = false;
         CompRing3 = false;
         MinigameDone = false;
+
+        kreyAnim.SetTrigger("CastStart");
+        //kreyAnim.speed = 0;
 
         coroutinePlaying = false;
 
