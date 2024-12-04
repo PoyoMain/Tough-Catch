@@ -38,7 +38,7 @@ public class ReelMinigame : MinigameBase
     private float graceTime = 1.5f;
     private float graceTimer;
 
-    //Properties
+    //Properties; Added by Chris
     private float ReelStrength
     {
         get => _useOptionValues ? Options.ReelMinigameOptions.reelStrength : reelStrength;
@@ -59,6 +59,10 @@ public class ReelMinigame : MinigameBase
     [SerializeField] private AudioClip phase1Success;
     [SerializeField] private AudioClip phase2Success;
     [SerializeField] private AudioClip phase3Success;
+
+    //Krey; Added by Chris
+    [Header("Krey")]
+    [SerializeField] private Animator kreyAnim;
 
     //enabling and disabling reeling controls
     protected override void OnEnable() 
@@ -108,10 +112,14 @@ public class ReelMinigame : MinigameBase
         {
             displayReelText();
         }
-        //meter constantly decreases until it becomes full
+        
         if (reelMeter.value < 1)
         {
+            //meter constantly decreases until it becomes full
             reelMeter.value -= MeterDecay;
+
+            // Krey's anim progress is equivalent to meter progress
+            kreyAnim.Play("Krey_Reel", 0, reelMeter.value / reelMeter.maxValue);
         }
         
         if (InGracePeriod) graceTimer -= Time.deltaTime; // Grace timer decrease

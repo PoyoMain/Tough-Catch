@@ -15,7 +15,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private CinemachineBrain _cinemachineBrain;
     [Space(5)]
     [SerializeField] private CinemachineVirtualCamera _povCam;
-    [SerializeField] private CinemachineVirtualCamera _dockCam;
+    [SerializeField] private CinemachineVirtualCamera _castCam;
+    [SerializeField] private CinemachineVirtualCamera _reelCam;
     [SerializeField] private CinemachineVirtualCamera _lakeCam;
 
     [Header("ScriptableObjects")]
@@ -83,7 +84,8 @@ public class GameManager : MonoBehaviour
     void VariableSetUp()
     {
         if (_povCam == null) Debug.LogError("Pov Camera not set in Inspector");
-        if (_dockCam == null) Debug.LogError("Dock Camera not set in Inspector");
+        if (_castCam == null) Debug.LogError("Cast Camera not set in Inspector");
+        if (_reelCam == null) Debug.LogError("Reel Camera not set in Inspector");
         if (_lakeCam == null) Debug.LogError("Lake Camera not set in Inspector");
     }
 
@@ -231,7 +233,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator CastCoroutine()
     {
-        ActivateCamera(_dockCam);
+        ActivateCamera(_castCam);
         while (IsBlendingBetweenCams) yield return null;
 
         if (Options.GuideImages)
@@ -287,7 +289,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator ReelCoroutine()
     {
-        ActivateCamera(_dockCam);
+        ActivateCamera(_reelCam);
         while (IsBlendingBetweenCams) yield return null;
 
         if (Options.GuideImages)
@@ -344,7 +346,8 @@ public class GameManager : MonoBehaviour
     private void ActivateCamera(CinemachineVirtualCamera newCam)
     {
         _povCam.enabled = (_povCam == newCam);
-        _dockCam.enabled = (_dockCam == newCam);
+        _castCam.enabled = (_castCam == newCam);
+        _reelCam.enabled = (_reelCam == newCam);
         _lakeCam.enabled = (_lakeCam == newCam);
     }
 
@@ -352,7 +355,8 @@ public class GameManager : MonoBehaviour
     {
         if (_povCam.enabled) return _povCam;
         else if (_lakeCam.enabled) return _lakeCam;
-        else return _dockCam;
+        else if (_castCam.enabled) return _castCam;
+        else return _reelCam;
     }
 
     #endregion
