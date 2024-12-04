@@ -152,7 +152,7 @@ public class CastMinigame : MinigameBase
             targetRing.transform.localScale = new Vector3(newScale, newScale, newScale);
 
             //Set Krey's Animation
-            kreyAnim.Play("Krey_Cast", 0, (newScale/maxScale));
+            kreyAnim.Play("Krey_Cast", 0, (newScale/ring6.transform.localScale.x));
 
             if (ring1.transform.localScale.x < TargetRingScale.x && TargetRingScale.x < ring2.transform.localScale.x && !CompRing1) buttonPromptImage.enabled = true;
             else if (ring3.transform.localScale.x < TargetRingScale.x && TargetRingScale.x < ring4.transform.localScale.x && !CompRing2) buttonPromptImage.enabled = true;
