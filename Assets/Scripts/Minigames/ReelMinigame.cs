@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.InputSystem;
@@ -21,7 +22,7 @@ public class ReelMinigame : MinigameBase
     private Sprite buttonSprite;
 
     //quantity of how much meter changes from button press, or from decreasing overtime
-    [SerializeField] public float reelStrength, meterDecay;
+    [SerializeField] public float ReelStrength, MeterDecay;
 
     //values for button shake intensity
     private float shakeValue = 20.0f;
@@ -35,18 +36,18 @@ public class ReelMinigame : MinigameBase
     private bool animPlaying = false;
 
     //grace period between phases timer variables
-    private float graceTime = 1.5f;
+    private float graceTime = 0.75f;
     private float graceTimer;
 
     //Properties
-    private float ReelStrength
+    /*private float ReelStrength
     {
         get => _useOptionValues ? Options.ReelMinigameOptions.reelStrength : reelStrength;
     }
     private float MeterDecay
     {
         get => _useOptionValues ? Options.ReelMinigameOptions.meterDecay : meterDecay;
-    }
+    }*/
     private bool InGracePeriod
     {
         get => graceTimer > 0;
@@ -84,13 +85,45 @@ public class ReelMinigame : MinigameBase
         buttonPosition = buttonFrame.transform.position;
     }
 
+    // Update is called once per frame
+    void Update()
+    {
+        if (MeterPhase == -1) displayReelText();
+
+        //meter constantly decreases until it becomes full
+        decay();
+
+        buttonChange();
+
+        //allows the button to shake when active state time is higher than 0
+        if (shakeActive > 0) buttonShake();
+
+        //displays success text for win
+        if (MeterPhase == 3) displaySuccessText();
+    }
+
+    //handles the decay rate of the meter
+    void decay(){   
+        if (!InGracePeriod && reelMeter.value < 1)
+        {
+            reelMeter.value -= MeterDecay * Time.deltaTime;
+        }
+        //handles brief grace period when player reaches each thirds of the meter bar
+        else
+        {
+            graceTimer -= Time.deltaTime;
+        }
+    }
+
     void displayReelText()
     {
+        //displays "Reeling Start" at the beginning
         if (animPlaying == false)
         {
             reelAnim.gameObject.SetActive(true);
             animPlaying = true;
         }
+        //when text is done displaying, disable the game object, and release controls for player
         if ((reelAnim.GetCurrentAnimatorStateInfo(0)).normalizedTime >= 1.0f)
         {
             Destroy(reelAnim.gameObject);
@@ -100,34 +133,7 @@ public class ReelMinigame : MinigameBase
             Debug.Log("game start");
         } 
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (MeterPhase == -1)
-        {
-            displayReelText();
-        }
-        //meter constantly decreases until it becomes full
-        if (reelMeter.value < 1)
-        {
-            reelMeter.value -= MeterDecay;
-        }
-        
-        if (InGracePeriod) graceTimer -= Time.deltaTime; // Grace timer decrease
-        
-        buttonChange();
-
-        //allows the button to shake when active state time is higher than 0
-        if (shakeActive > 0) buttonShake();
-        //displays reel text at game start
-        //displays success text for win
-        if (MeterPhase == 3)
-        {
-            displaySuccessText();
-        }
-    }
-
+    
     //funtion to have button erratically shake in the update
     void buttonShake()
     {
@@ -150,7 +156,7 @@ public class ReelMinigame : MinigameBase
     //changes required button when player reaches certain thresholds of reel meter
     void buttonChange()
     {
-        //button changes once meter reacher a third of the amount
+        //button changes once meter reaches one-thirds of the bar
         if (reelMeter.value >= .33 && MeterPhase == 0)
         {
             MeterPhase++;

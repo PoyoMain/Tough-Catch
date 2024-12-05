@@ -292,102 +292,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!1 &653707198
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 653707200}
-  - component: {fileID: 653707199}
-  - component: {fileID: 653707201}
-  m_Layer: 0
-  m_Name: ReelingScriptManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &653707199
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 653707198}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21f2130a7aa82584fba910e99d5f3286, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _useOptionValues: 1
-  _options: {fileID: 11400000, guid: 2f50d8ebcbcf65f45994f1b2d449992d, type: 2}
-  _inputReader: {fileID: 11400000, guid: 063a760d2203fda4e80723a04b0388de, type: 2}
-  _minigameSuccess: {fileID: 11400000, guid: d6157594f8982f2438d732894fa43162, type: 2}
-  gamePaused: {fileID: 11400000, guid: fbdc0a7fde734154ebfa725d3c9d1719, type: 2}
-  buttonFrame: {fileID: 1472396283}
-  reelMeter: {fileID: 432324147}
-  reelAnim: {fileID: 1822168391}
-  successAnim: {fileID: 596146711}
-  buttonSpriteList:
-  - {fileID: 21300000, guid: 8642e9a04865a654fa47fb8be4b62489, type: 3}
-  - {fileID: 21300000, guid: 7a24181d7efd1544fa76e37b221ef0a4, type: 3}
-  - {fileID: 21300000, guid: 712f9a68e72e2a449a5ad264408c7e53, type: 3}
-  - {fileID: 21300000, guid: 6ed9d5f33b0f44d4fa1c103e56998f61, type: 3}
-  reelStrength: 0.03
-  meterDecay: 0.0003
-  audioSource: {fileID: 961739754}
-  phase1Success: {fileID: 8300000, guid: 9357a9a394f8c38488dc93bceaced759, type: 3}
-  phase2Success: {fileID: 8300000, guid: 811f0451c7c9fa245a64fab290237976, type: 3}
-  phase3Success: {fileID: 8300000, guid: 2d3fd97721ab7274c97acb11ca54fba9, type: 3}
---- !u!4 &653707200
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 653707198}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 385.78647, y: 226.60411, z: 806.1233}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &653707201
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 653707198}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: f7e71d8a4ab07694296770e7aafe14a4,
-    type: 3}
-  m_NotificationBehavior: 0
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents: []
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: GameplayControls
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
 --- !u!1 &763534126
 GameObject:
   m_ObjectHideFlags: 0
@@ -1069,6 +973,99 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1822168391}
   m_SourcePrefab: {fileID: 100100000, guid: 16771483c520ada458fce3144f422f3b, type: 3}
+--- !u!1001 &4827375252944198835
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1163981105407406858, guid: cea7056ce740e804fb98f3196f02c4cb,
+        type: 3}
+      propertyPath: reelAnim
+      value: 
+      objectReference: {fileID: 1822168391}
+    - target: {fileID: 1163981105407406858, guid: cea7056ce740e804fb98f3196f02c4cb,
+        type: 3}
+      propertyPath: reelMeter
+      value: 
+      objectReference: {fileID: 432324147}
+    - target: {fileID: 1163981105407406858, guid: cea7056ce740e804fb98f3196f02c4cb,
+        type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 961739754}
+    - target: {fileID: 1163981105407406858, guid: cea7056ce740e804fb98f3196f02c4cb,
+        type: 3}
+      propertyPath: buttonFrame
+      value: 
+      objectReference: {fileID: 1472396283}
+    - target: {fileID: 1163981105407406858, guid: cea7056ce740e804fb98f3196f02c4cb,
+        type: 3}
+      propertyPath: successAnim
+      value: 
+      objectReference: {fileID: 596146711}
+    - target: {fileID: 3972897525270750956, guid: cea7056ce740e804fb98f3196f02c4cb,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 385.78647
+      objectReference: {fileID: 0}
+    - target: {fileID: 3972897525270750956, guid: cea7056ce740e804fb98f3196f02c4cb,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 226.60411
+      objectReference: {fileID: 0}
+    - target: {fileID: 3972897525270750956, guid: cea7056ce740e804fb98f3196f02c4cb,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 806.1233
+      objectReference: {fileID: 0}
+    - target: {fileID: 3972897525270750956, guid: cea7056ce740e804fb98f3196f02c4cb,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3972897525270750956, guid: cea7056ce740e804fb98f3196f02c4cb,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3972897525270750956, guid: cea7056ce740e804fb98f3196f02c4cb,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3972897525270750956, guid: cea7056ce740e804fb98f3196f02c4cb,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3972897525270750956, guid: cea7056ce740e804fb98f3196f02c4cb,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3972897525270750956, guid: cea7056ce740e804fb98f3196f02c4cb,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3972897525270750956, guid: cea7056ce740e804fb98f3196f02c4cb,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7827490230363868685, guid: cea7056ce740e804fb98f3196f02c4cb,
+        type: 3}
+      propertyPath: m_Name
+      value: ReelingScriptManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: cea7056ce740e804fb98f3196f02c4cb, type: 3}
 --- !u!1001 &6016856043120469504
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1472,4 +1469,4 @@ SceneRoots:
   - {fileID: 1160234427}
   - {fileID: 763534130}
   - {fileID: 907377624}
-  - {fileID: 653707200}
+  - {fileID: 4827375252944198835}
