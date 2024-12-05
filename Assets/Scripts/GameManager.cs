@@ -210,6 +210,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator ScanCoroutine()
     {
         ActivateCamera(_lakeCam);
+        yield return 0;
         while (IsBlendingBetweenCams) yield return null;
 
         if (Options.GuideImages)
@@ -234,6 +235,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator CastCoroutine()
     {
         ActivateCamera(_castCam);
+        yield return 0;
         while (IsBlendingBetweenCams) yield return null;
 
         if (Options.GuideImages)
@@ -257,6 +259,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator TuggleCoroutine()
     {
         ActivateCamera(_povCam);
+        yield return 0;
         while (IsBlendingBetweenCams) yield return null;
 
         if (Options.GuideImages)
@@ -290,6 +293,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator ReelCoroutine()
     {
         ActivateCamera(_reelCam);
+        yield return 0;
         while (IsBlendingBetweenCams) yield return null;
 
         if (Options.GuideImages)
