@@ -38,6 +38,13 @@ public class StunMinigame : MinigameBase
     [SerializeField] private Sprite leftButtonFailed_Keyboard;
     [SerializeField] private Sprite rightButtonFailed_Keyboard;
 
+    [Header("Audio")]
+    [SerializeField] private AudioSource audioSource;
+    [Space(5)]
+    [SerializeField] private AudioClip buttonSFX;
+    [SerializeField] private AudioClip successSFX;
+    [SerializeField] private AudioClip failSFX;
+
     [Header("Controller Sprites")]
     [SerializeField] private Sprite upButtonSelected_Controller;
     [SerializeField] private Sprite downButtonSelected_Controller;
@@ -188,6 +195,8 @@ public class StunMinigame : MinigameBase
 
     private void HitButtonInCombo(InputAction.CallbackContext context)
     {
+        if (minigameCompleteTimer == -1) return;
+
         Vector2 input = context.ReadValue<Vector2>();
         FaceButtonDirection inputDir = input switch
         {
@@ -205,12 +214,14 @@ public class StunMinigame : MinigameBase
             if (comboIndex < NumberOfButtonsForCombo - 1)
             {
                 comboIndex++;
+                audioSource.PlayOneShot(buttonSFX);
                 return;
             }
 
             damageFishSO.RaiseEvent();
             stunPanelImage.sprite = stunPanelSuccessSprite;
             timeBar.gameObject.GetComponent<Animator>().SetTrigger("Success");
+            audioSource.PlayOneShot(successSFX);
             minigameCompleteTimer = -1;
         }
         else
@@ -218,6 +229,7 @@ public class StunMinigame : MinigameBase
             ActiveButton.Fail();
             stunPanelImage.sprite = stunPanelFailSprite;
             timeBar.gameObject.GetComponent<Animator>().SetTrigger("Fail");
+            audioSource.PlayOneShot(failSFX);
             minigameCompleteTimer = -1;
         }
 

@@ -55,13 +55,9 @@ public class FishHealthBar : MonoBehaviour
 
     private void InitiateHealthBar()
     {
-        if (testing) 
-        { 
-            _fishCurrentHealth = _healthSlider.value = _healthSlider.maxValue = testHealth; 
-            return; 
-        }
+        if (testing) _fishCurrentHealth = _healthSlider.value = _healthSlider.maxValue = testHealth;
+        else _fishCurrentHealth = _healthSlider.value = _healthSlider.maxValue = _currentFish.Health;
 
-        _fishCurrentHealth = _healthSlider.value = _healthSlider.maxValue = _currentFish.Health;
         profileImage.sprite = _currentFish.Profile;
     }
 

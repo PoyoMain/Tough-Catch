@@ -47,6 +47,9 @@ public class ScanMinigameManager : MinigameBase
     [SerializeField] Animator scanStartLettering;
     [SerializeField] Animator scanSucceedLettering;
 
+    //Added by Chris; Audio Source
+    [SerializeField] AudioSource audioSouce;
+
     //Added by Chris; Properties
     float MinTime
     {
@@ -340,24 +343,27 @@ public class ScanMinigameManager : MinigameBase
 
         //Succeeds at the minigame
         active = false;
+        audioSouce.Stop();
 
         fishFlee(); // Reset
     }
 
     /// <summary>
-    /// Pauses the movement of the scanner
+    /// Pauses the movement of the scanner and scanner audio
     /// </summary>
     public void Pause()
     {
         paused = true;
+        audioSouce.Pause();
     }
 
     /// <summary>
-    /// Unpauses the movement of the scanner
+    /// Unpauses the movement of the scanner and scanner audio
     /// </summary>
     public void Unpause()
     {
         paused = false;
+        audioSouce.UnPause();
     }
 
     private void OnDestroy()
