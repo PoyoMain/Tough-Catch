@@ -323,6 +323,7 @@ public class ScanMinigameManager : MinigameBase
 
     void Catch(InputAction.CallbackContext _)
     {
+        if (Options.IsPaused) return;
 
         if (!found) return;
         if (caught) return;

@@ -194,6 +194,8 @@ public class ReelMinigame : MinigameBase
     //input check for button 
     void ReelCheck(InputAction.CallbackContext context)
     {
+        if (Options.IsPaused) return; 
+
         var buttonValue = context.ReadValue<Vector2>();
         //When player presses an input, a check is conducted for the right or wrong input and changes meter accordingly
         //correct button input will enable the button to shake

@@ -7,6 +7,9 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
+    [Header("Options")]
+    [SerializeField] private OptionsSO options;
+
     [Header("Settings")]
     [SerializeField] private string mainMenuSceneName;
 
@@ -20,7 +23,11 @@ public class PauseMenu : MonoBehaviour
     [Header("Listen Events")]
     [SerializeField] private VoidEventChannelSO _gamePaused;
 
-    public bool IsPaused { get; private set; }
+    public bool IsPaused
+    {
+        get => options.IsPaused;
+        set => options.IsPaused = value;
+    } 
     public bool OnPauseCoolDown => pauseTimer > 0;
 
     private float pauseTimer;
@@ -47,8 +54,6 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = IsPaused ? 0 : 1;
         if (IsPaused) EventSystem.current.SetSelectedGameObject(_firstSelectButton);
         else _gameUnpaused.RaiseEvent();
-
-        
     }
 
     public void Pause(InputAction.CallbackContext _)

@@ -84,21 +84,21 @@ public class CastMinigame : MinigameBase
     {
         while (castStartLettering.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f) yield return null;
 
-            castStartLettering.gameObject.SetActive(false);
-            active = true;
+        castStartLettering.gameObject.SetActive(false);
+        active = true;
         kreyAnim.speed = 1;
-            
 
-            while (active == true) yield return null;
 
-            castSucceedLettering.gameObject.SetActive(true);
+        while (active == true) yield return null;
 
-            while (castSucceedLettering.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f) yield return null;
+        castSucceedLettering.gameObject.SetActive(true);
 
-            castSucceedLettering.gameObject.SetActive(false);
+        while (castSucceedLettering.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f) yield return null;
 
-            MinigameSuccessEvent.RaiseEvent();
-            this.enabled = false;
+        castSucceedLettering.gameObject.SetActive(false);
+
+        MinigameSuccessEvent.RaiseEvent();
+        this.enabled = false;
 
         yield break;
     }
@@ -201,6 +201,8 @@ public class CastMinigame : MinigameBase
 
     private void SizeCheck(InputAction.CallbackContext Context)
     {
+        if (Options.IsPaused) return;
+
         if (targetRing.transform.localScale.x < ring1.transform.localScale.x)
         {
             isFlashing1 = true;

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.InputSystem;
@@ -56,6 +57,11 @@ public class OptionsSO : ScriptableObject
         set => _controlRumble = value;
     }
     public bool ControllerConnected => Gamepad.current != null;
+    public bool IsPaused
+    {
+        get => isPaused;
+        set => isPaused = value;
+    }
     public AudioMixer MainAudioMixer => _mainAudioMixer;
     public Difficulty Difficulty
     {
@@ -114,6 +120,8 @@ public class OptionsSO : ScriptableObject
     private const string MIXER_MUSIC = "MusicVolume";
     private const string MIXER_SFX = "SFXVolume";
     private const string MIXER_AMBIENCE = "AmbienceVolume";
+
+    private bool isPaused;
 
     public void SetDifficulty(Toggle toggle)
     {
