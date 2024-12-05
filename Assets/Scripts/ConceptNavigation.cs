@@ -27,6 +27,11 @@ public class ConceptNavigation : MonoBehaviour
             camIndex--;
             SetCameraActiveness();
         }
+        else
+        {
+            camIndex = cams.Count - 1;
+            SetCameraActiveness();
+        }
     }
 
     public void GoRight()
@@ -34,6 +39,11 @@ public class ConceptNavigation : MonoBehaviour
         if (camIndex < cams.Count - 1)
         {
             camIndex++;
+            SetCameraActiveness();
+        }
+        else
+        {
+            camIndex = 0;
             SetCameraActiveness();
         }
     }
