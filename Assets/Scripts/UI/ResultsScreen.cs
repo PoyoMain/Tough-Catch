@@ -29,6 +29,11 @@ public class ResultsScreen : MonoBehaviour
 
     [Header("Fish Model Display")]
     [SerializeField] private GameObject fishModelDisplay;
+    [SerializeField] private FishSO bigFish;
+
+    [Header("Krey")]
+    [SerializeField] private Animator kreyAnim;
+    [SerializeField] private Transform objectSpawnTransform;
 
     [Header("Star Settings")]
     [SerializeField] private Animation starPrefab;
@@ -40,10 +45,13 @@ public class ResultsScreen : MonoBehaviour
     [SerializeField] private FloatEventChannelSO timerStoppedEventSO;
     [SerializeField] private VoidEventChannelSO starGainedEventSO;
 
+    
+
     [Range(0, 3)]
     private int starsGained;
 
     private Coroutine starCoroutine;
+    private Fish caughtFish;
 
     private void OnEnable()
     {
@@ -63,6 +71,7 @@ public class ResultsScreen : MonoBehaviour
 
     private void InitializeResultsScreen(Fish fish)
     {
+        caughtFish = fish;
         fishName.text = fish.Name;
         fishDescription.text = fish.Description;
         fishImage.sprite = fish.FullImage;
@@ -101,8 +110,16 @@ public class ResultsScreen : MonoBehaviour
 
     private void Activate()
     {
-        if (starCoroutine != null) StopCoroutine(starCoroutine);
+        if (caughtFish.Name == bigFish.name) kreyAnim.SetTrigger("VictoryBig");
+        else
+        {
+            kreyAnim.SetTrigger("VictorySmall");
+            GameObject fishObject = Instantiate(caughtFish.Model, objectSpawnTransform);
+            fishObject.transform.localPosition = Vector3.zero;
+            fishObject.transform.localRotation = Quaternion.identity;
+        }
 
+        if (starCoroutine != null) StopCoroutine(starCoroutine);
         starCoroutine = StartCoroutine(nameof(StarCoroutine));
     }
 

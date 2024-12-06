@@ -18,10 +18,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] private CinemachineVirtualCamera _castCam;
     [SerializeField] private CinemachineVirtualCamera _reelCam;
     [SerializeField] private CinemachineVirtualCamera _lakeCam;
+    [SerializeField] private CinemachineVirtualCamera _bigResultsCam;
+    [SerializeField] private CinemachineVirtualCamera _smallResultsCam;
+    private CinemachineVirtualCamera _resultsCam;
 
     [Header("ScriptableObjects")]
     [SerializeField] private OptionsSO _options;
     [SerializeField] private InputReaderSO _inputReader;
+    [SerializeField] private FishSO _bigFish;
 
     [Header("Broadcast Events")]
     [SerializeField] private VoidEventChannelSO _gameStart;
@@ -59,6 +63,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private VoidEventChannelSO _fishingRodTutorialSucceedEvent;
     [SerializeField] private VoidEventChannelSO _stunTutorialSucceedEvent;
     [SerializeField] private VoidEventChannelSO _reelTutorialSucceedEvent;
+    [Space(5)]
+    [SerializeField] private FishEventChannelSO _catchFishEvent;
 
     //private bool temp = false;
     private bool gameRunning = false;
@@ -66,6 +72,7 @@ public class GameManager : MonoBehaviour
     private float timer;
     private Coroutine _controllerShakeCoroutine;
     private Coroutine _controllerFlashCoroutine;
+    private Fish fish;
 
     private PlayerControls.GameplayControlsActions Controls => _inputReader.Controls;
     private CinemachineVirtualCamera ActiveCam => GetActiveCamera();
@@ -87,6 +94,8 @@ public class GameManager : MonoBehaviour
         if (_castCam == null) Debug.LogError("Cast Camera not set in Inspector");
         if (_reelCam == null) Debug.LogError("Reel Camera not set in Inspector");
         if (_lakeCam == null) Debug.LogError("Lake Camera not set in Inspector");
+        if (_bigResultsCam == null) Debug.LogError("Big Results Camera not set in Inspector");
+        if (_smallResultsCam == null) Debug.LogError("Small Resutls Camera not set in Inspector");
     }
 
     private void OnEnable()
@@ -110,6 +119,8 @@ public class GameManager : MonoBehaviour
         _fishingRodTutorialSucceedEvent.OnEventRaised += StopTutorial;
         _stunTutorialSucceedEvent.OnEventRaised += StopTutorial;
         _reelTutorialSucceedEvent.OnEventRaised += StopTutorial;
+
+        _catchFishEvent.OnEventRaised += CatchFish;
     }
 
     private void OnDisable()
@@ -133,6 +144,8 @@ public class GameManager : MonoBehaviour
         _fishingRodTutorialSucceedEvent.OnEventRaised -= StopTutorial;
         _stunTutorialSucceedEvent.OnEventRaised -= StopTutorial;
         _reelTutorialSucceedEvent.OnEventRaised -= StopTutorial;
+
+        _catchFishEvent.OnEventRaised -= CatchFish;
     }
 
 
@@ -331,8 +344,9 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator ResultsCoroutine()
     {
-        //ActivateCamera(_dockCam);
-        //while (IsBlendingBetweenCams) yield return null;
+        ActivateCamera(_resultsCam);
+        yield return 0;
+        while (IsBlendingBetweenCams) yield return null;
 
         //yield return new WaitForSeconds(2);
 
@@ -353,6 +367,8 @@ public class GameManager : MonoBehaviour
         _castCam.enabled = (_castCam == newCam);
         _reelCam.enabled = (_reelCam == newCam);
         _lakeCam.enabled = (_lakeCam == newCam);
+        _bigResultsCam.enabled = (_bigResultsCam == newCam);
+        _smallResultsCam.enabled = (_smallResultsCam == newCam);
     }
 
     private CinemachineVirtualCamera GetActiveCamera()
@@ -360,7 +376,9 @@ public class GameManager : MonoBehaviour
         if (_povCam.enabled) return _povCam;
         else if (_lakeCam.enabled) return _lakeCam;
         else if (_castCam.enabled) return _castCam;
-        else return _reelCam;
+        else if (_reelCam.enabled) return _reelCam;
+        else if (_bigResultsCam.enabled) return _bigResultsCam;
+        else return _smallResultsCam;
     }
 
     #endregion
@@ -436,6 +454,17 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Miscellaneous Methods
+
+    private void CatchFish(Fish caughtFish)
+    {
+        fish = caughtFish;
+
+        if (fish.Name == _bigFish.name)
+        {
+            _resultsCam = _bigResultsCam;
+        }
+        else _resultsCam = _smallResultsCam;
+    }
 
     public void TakeDamage()
     {
