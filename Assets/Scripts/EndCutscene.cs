@@ -30,7 +30,6 @@ public class EndCutscene : MonoBehaviour
     public void SpawnFish()
     {
         GameObject fishObject = Instantiate(fish.Model, Vector3.zero, Quaternion.identity, spawnTransform);
-        fishObject.transform.localPosition = Vector3.zero;
-        fishObject.transform.localRotation = Quaternion.identity;
+        fishObject.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
     }
 }
