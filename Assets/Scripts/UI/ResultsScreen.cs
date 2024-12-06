@@ -116,7 +116,6 @@ public class ResultsScreen : MonoBehaviour
             kreyAnim.SetTrigger("VictorySmall");
             GameObject fishObject = Instantiate(caughtFish.Model, objectSpawnTransform);
             fishObject.transform.localPosition = Vector3.zero;
-            fishObject.transform.localRotation = Quaternion.identity;
         }
 
         if (starCoroutine != null) StopCoroutine(starCoroutine);
