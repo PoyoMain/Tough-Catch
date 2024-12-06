@@ -64,6 +64,7 @@ public class CastMinigame : MinigameBase
 
     private bool active = false;
     private bool coroutinePlaying = false;
+    private Coroutine flashCoroutine;
 
     protected override void OnEnable()
     {
@@ -144,20 +145,23 @@ public class CastMinigame : MinigameBase
 
         if (targetRing != null && TargetRingScale.x < maxScale)
         {
-            // Increase the scale over time at the specified rate
-            float newScale = TargetRingScale.x + ScaleRate * Time.deltaTime;
-            newScale = Mathf.Min(newScale, maxScale); // Limit the scale to the maxScale value
+            if (!isFlashing1  && !isFlashing2 && !isFlashing3 && !coroutinePlaying)
+            {
+                // Increase the scale over time at the specified rate
+                float newScale = TargetRingScale.x + ScaleRate * Time.deltaTime;
+                newScale = Mathf.Min(newScale, maxScale); // Limit the scale to the maxScale value
 
-            // Apply the new scale uniformly in all directions
-            targetRing.transform.localScale = new Vector3(newScale, newScale, newScale);
+                // Apply the new scale uniformly in all directions
+                targetRing.transform.localScale = new Vector3(newScale, newScale, newScale);
 
-            //Set Krey's Animation
-            kreyAnim.Play("Krey_Cast", 0, (newScale/ring6.transform.localScale.x));
+                //Set Krey's Animation
+                kreyAnim.Play("Krey_Cast", 0, (newScale / ring6.transform.localScale.x));
 
-            if (ring1.transform.localScale.x < TargetRingScale.x && TargetRingScale.x < ring2.transform.localScale.x && !CompRing1) buttonPromptImage.enabled = true;
-            else if (ring3.transform.localScale.x < TargetRingScale.x && TargetRingScale.x < ring4.transform.localScale.x && !CompRing2) buttonPromptImage.enabled = true;
-            else if (ring5.transform.localScale.x < TargetRingScale.x && TargetRingScale.x < ring6.transform.localScale.x && !CompRing3) buttonPromptImage.enabled = true;
-            else buttonPromptImage.enabled = false;
+                if (ring1.transform.localScale.x < TargetRingScale.x && TargetRingScale.x < ring2.transform.localScale.x && !CompRing1) buttonPromptImage.enabled = true;
+                else if (ring3.transform.localScale.x < TargetRingScale.x && TargetRingScale.x < ring4.transform.localScale.x && !CompRing2) buttonPromptImage.enabled = true;
+                else if (ring5.transform.localScale.x < TargetRingScale.x && TargetRingScale.x < ring6.transform.localScale.x && !CompRing3) buttonPromptImage.enabled = true;
+                else buttonPromptImage.enabled = false;
+            }
         }
 
         if ((ring2.transform.localScale.x < targetRing.transform.localScale.x && !CompRing1 && !isFlashing1))
@@ -181,19 +185,19 @@ public class CastMinigame : MinigameBase
 
         if (isFlashing1)
         {
-            isFlashing1 = false;
+            coroutinePlaying = true;
             StartCoroutine(FlashRedForOneSecond(targetRenderer1.GetComponent<Animator>()));
             MinigameDone = true;
         }
         else if (isFlashing2)
         {
-            isFlashing2 = false;
+            coroutinePlaying = true;
             StartCoroutine(FlashRedForOneSecond(targetRenderer2.GetComponent<Animator>()));
             MinigameDone = true;
         }
         else if (isFlashing3)
         {
-            isFlashing3 = false;
+            coroutinePlaying = true;
             StartCoroutine(FlashRedForOneSecond(targetRenderer3.GetComponent<Animator>()));
             MinigameDone = true;
         }
@@ -206,8 +210,6 @@ public class CastMinigame : MinigameBase
         if (targetRing.transform.localScale.x < ring1.transform.localScale.x)
         {
             isFlashing1 = true;
-            isFlashing3 = true;
-            isFlashing2 = true;
         }
 
 
@@ -220,7 +222,7 @@ public class CastMinigame : MinigameBase
 
         if ((ring2.transform.localScale.x < targetRing.transform.localScale.x && targetRing.transform.localScale.x < ring3.transform.localScale.x))
         {
-            isFlashing1 = true;
+            isFlashing2 = true;
             audioSource.PlayOneShot(ringFail);
         }
 
@@ -233,7 +235,7 @@ public class CastMinigame : MinigameBase
 
         if ((ring4.transform.localScale.x < targetRing.transform.localScale.x && targetRing.transform.localScale.x < ring5.transform.localScale.x))
         {
-            isFlashing2 = true;
+            isFlashing3 = true;
             audioSource.PlayOneShot(ringFail);
         }
 
@@ -255,11 +257,15 @@ public class CastMinigame : MinigameBase
     private IEnumerator FlashRedForOneSecond(Animator target)
      {
         if (target == null) yield break;
-        if (target.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f) yield break;
+        //if (target.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f) yield break;
 
+        isFlashing1 = false;
+        isFlashing2 = false;
+        isFlashing3 = false;
         coroutinePlaying = true;
         target.SetTrigger("Flash");
 
+        kreyAnim.ResetTrigger("CastStart");
         float stoppedTime = kreyAnim.GetCurrentAnimatorStateInfo(0).normalizedTime;
         kreyAnim.Play("Krey_CastReverse", 0, 1 - stoppedTime);
         kreyAnim.speed = 1;
@@ -280,12 +286,13 @@ public class CastMinigame : MinigameBase
         CompRing2 = false;
         CompRing3 = false;
         MinigameDone = false;
-
+        
         kreyAnim.SetTrigger("CastStart");
-        //kreyAnim.speed = 0;
+        kreyAnim.speed = 0;
 
         coroutinePlaying = false;
 
+        flashCoroutine = null;
         yield break;  
     }
 }
