@@ -76,14 +76,14 @@ MonoBehaviour:
     numberOfButtonsForCombo: 6
     minigameCompleteTime: 4
   _easyReelMinigameOptions:
-    reelStrength: 0.06
-    meterDecay: 0.004
+    reelStrength: 0.07
+    meterDecay: 0.003
   _mediumReelMinigameOptions:
     reelStrength: 0.06
     meterDecay: 0.005
   _hardReelMinigameOptions:
-    reelStrength: 0.045
-    meterDecay: 0.006
+    reelStrength: 0.05
+    meterDecay: 0.0055
   _easyGeneralSettings:
     health: 5
     stunDamage: 40

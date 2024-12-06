@@ -25,6 +25,7 @@ public class LaserBeam : MonoBehaviour
     public void SetUp(Vector3 targetPosition)
     {
         targetPos = targetPosition;
+        startPos = transform.position;
     }
 
     private void Update()
