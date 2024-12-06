@@ -479,6 +479,7 @@ public class GameManager : MonoBehaviour
 
     private void PauseGame(InputAction.CallbackContext _)
     {
+        if (_state == GameState.EndCutscene || _state == GameState.Results) return;
         _gamePaused.RaiseEvent();
     }
 
