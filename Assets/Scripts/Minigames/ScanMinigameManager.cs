@@ -349,7 +349,7 @@ public class ScanMinigameManager : MinigameBase
         active = false;
         audioSouce.Stop();
 
-        if (caughtFish.WeightClass == FishWeightClass.Gigantic && caughtFish.Weight >= 100) starGainedEvent.RaiseEvent();
+        if (caughtFish.Weight >= 100) starGainedEvent.RaiseEvent();
 
         fishFlee(); // Reset
     }

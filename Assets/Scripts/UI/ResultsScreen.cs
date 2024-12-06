@@ -78,6 +78,12 @@ public class ResultsScreen : MonoBehaviour
         fishLength.text = fish.Length.ToString() + "ft";
         fishWeight.text = fish.Weight.ToString() + "lbs";
 
+        //if (fish.Weight >= 100)
+        //{
+        //    fishLength.color = new Color(1, 1, 0);
+        //    fishWeight.color = new Color(1, 1, 0);
+        //}
+
         UpdateWeightClass(fish.WeightClass);
     }
 
