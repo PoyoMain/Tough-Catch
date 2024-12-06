@@ -6,6 +6,14 @@ using UnityEngine.UI;
 public class PlayerHealth : MonoBehaviour
 {
     [Header("Settings")]
+    [SerializeField] private OptionsSO options;
+    [SerializeField] private bool testing;
+    [Space(10)]
+    [SerializeField] private Image heartPrefab;
+    [SerializeField] private Transform healthParent;
+
+    [Header("Health")]
+    [SerializeField] private int testHealth;
 
     [Header("Broadcast Events")]
     [SerializeField] private VoidEventChannelSO gameOverSO;
@@ -17,7 +25,12 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private VoidEventChannelSO playerTakeDamageSO;
 
     private List<Image> healthImages;
-    private int Health => healthImages.Count;
+    private int StartHealth
+    {
+        get => testing ? testHealth : options.GeneralOptions.health;
+    }
+
+    private int CurrentHealth => healthImages.Count;
 
     private bool hasTakenDamage = false;
 
@@ -25,12 +38,10 @@ public class PlayerHealth : MonoBehaviour
     {
         List<Image> heartList = new();
 
-        foreach (Transform child in transform)
+        for (int i = 0; i < StartHealth; i++)
         {
-            if (child.TryGetComponent(out Image image))
-            {
-                heartList.Add(image);
-            }
+            Image heart = Instantiate(heartPrefab, healthParent);
+            heartList.Add(heart); 
         }
 
         healthImages = heartList;
@@ -50,12 +61,12 @@ public class PlayerHealth : MonoBehaviour
 
     private void TakeDamage()
     {
-        Destroy(healthImages[Health - 1].gameObject);
-        healthImages.RemoveAt(Health - 1);
+        Destroy(healthImages[StartHealth - 1].gameObject);
+        healthImages.RemoveAt(StartHealth - 1);
 
         if (!hasTakenDamage) hasTakenDamage = true;
 
-        if (Health <= 0)
+        if (CurrentHealth <= 0)
         {
             gameOverSO.RaiseEvent();
             return;

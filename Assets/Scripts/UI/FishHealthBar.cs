@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,6 +13,7 @@ public class FishHealthBar : MonoBehaviour
     [SerializeField] private float testHealth = 300;
 
     [Header("Settings")]
+    [SerializeField] private OptionsSO options;
     [SerializeField] private float stunGunDamageAmount = 30f;
 
     [Header("Inspector Objects")]
@@ -24,6 +26,11 @@ public class FishHealthBar : MonoBehaviour
     [SerializeField] private FishEventChannelSO fishFoundSO;
     [SerializeField] private VoidEventChannelSO tugglePhaseStartSO;
     [SerializeField] private VoidEventChannelSO fishTakeDamageSO;
+
+    private float StunGunDamageAmount
+    {
+        get => testing ? stunGunDamageAmount : options.GeneralOptions.stunDamage;
+    }
 
     private float _fishCurrentHealth;
     private Slider _healthSlider;
@@ -78,7 +85,7 @@ public class FishHealthBar : MonoBehaviour
 
     private void TakeDamage()
     {
-        _fishCurrentHealth -= stunGunDamageAmount;
+        _fishCurrentHealth -= StunGunDamageAmount;
         _healthSlider.value = _fishCurrentHealth;
 
         if (_fishCurrentHealth <= 0)

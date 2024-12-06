@@ -46,6 +46,11 @@ public class OptionsSO : ScriptableObject
     [SerializeField] private ReelMinigameSettings _mediumReelMinigameOptions;
     [SerializeField] private ReelMinigameSettings _hardReelMinigameOptions;
 
+    [Header("General Settings")]
+    [SerializeField] private GeneralSettings _easyGeneralSettings;
+    [SerializeField] private GeneralSettings _mediumGeneralSettings;
+    [SerializeField] private GeneralSettings _hardGeneralSettings;
+
     public bool GuideImages 
     {
         get => _guideImages; 
@@ -114,6 +119,13 @@ public class OptionsSO : ScriptableObject
         Difficulty.Medium => _mediumReelMinigameOptions,
         Difficulty.Hard => _hardReelMinigameOptions,
         _ => _mediumReelMinigameOptions
+    };
+    public GeneralSettings GeneralOptions => Difficulty switch
+    {
+        Difficulty.Easy => _easyGeneralSettings,
+        Difficulty.Medium => _mediumGeneralSettings,
+        Difficulty.Hard => _hardGeneralSettings,
+        _ => _mediumGeneralSettings
     };
 
     private const string MIXER_MASTER = "MasterVolume";
@@ -215,6 +227,13 @@ public class OptionsSO : ScriptableObject
     {
         public float reelStrength;
         public float meterDecay;
+    }
+
+    [Serializable]
+    public struct GeneralSettings
+    {
+        public int health;
+        public int stunDamage;
     }
 }
 

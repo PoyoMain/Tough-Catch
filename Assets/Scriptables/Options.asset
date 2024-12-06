@@ -84,3 +84,12 @@ MonoBehaviour:
   _hardReelMinigameOptions:
     reelStrength: 0.045
     meterDecay: 0.006
+  _easyGeneralSettings:
+    health: 5
+    stunDamage: 40
+  _mediumGeneralSettings:
+    health: 4
+    stunDamage: 30
+  _hardGeneralSettings:
+    health: 3
+    stunDamage: 20
