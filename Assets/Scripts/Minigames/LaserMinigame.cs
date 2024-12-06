@@ -218,12 +218,14 @@ public class LaserMinigame : MinigameBase
         {
             _damagePlayer.RaiseEvent();
             _leftButtonPromptAnim.SetTrigger("Fail");
+            DechargeLeft();
             Destroy(_leftObject.gameObject);
         }
         if (_rightObject != null && _rightObject.Hit)
         {
             _damagePlayer.RaiseEvent();
             _rightButtonPromptAnim.SetTrigger("Fail");
+            DechargeRight();
             Destroy(_rightObject.gameObject);
         }
 
@@ -308,6 +310,7 @@ public class LaserMinigame : MinigameBase
     {
         if (!LeftLaserCanShoot) return;
         if (_leftButtonPromptSlider.value > 0) return;
+        if (_leftMirror.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.9f && _leftMirror.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.1f) return;
 
         _leftLaserCharging = true;
         _laserLeftCharge.RaiseEvent();
@@ -319,6 +322,7 @@ public class LaserMinigame : MinigameBase
     {
         if (!RightLaserCanShoot) return;
         if (_rightButtonPromptSlider.value > 0) return;
+        if (_rightMirror.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.9f && _rightMirror.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.1f) return;
 
         _rightLaserCharging = true;
         _laserRightCharge.RaiseEvent();
