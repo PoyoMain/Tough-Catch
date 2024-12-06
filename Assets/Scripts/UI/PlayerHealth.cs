@@ -61,8 +61,8 @@ public class PlayerHealth : MonoBehaviour
 
     private void TakeDamage()
     {
-        Destroy(healthImages[StartHealth - 1].gameObject);
-        healthImages.RemoveAt(StartHealth - 1);
+        Destroy(healthImages[CurrentHealth - 1].gameObject);
+        healthImages.RemoveAt(CurrentHealth - 1);
 
         if (!hasTakenDamage) hasTakenDamage = true;
 

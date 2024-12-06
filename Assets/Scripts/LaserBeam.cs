@@ -10,11 +10,16 @@ public class LaserBeam : MonoBehaviour
 
     private float disappearTimer;
     private Vector3 targetPos;
+    private Vector3 startPos;
+
+    private float lerpTime;
+    private float lerpTimer;
 
 
     private void OnEnable()
     {
         disappearTimer = disappearTime;
+        lerpTime = disappearTime;
     }
 
     public void SetUp(Vector3 targetPosition)
@@ -24,7 +29,9 @@ public class LaserBeam : MonoBehaviour
 
     private void Update()
     {
-        transform.position = Vector3.Lerp(transform.position, targetPos, disappearTime * Time.deltaTime);
+        transform.position = Vector3.Lerp(startPos, targetPos, lerpTimer / lerpTime);
+
+        if (lerpTimer < lerpTime) lerpTimer += Time.deltaTime;
 
         if (disappearTimer > 0)
         {
