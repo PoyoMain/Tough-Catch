@@ -99,6 +99,9 @@ public class CastMinigame : MinigameBase
         castSucceedLettering.gameObject.SetActive(false);
 
         MinigameSuccessEvent.RaiseEvent();
+        kreyAnim.SetTrigger("CastSucceed");
+        Time.timeScale = 1;
+        kreyAnim.speed = 1;
         this.enabled = false;
 
         yield break;
